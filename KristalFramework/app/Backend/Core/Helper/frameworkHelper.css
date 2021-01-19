@@ -1,0 +1,108 @@
+/* Framework mini helper */
+#framework-mini-helper {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+@media (max-width: 1200px) {
+    #framework-mini-helper {
+        display: none;
+    }
+}
+
+/* Navbar */
+#framework-helper {
+    height: 40px;
+    background-color: #222;
+    border-top: 1px solid #867979;
+    text-decoration: none !important;
+    color: rgba(255, 255, 255, 0.5);
+    z-index: 9999;
+    
+}
+@media (max-width: 1200px) {
+    #framework-helper {
+        display: none;
+    }
+}
+
+/* Close navbar button */
+#close-framework-helper {
+    padding-left: 25px;
+    cursor: pointer;
+}
+
+#close-framework-helper:hover {
+    color: red;
+}
+
+/* Navbar title */
+#framework-helper .navbar-brand {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+	margin-top: -12px;
+}
+
+/* Navbar subtitle */
+#framework-helper .navbar-brand p {
+	font-size: 11px;
+	position: absolute;
+    margin-left: -4px;
+    margin-top: -6px;
+}
+
+/* Documentation link */
+.framework-helper-list-group-item {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+}
+.framework-helper-list-group-item:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+.framework-helper-list-group-item.active {
+    background-color: transparent;
+    color: #4cd;
+}
+
+/* Documentation */
+#documentation-navigation {
+    display: inherit;
+}
+
+/* Navbar links */
+#framework-helper a:hover {
+    cursor: pointer;
+}
+
+/* Navbar hovered and focused links */
+#framework-helper .nav-item:hover .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Forms */
+.framework-form label {
+    color: black;
+    font-weight: normal;
+}
+.framework-form input, .framework-form select {
+    font-size: 14px;
+}
+
+#actions-import-database .nav-item {
+    max-width: 750px;
+}
+
+#create-entity-modal .table {
+    color: black !important;
+}
+
+#create-entity-modal .modal-title {
+    color: black !important;
+}
+
+#create-controller-modal .modal-title {
+    color: black !important;
+}
