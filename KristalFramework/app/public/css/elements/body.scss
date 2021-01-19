@@ -1,0 +1,24 @@
+body {
+    margin-top: 80px;
+    font: 600 15px 'Open Sans', sans-serif;
+    background-color: $bg_color;
+    color: $font_color;
+
+    .main {
+        padding-top: 50px;
+        padding-bottom: 120px;
+    }
+
+    h1, h2, h3, h4{
+        color: $header_font_color;
+    }
+
+    h1 {
+        font-weight: bold;
+    }
+}
+
+#about-container {
+    width: 80%;
+    max-width: 600px;
+}

@@ -1,0 +1,1 @@
+<p>Hei {{ name }}, tämä viesti on Kristal Framework:n lähettämä!</p>

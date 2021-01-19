@@ -1,0 +1,139 @@
+{
+	"navbar_title":
+	{
+		"en": "Kristal Framework",
+		"fi": "Kristal Framework"
+	},
+
+
+
+	"nav_home": {
+		"en": "Home",
+		"fi": "Etusivu"
+	},
+	"nav_about": {
+		"en": "About",
+		"fi": "Tietoa"
+	},
+	"nav_theme": {
+		"en": "Theme",
+		"fi": "Teema"
+	},
+	"nav_mail": {
+		"en": "Mail",
+		"fi": "Postitus"
+	},
+
+
+
+	"version": {
+		"en": "Version: update 1",
+		"fi": "Versio: päivitys 1"
+	},
+	"developer": {
+		"en": "Developed by Jesse Timonen",
+		"fi": "Kehittänyt Jesse Timonen"
+	},
+	"message": {
+		"en": "Happy Coding!",
+		"fi": "Iloista Koodailua!"
+	},
+
+
+
+	"about": {
+		"en": "About the Framework",
+		"fi": "Tietoa Frameworkista"
+	},
+	"info_1": {
+		"en": "Kristal Framework is PHP based framework which aims to offer developers clean and simple MVC environment where they can develope their websites. Kristal Framework was released to the public under MIT license, which allows people to use, modify and share this framework as they wish.",
+		"fi": "Kristal Framework on PHP:en pohjautuva nettisivujen kehittämiseen tarkoitettu alusta, jonka tarkoituksena on luoda nettisivujen kehittäjille puhdas ja yksinkertainen MVC ympäristö. Kristal Framework on julkaistu MIT lisenssin alla, joka sallii sovelluksen vapaan käytön, muokkaamisen ja jakamisen."
+	},
+	"info_2": {
+		"en": "Thanks for trying out Kristal Framework, to get started please visit the <a href = 'https://www.jessetimonen.fi/kristal/documentation/latest/' target = '_blank'>documentations</a>, or check out some of our <a href = 'https://www.jessetimonen.fi/kristal/tutorials/latest/' target = '_blank'>tutorials</a>.",
+		"fi": "Kiitos Kristal Framework:in kokeilemisesta, jotta pääset alkuun käy tutustumassa <a href = 'https://www.jessetimonen.fi/kristal/documentation/latest/' target = '_blank'>dokumentaatioihin</a>, tai katso meidän luomia <a href = 'https://www.jessetimonen.fi/kristal/tutorials/latest/' target = '_blank'>harjoituksia</a>."
+	},
+
+
+
+	"change_theme": {
+		"en": "Change Theme",
+		"fi": "Vaihda Teemaa"
+	},
+	"dark": {
+		"en": "Dark",
+		"fi": "Tumma"
+	},
+	"light": {
+		"en": "Light",
+		"fi": "Vaalea"
+	},
+
+
+
+	"receiver": {
+		"en": "Receiver's Email",
+		"fi": "Vastaanottajan Sähköposti"
+	},
+	"send": {
+		"en": "Send",
+		"fi": "Lähetä"
+	},
+	"send_mail": {
+		"en": "Send example mail",
+		"fi": "Lähetä esimerkkiviesti"
+	},
+	"mail_warning": {
+		"en": "Notice! Sending email without correct email configurations will result a PHP error.",
+		"fi": "Huomautus! Sähköpostin lähettäminen ennen kuin sähköposti asetukset ovat oikein asetettu aiheuttaa PHP virheen."
+	},
+
+
+
+	"page_not_found": {
+		"en": "Page not found",
+		"fi": "Sivua ei löytynyt"
+	},
+	"return_link": {
+		"en": "Return to home page by clicking here!",
+		"fi": "Palaa takaisin etusivulle painamalla tästä!"
+	},
+
+
+	
+	"footer_credits": {
+		"en": "Powered by <a href = 'https://www.jessetimonen.fi/kristal' target = '_blank'>Kristal Framework</a>",
+		"fi": "Luotu käyttäen sovellusta <a href = 'https://www.jessetimonen.fi/kristal' target = '_blank'>Kristal Framework</a>"
+	},
+	"scroll_up": {
+		"en": "Scroll Up",
+		"fi": "Ylös"
+	},
+
+
+
+	"maintenance_title": {
+		"en": "Maintenance",
+		"fi": "Päivitys"
+	},
+	"maintenance_description": {
+		"en": "We are currently maintaining our website, we will be back shortly. Thanks for your patience.",
+		"fi": "Olemme päivittämässä sivujamme, olemme valmiina hetken kuluttua. Kiitos kärsivällisyydestäsi."
+	},
+	"maintenance_authentication": {
+		"en": "Authentication",
+		"fi": "Kirjautuminen"
+	},
+	"maintenance_password": {
+		"en": "Password",
+		"fi": "Salasana"
+	},
+	"maintenance_authentication_failed": {
+		"en": "Failed to authenticate!",
+		"fi": "Kirjautuminen epäonnistui!"
+	},
+	"maintenance_login": {
+		"en": "Sign In",
+		"fi": "Kirjaudu"
+	}
+}

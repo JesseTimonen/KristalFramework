@@ -1,0 +1,16 @@
+#error-container {
+    text-align: center;
+
+    h1 {
+        color: $error_title_color;
+        padding-bottom: 20px;
+    }
+    
+    a {
+        color: $error_link_color;
+
+        &:hover {
+            color: $error_link_hover_color;
+        }
+    }
+}

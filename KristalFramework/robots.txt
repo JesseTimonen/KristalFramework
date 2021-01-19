@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /LICENSE
+Disallow: /README
+
+Sitemap: https://www.YOUR_WEBSITE.com/sitemap.xml
