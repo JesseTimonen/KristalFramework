@@ -3,19 +3,10 @@
 
 function asset($folder, $file, array $params = array("path" => "url"))
 {
-    if (strtolower($is_url) === "relative")
-    {
-        $is_url = false;
-    }
-    else if (strtolower($is_url) === "url")
-    {
-        $is_url = true;
-    }
-    
     // Find files using only its name
     if (!file_exists("app/public/$folder/$file") && !empty($files = glob("app/public/$folder/$file*")))
     {
-        if ($params["type"] == "url")
+        if (strtolower($params["path"]) === "url")
         {
             return BASE_URL . $files[0];
         }
@@ -26,7 +17,7 @@ function asset($folder, $file, array $params = array("path" => "url"))
     }
 
     // Return file normally
-    if ($params["type"] == "url")
+    if (strtolower($params["path"]) === "url")
     {
         return BASE_URL . "app/public/$folder/$file";
     }
