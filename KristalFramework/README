@@ -32,6 +32,7 @@ Only use this framework to mess around with it's features.
 
 1. Upload the files (which are inside KristalFramework folder) to a server or developement environment.
 2. Run composer install to install dependencies from app/composer.json file.
+3. Rename "setup.htaccess" => ".htaccess"
 
 After completing these steps you should now be able to access the built-in demo page by going to your server's URL.
 
