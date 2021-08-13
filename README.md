@@ -15,16 +15,16 @@ Only use this framework to mess around with it's features.
 
 ## Server requirements
 
-PHP 7.0+
-Apache server with htaccess support
-Composer
+* PHP 7.0+
+* Apache server with htaccess support
+* Composer
 
 
 
 ## Database requirements
 
-PDO PHP extension
-MySQL 5.6+
+* PDO PHP extension
+* MySQL 5.6+
 
 
 
