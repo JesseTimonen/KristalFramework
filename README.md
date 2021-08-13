@@ -1,6 +1,6 @@
 # Kristal Framework
 
-Kristal Framework is PHP based framework which aims to offer developers clean and simple MVC environment where they can develope their websites.
+Kristal Framework is a PHP based framework which aims to offer developers clean and simple MVC environment to develope their websites.
 Kristal Framework was released to the public under MIT license, which allows people to use, modify and share this framework as they wish.
 
 
