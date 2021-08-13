@@ -53,14 +53,14 @@ define("MAILER_PORT", 465);                         // Common ports: 25, 465, 58
 define("MINIFY_HTML", true);                        // Compresses HTML into one single line if set to true (can cause issues with <code> tags)
 
 
-// Compile SCSS
+// Compile SCSS (does not work when in production mode)
 define("AUTO_COMPILE_SCSS", false);                 // Auto compile scss every time page is loaded (turn off when page is no longer edited to increase performance)
 define("COMPILED_CSS_TYPE", "compressed");          // Defines how scss if compressed, use: "compressed", "compact", "expanded", or "nested"
 define("DEFAULT_THEME", "light");                   // Specify default theme to be used if $_SESSION["theme"] doesn't have a value, if you don't use any themes give it value like "main" or "default"
 define("PRINT_COMPILE_DATE_CSS", true);             // Prints comment saying when css file was last compiled
 
 
-// Compile JavaScript
+// Compile JavaScript (does not work when in production mode)
 define("AUTO_COMPILE_JS", false);                   // Auto compile javascript every time page is loaded (turn off when page is no longer edited to increase performance)
 define("PRINT_COMPILE_DATE_JS", true);              // Prints comment saying when javascript file was last compiled
 $js_bundles = array(                                // This array tells how to compile javascript, it combines given js files into compiled js file

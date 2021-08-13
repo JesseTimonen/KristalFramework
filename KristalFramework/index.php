@@ -10,7 +10,7 @@
 |  Incase PHP doesn't allow function name to be a route you want to have,                      |
 |  you can specify special routes in the undefinedRoutes function                              |
 |                                                                                              |
-|  To render a page call $this->render("xxxx") function.                                       |
+|  To render a page call $this->render("pagename-from-app/pages/") function.                   |
 \*============================================================================================*/
 
 // Require core features
@@ -70,8 +70,8 @@ class Routes extends Router
     {
         // Render content from app/pages/theme.php
         $this->render("theme", [
-            "theme_change_success" => $this->settings->changeTheme($theme),     // Call settings controller and give the returned value to $theme_change_success variable, which will be passed to the page
-            "theme" => $theme,                                                  // Pass $theme variable to the page
+            "theme_change_success" => $this->settings->changeTheme($theme),     // Call settings controller and give the returned value to $theme_change_success variable, which will be passed to the page template
+            "theme" => $theme,                                                  // Pass $theme variable to the page template
         ]);
     }
 
@@ -100,7 +100,8 @@ class Routes extends Router
         if (MAINTENANCE_MODE && $page !== null){ createError("Could not find route for page <u>$page</u>!"); }
 
         // Display 404 page, you can also redirect to home route function instead of rendering 404 error page
-        $this->render("404"); // $this->callView("home");
+        // $this->callView("home");
+        $this->render("404");
     }
 
 
