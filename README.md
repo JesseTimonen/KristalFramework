@@ -13,6 +13,21 @@ Only use this framework to mess around with it's features.
 
 
 
+## Server requirements
+
+PHP 7.0+
+Apache server with htaccess support
+Composer
+
+
+
+## Database requirements
+
+PDO PHP extension
+MySQL 5.6+
+
+
+
 ## Installing
 
 1. Upload the files (which are inside KristalFramework folder) to a server or developement environment.
