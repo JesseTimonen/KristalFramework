@@ -4,7 +4,6 @@ defined("ACCESS") or exit("Access Denied");
 use Backend\Controller\FormRequests;
 use Backend\Core\Helper\Actions\FrameworkHelper;
 use Backend\Core\PHPJS;
-use \ReflectionMethod;
 
 
 class Router
@@ -16,7 +15,15 @@ class Router
     {
         // Init form requests
         if (class_exists("Backend\Controller\FormRequests")) { new FormRequests(); }
-        if (class_exists("Backend\Core\Helper\Actions\FrameworkHelper")) { new FrameworkHelper(); }
+
+        // Init Framework helper form requests
+        if (DISPLAY_HELPER && MAINTENANCE_MODE && $_SESSION["maintenance_access_granted"])
+        {
+            if (class_exists("Backend\Core\Helper\Actions\FrameworkHelper"))
+            {
+                new FrameworkHelper();
+            }
+        }
 
         // Parse route from url
         $this->getURLRequest();
@@ -26,31 +33,18 @@ class Router
     private function getURLRequest()
     {
         // Parse page name and variables from the URL
-        $extension = str_replace("index.php", "", $_SERVER["PHP_SELF"]);
-        $url = str_replace($extension, "", $_SERVER["REDIRECT_URL"]);
+        $root_url = str_replace("index.php", "", $_SERVER["PHP_SELF"]);
+        $url = str_replace($root_url, "", $_SERVER["REDIRECT_URL"]);
         $url = explode("/", $url);
         $page = $url[0];
         unset($url[0]);
 
-        // Call the route function parsed from the url
-        if (method_exists($this, $page) && $page !== "__construct")
-        {
-            $reflection = new ReflectionMethod($this, $page);
-
-            if (!$reflection->isProtected() && !$reflection->isPrivate())
-            {
-                call_user_func_array(array($this, $page), $url);
-                if (file_exists(page("templates/footer.php"))) include_once page("templates/footer.php");
-                return;
-            }
-        }
-
-        $this->undefinedRoutes($page, $url);
-        if (file_exists(page("templates/footer.php"))) include_once page("templates/footer.php");
+        $this->routeController($page, $url);
+        if (file_exists(page("layouts/footer.php"))) include_once page("layouts/footer.php");
     }
 
 
-    private function preRender($page)
+    private function preRender()
     {
         // Only render this section once
         if ($this->pre_render_completed){ return; }
@@ -68,7 +62,7 @@ class Router
         }
 
         // Include essential page sections
-        if (file_exists(page("templates/header.php"))) include_once page("templates/header.php");
+        if (file_exists(page("layouts/header.php"))) include_once page("layouts/header.php");
         if (file_exists("app/Backend/Core/Helper/frameworkHelper.php") && DISPLAY_HELPER && MAINTENANCE_MODE && $_SESSION["maintenance_access_granted"]) include_once "app/Backend/Core/Helper/frameworkHelper.php";
 
         // Add PHP variables to be used by JavaScript
@@ -104,10 +98,10 @@ class Router
     }
 
 
-    protected function render($page, array $variables = null)
+    protected function render($page, array $variables = array())
     {
         // Render essential parts of the webpage
-        $this->preRender($page);
+        $this->preRender();
 
         // Include blocks
         foreach (glob("app/Backend/Blocks/*.php") as $block)
@@ -122,7 +116,7 @@ class Router
         }
 
         // Include variables passed by the route function
-        if ($variables)
+        if (!empty($variables))
         {
             foreach ($variables as $key => $value)
             {
@@ -131,5 +125,6 @@ class Router
         }
 
         if (file_exists(page($page))) include page($page);
+        else if (file_exists(page("404.php"))) include page("404.php");
     }
 }

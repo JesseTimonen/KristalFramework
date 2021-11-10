@@ -1,6 +1,6 @@
-<?php include "templates/navigation.php"; ?>
+<?php include "layouts/navigation.php"; ?>
 
-<div class = "main container center">
+<div class = "container center">
     <h1 translationKey = "change_theme">Change Theme</h1>
     <br><br>
 
@@ -16,10 +16,3 @@
         </div>
     </div>
 </div>
-
-<!-- Theme change feedback -->
-<p class = "center" style = "padding: 30px;">
-    <?php if ($theme_change_success): ?>
-        <?php ts("change_theme", $theme); ?>
-    <?php endif; ?>
-</p>

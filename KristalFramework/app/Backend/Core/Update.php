@@ -38,7 +38,8 @@ class Update
                     // Extract downloaded files
                     $zip = new ZipArchive;
                     $zip_result = $zip->open($this->download_destination);
-                    if ($zip_result === TRUE)
+
+                    if ($zip_result)
                     {
                         $zip->extractTo($this->extract_folder);
                         $zip->close();
@@ -94,7 +95,7 @@ class Update
     {
         // Delete downloaded files
         $files_to_delete = glob($this->extract_folder . "*");
-        foreach($files_to_delete as $file_to_delete)
+        foreach ($files_to_delete as $file_to_delete)
         {
             if (is_file($file_to_delete))
             {
@@ -102,13 +103,13 @@ class Update
             }
             else
             {
-                $this->deleteUpdateDownloads($file_to_delete);
+                $this->deleteDownloadedFolder($file_to_delete);
             }
         }
     }
 
 
-    private function deleteUpdateDownloads($directory_path)
+    private function deleteDownloadedFolder($directory_path)
     {
         // Make sure we are deleting a directory
         if (!is_dir($directory_path)) { return; }
@@ -125,7 +126,7 @@ class Update
         {
             if (is_dir($file_to_delete))
             {
-                $this->deleteUpdateDownloads($file_to_delete);
+                $this->deleteDownloadedFolder($file_to_delete);
             }
             else
             {

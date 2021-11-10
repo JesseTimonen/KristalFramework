@@ -1,18 +1,20 @@
 <!-- Include css and js files -->
-<link rel = "stylesheet" type = "text/css" href = "app/Backend/Core/Helper/frameworkHelper.css">
-<script src = "app/Backend/Core/Helper/frameworkHelper.js"></script>
+<link rel = "stylesheet" type = "text/css" href = "<?= getURL("app/Backend/Core/Helper/frameworkHelper.css"); ?>">
+<script src = "<?= getURL("app/Backend/Core/Helper/frameworkHelper.js"); ?>"></script>
 
 
 <!-- framework mini helper icon -->
 <div id = "framework-mini-helper">
     <img src = "app/Backend/Core/Helper/icon.png" alt = "" width = "45px" height = "45px" />
+    <p id = "framework-mini-helper-title">Framework<br>helper</p>
 </div>
+
 
 <!-- Navigation bar -->
 <nav class = "navbar navbar-expand-lg fixed-bottom navbar-dark" id = "framework-helper">
 
     <!-- Title -->
-    <a class = "navbar-brand" id = "helper-title" target = "_blank">Kristal<p>Framework</p></a>
+    <a class = "navbar-brand" id = "helper-title">Kristal<br>Framework</a>
 
 
     <!-- Helper links -->
@@ -20,12 +22,84 @@
     <li class = "list-group-item framework-helper-list-group-item" id = "link-training">Training</li>
     <li class = "list-group-item framework-helper-list-group-item" id = "link-actions">Actions</li>
     <li class = "list-group-item framework-helper-list-group-item" id = "link-creator">Creator Tools</li>
+    <li class = "list-group-item framework-helper-list-group-item" id = "link-media-library" data-bs-toggle = "modal" data-bs-target = "#media-library-modal">Media Library</li>
     <li class = "list-group-item framework-helper-list-group-item" id = "link-version">Version</li>
 
 
+    <!-- Media library modal -->
+    <div class = "modal fade" id = "media-library-modal" data-backdrop = "static" data-keyboard = "false">
+        <div class = "modal-dialog modal-lg">
+            <div class = "modal-content">
+
+                <!-- Modal Header -->
+                <div class = "modal-header">
+                    <h2 class = "modal-title">Media Library</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class = "modal-body">
+                    <div class = "form-group">
+
+                        <div class="form-outline">
+                            <h3 class = "modal-title">Search</h3>
+                            <input type="search" id="media-library-search" class="form-control" />
+                            <br><br>
+                        </div>
+
+                        <?php
+                        foreach (glob("app/public/images/*") as $i)
+                        {
+                            if (is_dir($i))
+                            {
+                                echo "<h3 class = 'media-library-title'>Folder: $i</h3>";
+                                foreach (glob("$i/*") as $j)
+                                {
+                                    if (is_dir($j))
+                                    {
+                                        echo "<h3 class = 'media-library-title'>Folder: $j</h3>";
+                                        foreach (glob("$j/*") as $k)
+                                        {
+                                            if (!is_dir($k))
+                                            {
+                                                echo "<img src = '" . thumbnail($k) . "' alt = '$k' class = 'media-library-image' width = '25%' height = '190px'>";
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        echo "<img src = '" . thumbnail($j) . "' alt = '$j' class = 'media-library-image' width = '25%' height = '190px'>";
+                                    }
+                                }
+                            }
+                        }
+
+                        echo "<h3 class = 'media-library-title'>Folder: app/public/images/</h3>";
+                        foreach (glob("app/public/images/*") as $i)
+                        {
+                            if (!is_dir($i))
+                            {
+                                echo "<img src = '" . thumbnail($i) . "' alt = '$i' class = 'media-library-image' width = '25%' height = '190px'>";
+                            }
+                        }
+                        ?>
+
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class = "modal-footer">
+                    <button type = "button" class = "btn btn-secondary" data-bs-dismiss = "modal">Exit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+
     <!-- version navigation -->
     <ul class = "navbar-nav" id = "navigation-version" style = "display: none;">
-        <li class = "nav-item nav-link active" id = "framework-version-message" style = "margin-top: 10px; max-width: 1000px;"></li>
+        <li class = "nav-item nav-link active" id = "framework-version-message" style = "max-width: 1000px;"></li>
     </ul>
 
 
@@ -75,8 +149,8 @@
 
     <!-- Creator tools navigation -->
     <ul class = "navbar-nav" id = "navigation-creator" style = "display: none;">
-        <li class = "list-group-item framework-helper-list-group-item" id = "action-create-entity-link" data-toggle = "modal" data-target = "#create-entity-modal">Create Entity</li>
-        <li class = "list-group-item framework-helper-list-group-item" id = "action-create-controller-link" data-toggle = "modal" data-target = "#create-controller-modal">Create Controller</li>
+        <li class = "list-group-item framework-helper-list-group-item" id = "action-create-entity-link" data-bs-toggle = "modal" data-bs-target = "#create-entity-modal">Create Entity</li>
+        <li class = "list-group-item framework-helper-list-group-item" id = "action-create-controller-link" data-bs-toggle = "modal" data-bs-target = "#create-controller-modal">Create Controller</li>
     </ul>
 
 
@@ -88,7 +162,7 @@
                 <!-- Modal Header -->
                 <div class = "modal-header">
                     <h2 class = "modal-title">Create Entity</h2>
-                    <button type = "button" class = "close" data-dismiss = "modal">&times;</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <form action = "" method = "post" role = "form" class = "framework-form" id = "create-entity-form">
@@ -252,7 +326,7 @@
                     <!-- Modal footer -->
                     <div class = "modal-footer">
                         <button type = "submit" id = "create-entity-submit" class = "btn btn-primary">Create</button>
-                        <button type = "button" class = "btn btn-secondary" data-dismiss = "modal">Cancel</button>
+                        <button type = "button" class = "btn btn-secondary" data-bs-dismiss = "modal">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -268,7 +342,7 @@
                 <!-- Modal Header -->
                 <div class = "modal-header">
                     <h2 class = "modal-title">Create Controller</h2>
-                    <button type = "button" class = "close" data-dismiss = "modal">&times;</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <form action = "" method = "post" role = "form" class = "framework-form" id = "create-controller-form">
@@ -285,7 +359,7 @@
                     <!-- Modal footer -->
                     <div class = "modal-footer">
                         <button type = "submit" class = "btn btn-primary" id = "create-controller-submit">Create</button>
-                        <button type = "button" class = "btn btn-secondary" data-dismiss = "modal">Cancel</button>
+                        <button type = "button" class = "btn btn-secondary" data-bs-dismiss = "modal">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -329,7 +403,7 @@
 
     <!-- Right side links -->
     <ul class = "navbar-nav ml-auto nav-flex-icons">
-        <li class = "nav-item"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/feedback" target = "_blank">Feedback</a></li>
-        <li class = "nav-item close" id = "close-framework-helper">x</li>
+        <li class = "nav-item" id = "framework-helper-feedback"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/feedback" target = "_blank">Feedback</a></li>
+        <li class = "nav-item" id = "close-framework-helper">x</li>
     </ul>
 </nav>

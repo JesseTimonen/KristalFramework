@@ -38,8 +38,8 @@ final class SCSS_Compiler
     {
         $css = (PRINT_COMPILE_DATE_CSS) ? "/* Generated at: " . date(DATE_FORMAT . " " . TIME_FORMAT) . " */\n" : "";
 
-        // Compile all elements into css
-        foreach (glob("app/public/css/elements/*.scss") as $element)
+        // Compile all scss into css
+        foreach (glob("app/public/css/scss/*.scss") as $element)
         {
             $css .= $compiler->compile(file_get_contents($element));
         }
@@ -77,8 +77,8 @@ final class SCSS_Compiler
             $variables = file_get_contents($theme);
             $css = (PRINT_COMPILE_DATE_CSS) ? "/* Generated at: " . date(DATE_FORMAT . " " . TIME_FORMAT) . " */\n" : "";
 
-            // Compile all elements
-            foreach (glob("app/public/css/elements/*.scss") as $element)
+            // Compile all scss
+            foreach (glob("app/public/css/scss/*.scss") as $element)
             {
                 $css .= $compiler->compile($variables . file_get_contents($element));
             }

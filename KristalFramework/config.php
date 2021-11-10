@@ -6,7 +6,6 @@ define("VERSION_NUMBER", 1);                            // Framework version you
 define("PRODUCTION_MODE", false);                       // Optimizes your application, remember to turn off when editing your page to unlock all the features
 define("MAINTENANCE_MODE", false);                      // Display maintenance page for users while you are working on your website
 define("DISPLAY_HELPER", false);                        // Displays a framework helper during maintenance mode
-define("MAINTENANCE_ETA", "2021-01-01 00:00:00");       // Estimated time when maintenance has been completed
 define("MAINTENANCE_PASSWORD", "SECURE_PASSWORD");      // Password used to sign in during maintenance mode
 
 

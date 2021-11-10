@@ -1,8 +1,9 @@
-<?php include "templates/navigation.php"; ?>
+<?php include "layouts/navigation.php"; ?>
 
-<div class = "main container center" id = "about-container">
+<div class = "container center">
     <h1 translationKey = "about">About the Framework</h1>
     <br><br>
-    <?php include "subpages/information.php"; ?>
+    <p translationKey = "info_1"></p>
+    <p translationKey = "info_2"></p>
     <br><br>
 </div>

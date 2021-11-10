@@ -34,6 +34,48 @@ function image($file, array $params = array("path" => "url"))
     return asset("images", $file, $params);
 }
 
+function thumbnail($file_path, array $params = array("path" => "url"))
+{
+    $thumbnail_path = str_replace("app/public/images/", "", $file_path);
+    $thumbnail_path = str_replace("/", "-", $thumbnail_path);
+    $thumbnail_path = "app/Backend/Core/thumbnails/" . $thumbnail_path;
+
+    if (!file_exists($thumbnail_path))
+    {
+        $size = getimagesize($file_path);
+        $mime = $size['mime'];
+
+        // Create image
+        switch ($mime)
+        {
+            case 'image/jpeg' : $original = imagecreatefromjpeg($file_path); break;
+            case 'image/png' : $original = imagecreatefrompng($file_path); break;
+            case 'image/gif' : $original = imagecreatefromgif($file_path); break;
+            case 'image/webp' : $original = imagecreatefromwebp($file_path); break;
+            default: return null;
+        }
+
+        // Create thumbnail
+        $thumbnail = imagecreatetruecolor(150, 150);
+        imagecopyresampled($thumbnail, $original, 0, 0, 0, 0, 150, 150, $size[0], $size[1]);
+
+        // Save thumbnail
+        switch ($mime)
+        {
+            case 'image/jpeg' : imagejpeg($thumbnail, $thumbnail_path); break;
+            case 'image/png' : imagepng($thumbnail, $thumbnail_path); break;
+            case 'image/gif' : imagegif($thumbnail, $thumbnail_path); break;
+            case 'image/webp' : imagewebp($thumbnail, $thumbnail_path); break;
+            default: return null;
+        }
+
+        // Free memory
+        imagedestroy($original); imagedestroy($thumbnail);
+    }
+
+    return getURL($thumbnail_path);
+}
+
 function css($file, array $params = array("path" => "url"))
 {
     return asset("css", $file, $params);
@@ -66,14 +108,15 @@ function page($file)
     return "app/pages/$file";
 }
 
-function subpage($file)
+function pageExists($page)
 {
-    if (!file_exists("app/pages/subpages/$file") && !empty($files = glob("app/pages/subpages/$file*")))
+    // Make sure page is a php file
+    if (substr($page, -4) !== ".php")
     {
-        return "app/pages/subpages/" . $files[0];
+        $page .= ".php";
     }
-
-    return "app/pages/subpages/$file";
+    
+    return file_exists("app/pages/$page");
 }
 
 // ============================================================================================================== \\

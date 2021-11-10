@@ -1,7 +1,9 @@
 /* Body */
-$bg_color: #f1f1f1;
-$header_font_color: black;
+$body_background_color: #f1f1f1;
+$title_color: black;
 $font_color: rgb(50, 50, 50, 1);
+$link_color: darkblue;
+$link_hover_color: #0a58ca;
 
 /* Universal colors */
 $color_success: #0d0 !important;
@@ -9,25 +11,21 @@ $color_error: red !important;
 $color_warning: orange !important;
 $color_danger: rgb(255, 100, 0) !important;
 
+/* 404 and 500 errors */
+$error_title_color: orange;
+$error_link_color: #bbb;
+$error_link_hover_color: white;
+
 /* Navbar */
-$navbar_bg_color: #222;
 $navbar_border_color: black;
-$navbar_border_collapse_color: gray;
-$navbar_title_color: white;
-$navbar_color: rgba(255, 255, 255, 0.5);
-$navbar_color_hover: rgba(255, 255, 255, 0.8);
-$navbar_color_active: white;
+$navbar_link_color: rgba(255, 255, 255, 0.55);
+$navbar_link_hover_color: rgba(255, 255, 255, 0.75);
+$navbar_link_active_color: white;
 
 /* Scroll bar */
-$scrollbutton_color: white;
-$scrollbutton_bg_color: #555;
-$scrollbutton_bg_color_hover: #222;
+$scroll_button_color: white;
+$scroll_button_bg_color: #222;
+$scroll_button_bg_color_hover: #181818;
 
 /* Footer */
-$footer_color: black;
-$footer_border_color: #666;
-
-/* 404 and 500 errors */
-$error_title_color: red;
-$error_link_color: gray;
-$error_link_hover_color: black;
+$footer_border_color: black;

@@ -10,7 +10,7 @@ class PHPJS
         {
             ?>
             <script>
-                window.addEventListener("load", function() {
+                window.addEventListener("DOMContentLoaded", function() {
                     <?php foreach($variable as $key => $value): ?>
                         document.getElementById("javascript-variables").setAttribute("<?= $key ?>", "<?= $value ?>");
                     <?php endforeach; ?>
@@ -22,7 +22,7 @@ class PHPJS
         {
             ?>
             <script>
-                window.addEventListener("load", function() {
+                window.addEventListener("DOMContentLoaded", function() {
                     document.getElementById("javascript-variables").setAttribute("<?= $variable ?>", "<?= $value ?>");
                 });
             </script>

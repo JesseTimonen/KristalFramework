@@ -1,6 +1,6 @@
-<?php include "templates/navigation.php"; ?>
+<?php include "layouts/navigation.php"; ?>
 
-<div class = "main container center">
+<div class = "container center">
     <h1 translationKey = "send_mail">Send example mail</h1>
     <br><br>
 

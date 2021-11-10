@@ -2,14 +2,22 @@
 #framework-mini-helper {
     position: fixed;
     bottom: 5px;
-    right: 5px;
+    left: 5px;
     cursor: pointer;
+    text-align: center;
 }
 @media (max-width: 1200px) {
     #framework-mini-helper {
         display: none;
     }
 }
+
+#framework-mini-helper-title {
+    color: white;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
 
 /* Navbar */
 #framework-helper {
@@ -29,7 +37,9 @@
 
 /* Close navbar button */
 #close-framework-helper {
-    padding-left: 25px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
     cursor: pointer;
 }
 
@@ -37,20 +47,24 @@
     color: red;
 }
 
-/* Navbar title */
-#framework-helper .navbar-brand {
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-	margin-top: -12px;
+/* Navbar feedback button */
+#framework-helper-feedback {
+    position: absolute;
+    bottom: 0px;
+    right: 30px;
 }
 
-/* Navbar subtitle */
-#framework-helper .navbar-brand p {
-	font-size: 11px;
-	position: absolute;
-    margin-left: -4px;
-    margin-top: -6px;
+
+
+/* Navbar title */
+#framework-helper .navbar-brand {
+    padding: 0px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 1.0;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 /* Documentation link */
@@ -58,6 +72,7 @@
     background-color: transparent;
     cursor: pointer;
     border: none;
+    color: rgba(255, 255, 255, 0.55);
 }
 .framework-helper-list-group-item:hover {
     color: rgba(255, 255, 255, 0.8);
@@ -105,4 +120,17 @@
 
 #create-controller-modal .modal-title {
     color: black !important;
+}
+
+#media-library-modal .modal-title {
+    color: black !important;
+}
+
+.media-library-title {
+    color: black;
+    border-top: 1px solid black;
+}
+
+.media-library-image {
+    padding: 1%;
 }

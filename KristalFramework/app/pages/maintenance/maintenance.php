@@ -1,10 +1,3 @@
-<?php
-    $maintenance_ends = strtotime(MAINTENANCE_ETA);
-    $current_time  = strtotime(date("Y-m-d H:i:s"));
-    $time_left = $maintenance_ends - $current_time;
-    if ($time_left < 0) { $time_left = 0; }
-?>
-
 <!doctype html>
 <html lang = "en">
     <head>
@@ -15,17 +8,14 @@
         <meta name = "robots" content = "noindex" />
 
         <!-- Styles -->
-        <link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity = "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin = "anonymous">
-        <link rel = "stylesheet" href = "<?= css("plugins/flipclock.css"); ?>">
+        <link rel = "stylesheet" href = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity = "sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin = "anonymous">
         <link rel = "stylesheet" type = "text/css" href = "<?= page("maintenance/maintenance.css"); ?>">
         <style>body { background-image: url("<?= image('backgrounds/maintenance.jpg'); ?>"); }</style>
 
         <!-- Scripts -->
-        <script src = "https://code.jquery.com/jquery-3.4.1.min.js" integrity = "sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin = "anonymous"></script>
-        <script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity = "sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin = "anonymous"></script>
-        <script src = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity = "sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin = "anonymous"></script>
+        <script src = "https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity = "sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin = "anonymous"></script>
         <script src = "<?= page("maintenance/maintenance.js"); ?>"></script>
-        <script src = "<?= js("plugins/flipclock.js"); ?>"></script>
         <script src = "<?= js("core.js"); ?>"></script>
 
         <!-- Page Information -->
@@ -37,21 +27,6 @@
         <div id = "javascript-variables" style = "display: none"
             baseURL = "<?= BASE_URL ?>"
         ></div>
-
-        <!-- Start maintenance ETA timer -->
-        <script>
-        $(document).ready(function()
-        {
-            var timer = new FlipClock($(".timer"), {
-                <?php if ($time_left > 259200) { echo 'clockFace: "DailyCounter",'; } ?>
-                language: language,
-                autoPlay: false
-            });
-
-            timer.countdown = true;
-            timer.setTime(<?= $time_left ?>);
-        });
-        </script>
     </head>
 
 
@@ -68,11 +43,6 @@
         <!-- Description -->
         <div class = "container center" id = "notification">
             <p translationKey = "maintenance_description">We are currently maintaining our website, we will be back shortly. Thanks for your patience.</p>
-        </div>
-
-        <!-- Timer -->
-        <div class = "center">
-            <div class = "timer center"></div>
         </div>
 
         <!-- Authentication -->
@@ -101,5 +71,6 @@
             <a href = "mailto:example.email@example.com" target = "_blank" data-toggle = "tooltip" title = "Email"><img border = "0" alt = "" src = "<?= image("logos/email.png"); ?>" width = "40" height = "40"></a>
             <a href = "https://www.youtube.com" target = "_blank" data-toggle = "tooltip" title = "Youtube"><img border = "0" alt = "" src = "<?= image("logos/youtube.png"); ?>" width = "40" height = "40"></a>
         </div>
+
     </body>
 </html>

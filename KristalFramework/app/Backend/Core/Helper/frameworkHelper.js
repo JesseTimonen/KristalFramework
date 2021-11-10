@@ -5,6 +5,10 @@ $(document).ready(function ()
     {
         $("#framework-helper").hide();
     }
+    else
+    {
+        $("#framework-mini-helper").hide();
+    }
 
 
     // Main link (Kristal Framework) restores helper back to default state
@@ -12,6 +16,7 @@ $(document).ready(function ()
     {
         // Activate main links
         $("#link-documentation").show(300).removeClass("active");
+        $("#link-media-library").show(300).removeClass("active");
         $("#link-training").show(300).removeClass("active");
         $("#link-actions").show(300).removeClass("active");
         $("#link-creator").show(300).removeClass("active");
@@ -46,6 +51,7 @@ $(document).ready(function ()
         $("#link-creator").toggle(300);
         $("#link-training").toggle(300);
         $("#link-version").toggle(300);
+        $("#link-media-library").toggle(300);
     });
 
     $("#link-training").click(function()
@@ -56,6 +62,7 @@ $(document).ready(function ()
         $("#link-actions").toggle(300);
         $("#link-creator").toggle(300);
         $("#link-version").toggle(300);
+        $("#link-media-library").toggle(300);
     });
 
     $("#link-actions").click(function()
@@ -71,6 +78,7 @@ $(document).ready(function ()
         $("#link-training").toggle(300);
         $("#link-creator").toggle(300);
         $("#link-version").toggle(300);
+        $("#link-media-library").toggle(300);
     });
 
     $("#link-creator").click(function()
@@ -81,6 +89,7 @@ $(document).ready(function ()
         $("#link-training").toggle(300);
         $("#link-actions").toggle(300);
         $("#link-version").toggle(300);
+        $("#link-media-library").toggle(300);
     });
 
     $("#link-version").click(function()
@@ -91,6 +100,7 @@ $(document).ready(function ()
         $("#link-creator").toggle(300);
         $("#link-training").toggle(300);
         $("#link-documentation").toggle(300);
+        $("#link-media-library").toggle(300);
     });
 
 
@@ -282,6 +292,47 @@ $(document).ready(function ()
             $("#create-controller-form").submit();
         }
     });
+
+
+    // Media library search
+    var media_library_timeout;
+    var media_library_timeout_delay = 200;
+    var media_library_animation_duration = 500;
+    
+    
+    $("#media-library-search").keyup(function()
+    {
+        search = $(this).val();
+    
+        clearTimeout(media_library_timeout);
+        media_library_timeout = setTimeout(function()
+        {
+            filterMediaLibrary(search);
+        }, media_library_timeout_delay);
+    });
+    
+    
+    // Filter events when search bar is used
+    function filterMediaLibrary(search)
+    {
+        // Loop through all events and see if search word is found
+        $('.media-library-image').each(function()
+        {
+            var image_name = $(this).attr("alt");
+    
+            if (typeof image_name != 'string') { image_name = ""; }
+    
+            // Check if search word matches the event name
+            if (image_name.toLowerCase().includes(search.toLowerCase()))
+            {
+                $(this).show(media_library_animation_duration);
+            }
+            else
+            {
+                $(this).hide(media_library_animation_duration);
+            }
+        });
+    }
 
 
 

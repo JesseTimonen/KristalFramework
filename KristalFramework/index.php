@@ -1,19 +1,25 @@
-<?php include "app/Backend/Core/Init.php";
+<?php include "app/Backend/Core/Framework.php";
 
 /*============================================================================================*\
 |  This file specifies routes for your application.                                            |
 |                                                                                              |
-|  Routes can be found inside the Routes class, these routes are in a form of a function,      |
-|  where the name of the function is the URL address you want to called to enter the page and  |
-|  the parameters are variables you can pass through the URL.                                  |
+|  Routes can be created and managed inside the routeController() function.                    |
+|  Routes follow the format of "domain.com/page/variable/variable..."                          |
+|  requested page and variables passed to it can be accessed in routeController() function.    |
 |                                                                                              |
-|  Incase PHP doesn't allow function name to be a route you want to have,                      |
-|  you can specify special routes in the undefinedRoutes function                              |
 |                                                                                              |
-|  To render a page call $this->render("pagename-from-app/pages/") function.                   |
+|  To render a page call the following function.                                               |
+|  $this->render("pagename-from-app/pages/");                                                  |
+|                                                                                              |
+|                                                                                              |
+|  To pass variables to rendered page use the following example.                               |
+|  $this->render("pagename-from-app/pages/", [                                                 |
+|      "variable_1" => $my_variable_1,                                                         |
+|      "variable_2" => $my_variable_2,                                                         |
+|  ]);                                                                                         |
 \*============================================================================================*/
 
-// Require core features
+// Require parent router
 use Backend\Core\Router;
 
 // Optional controllers, entities, etc.
@@ -43,10 +49,21 @@ class Routes extends Router
     }
 
 
-    // Route for home page
-    // You are not able to call protected routes from URL request (www.example.com/home)
-    // Protected/private functions can only be called internally, usually they are called from another route function or from undefinedRoutes() function
-    // For example this function is called from undefinedRoutes() when the page request is empty, meaning the request is only the server's base address (www.example.com)
+    // Routes
+    protected function routeController($page, $variables)
+    {
+        switch ($page)
+        {
+            case "": $this->callView("home"); break;
+            case "/": $this->callView("home"); break;
+            case "about": $this->callView("about"); break;
+            case "theme": $this->callView("theme", $variables); break;
+            case "mail": $this->callView("mail"); break;
+            default: $this->callView("pageNotFound"); break;
+        }
+    }
+
+
     protected function home()
     {
         // Render function will render a page from your pages folder
@@ -55,69 +72,34 @@ class Routes extends Router
     }
 
 
-    // Route for www.example.com/about
     function about()
     {
         // Render content from app/pages/about.php
         $this->render("about");
     }
 
-
-    // Route for www.example.com/theme/{theme}
-    // By giving route function parameters, you are able to take variables from the URL request (www.example.com/theme/variable)
-    // Remember to always give these parameters a default value or PHP will return an error when calling them without parameters
-    function theme($theme = null)
+    
+    function theme()
     {
         // Render content from app/pages/theme.php
-        $this->render("theme", [
-            "theme_change_success" => $this->settings->changeTheme($theme),     // Call settings controller and give the returned value to $theme_change_success variable, which will be passed to the page template
-            "theme" => $theme,                                                  // Pass $theme variable to the page template
-        ]);
-    }
-
-
-    // Route for www.example.com/mail
-    function mail()
-    {
-        $this->render("mail");
-    }
-
-
-    // Route for www.example.com/full
-    function full()
-    {
-        // You can render multiple sites at once by calling render() function multiple times
-        $this->render("home");
-        $this->render("about");
         $this->render("theme");
     }
 
 
-    // Function called when no other page matches the URL request, usually called from undefinedRoutes function if no valid page is found from URL request
-    protected function pageNotFound($page = null)
+    function mail()
     {
-        // Display URL request for debugging if maintenance mode is enabled
-        if (MAINTENANCE_MODE && $page !== null){ createError("Could not find route for page <u>$page</u>!"); }
+        // Render content from app/pages/mail.php
+        $this->render("mail");
+    }
 
-        // Display 404 page, you can also redirect to home route function instead of rendering 404 error page
-        // $this->callView("home");
+
+    function pageNotFound()
+    {
+        // Render content from app/pages/404.php
         $this->render("404");
     }
-
-
-    // If no function match the requested URL, the request will be passed here
-    protected function undefinedRoutes($page, $variables)
-    {
-        switch ($page)
-        {
-            case "": $this->callView("home"); break;                        // www.example.com
-            case "/": $this->callView("home"); break;                       // www.example.com/
-            case "T H E M E": $this->callView("theme", $variables); break;  // www.example.com/T H E M E
-            case "*": $this->callView("full", $variables); break;           // www.example.com/*
-            default: $this->callView("pageNotFound", $page); break;         // If nothing above match the page URL (You can also call the home view here to avoid any 404 errors)
-        }
-    }
 }
+
 
 // Initialize routes
 new Routes();
