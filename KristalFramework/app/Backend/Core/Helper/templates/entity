@@ -1,4 +1,4 @@
-<?php namespace Backend\Entity;
+<?php namespace Backend\Entities;
 defined("ACCESS") or exit("Access Denied");
 
 use Backend\Core\Entity;

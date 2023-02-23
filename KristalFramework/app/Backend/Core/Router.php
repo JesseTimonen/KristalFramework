@@ -1,7 +1,7 @@
 <?php namespace Backend\Core;
 defined("ACCESS") or exit("Access Denied");
 
-use Backend\Controller\FormRequests;
+use Backend\Controllers\FormRequests;
 use Backend\Core\Helper\Actions\FrameworkHelper;
 use Backend\Core\PHPJS;
 
@@ -14,7 +14,7 @@ class Router
     protected function __construct()
     {
         // Init form requests
-        if (class_exists("Backend\Controller\FormRequests")) { new FormRequests(); }
+        if (class_exists("Backend\Controllers\FormRequests")) { new FormRequests(); }
 
         // Init Framework helper form requests
         if (DISPLAY_HELPER && MAINTENANCE_MODE && $_SESSION["maintenance_access_granted"])

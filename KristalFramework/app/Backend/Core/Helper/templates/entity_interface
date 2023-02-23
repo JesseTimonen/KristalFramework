@@ -1,4 +1,4 @@
-<?php namespace Backend\DBInterface;
+<?php namespace Backend\DBInterfaces;
 defined("ACCESS") or exit("Access Denied");
 
 use Backend\Core\Database;

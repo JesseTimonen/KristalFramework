@@ -71,11 +71,11 @@ class CreatorTool
         }
 
         // Write entity
-        if (!file_exists("app/Backend/Entity/" . $name . ".php"))
+        if (!file_exists("app/Backend/Entities/" . $name . ".php"))
         {
             try
             {
-                file_put_contents("app/Backend/Entity/" . $name . ".php", $template);
+                file_put_contents("app/Backend/Entities/" . $name . ".php", $template);
                 createNotification("Entity $name has been created successfully!", true);
             }
             catch (Exception $e)
@@ -105,11 +105,11 @@ class CreatorTool
         $template = str_replace("{{ name }}", $name, $template);
 
         // Write controller
-        if (!file_exists("app/Backend/Controller/" . $name . ".php"))
+        if (!file_exists("app/Backend/Controllers/" . $name . ".php"))
         {
             try
             {
-                file_put_contents("app/Backend/Controller/" . $name . ".php", $template);
+                file_put_contents("app/Backend/Controllers/" . $name . ".php", $template);
                 createNotification("Controller $name has been created successfully!", true);
             }
             catch (Exception $e)

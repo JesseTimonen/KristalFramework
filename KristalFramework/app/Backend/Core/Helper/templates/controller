@@ -1,4 +1,4 @@
-<?php namespace Backend\Controller;
+<?php namespace Backend\Controllers;
 defined("ACCESS") or exit("Access Denied");
 
 

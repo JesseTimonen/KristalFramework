@@ -15,7 +15,7 @@ Only use this framework to mess around with it's features.
 
 ## Server requirements
 
-* PHP 7.0+
+* PHP 7.4+
 * Apache server with htaccess support
 * Composer
 

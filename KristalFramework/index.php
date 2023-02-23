@@ -23,9 +23,9 @@
 use Backend\Core\Router;
 
 // Optional controllers, entities, etc.
-use Backend\Controller\Settings;
-use Backend\DBInterface\Users;
-use Backend\Entity\User;
+use Backend\Controllers\Settings;
+use Backend\DBInterfaces\Users;
+use Backend\Entities\User;
 
 
 class Routes extends Router
@@ -40,7 +40,7 @@ class Routes extends Router
         // Create instance of your optional controllers, entities, etc.
         $this->settings = new Settings();
 
-        // You should only call entities after you have given valid database configurations in the config file
+        // You should only call entities and DB Interfaces after you have given valid database configurations in the config file
         // $this->db_users = Users::getInstance();
         // $this->user = new User();
 
