@@ -5,6 +5,10 @@ define("ACCESS", "Granted");
 define("CURRENT_VERSION_NUMBER", 1);
 
 
+// Include cookie settings
+if (file_exists("app/Backend/Core/Env.php")){ require_once "app/Backend/Core/Env.php"; }
+
+
 // Include variables from config file
 if (file_exists("config.php")){ require_once "config.php"; }
 
@@ -36,6 +40,10 @@ if (file_exists("app/Backend/Core/Functions/Translator.php")){ require_once "app
 // Include Helper functions
 if (file_exists("app/Backend/Core/Functions/Helper.php")){ require_once "app/Backend/Core/Functions/Helper.php"; }
 if (file_exists("app/Backend/Core/Functions/commonPasswords.php")){ require_once "app/Backend/Core/Functions/commonPasswords.php"; }
+
+
+// Include cookie settings
+if (file_exists("app/Backend/Core/Cookie.php")){ require_once "app/Backend/Core/Cookie.php"; }
 
 
 // Start session

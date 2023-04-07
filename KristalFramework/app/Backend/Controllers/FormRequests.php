@@ -29,6 +29,7 @@ class FormRequests extends FormRequest
     // Form Request for changing theme
     public function change_theme($request) // $request variable contains all data sent by the form
     {
+        $request = array_map('htmlspecialchars', $request);
         $settings = new Settings();
         $settings->changeTheme($request["theme"]);
     }
@@ -37,6 +38,13 @@ class FormRequests extends FormRequest
     // Form request for sending email
     public function send_mail($request)
     {
+        $request = array_map('htmlspecialchars', $request);
+
+        if (!filter_var($request["receiver"], FILTER_VALIDATE_EMAIL)) {
+            // Handle the invalid email address case.
+            return;
+        }
+
         $mailer = new Mailer();
         $mailer->send(
             $request["receiver"],               // Receiver (can be an array of receivers)

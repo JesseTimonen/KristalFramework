@@ -12,17 +12,36 @@ class Session
 
     public function start()
     {
-        // Create ID for user using their IP information
-        $IP_address = "IP:";
-        if (!empty($_SERVER["HTTP_CLIENT_IP"])) { $IP_address .= $_SERVER["HTTP_CLIENT_IP"]; }
-        if (!empty($_SERVER["HTTP_X_FORWARDED_FOR"])) { $IP_address .= $_SERVER["HTTP_X_FORWARDED_FOR"]; }
-        if (!empty($_SERVER["REMOTE_ADDR"])) { $IP_address .= $_SERVER["REMOTE_ADDR"]; }
-
-
         // Start session if it is not yet active
         if (!$this->isActive())
         {
-            $this->startSession($IP_address);
+            $this->startSession($this->getClientIPAddress());
+        }
+    }
+
+
+    function getClientIPAddress()
+    {
+        $IP_address = '';
+    
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+        {
+            $IP_address_list = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+            $IP_address = trim(end($IP_address_list));
+        }
+        else if (isset($_SERVER['REMOTE_ADDR']))
+        {
+            $IP_address = $_SERVER['REMOTE_ADDR'];
+        }
+    
+        if (filter_var($IP_address, FILTER_VALIDATE_IP))
+        {
+            return $IP_address;
+        }
+        else
+        {
+            // Invalid IP address
+            return false;
         }
     }
 
@@ -30,7 +49,13 @@ class Session
     private function startSession($IP_address)
     {
         session_name(SESSION_NAME);
+        
+        ini_set('session.cookie_secure', '1');
+        ini_set('session.cookie_httponly', '1');
+        ini_set('session.cookie_samesite', 'Strict');
+
         session_start();
+        session_regenerate_id(true);
 
 
         // Restart if user's IP address doesn't match the original one

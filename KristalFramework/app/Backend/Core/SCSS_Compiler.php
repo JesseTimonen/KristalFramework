@@ -20,71 +20,115 @@ final class SCSS_Compiler
             default: $compiler->setFormatter("ScssPhp\ScssPhp\Formatter\Compressed"); break;
         }
 
-        // Check if user has created any themes for css
         if (empty(glob("app/public/css/themes/*.scss")))
         {
-            // No themes were found
-            self::compileWithoutTheme($compiler);
+            if (self::shouldCompileWithoutTheme())
+            {
+                self::compileWithoutTheme($compiler);
+            }
         }
         else
         {
-            // Themes found successfully
-            self::compileWithTheme($compiler);
+            if (self::shouldCompileWithTheme())
+            {
+                self::compileWithTheme($compiler);
+            }
         }
     }
 
 
-    private static function compileWithoutTheme($compiler)
+    private static function shouldCompileWithoutTheme()
     {
-        $css = (PRINT_COMPILE_DATE_CSS) ? "/* Generated at: " . date(DATE_FORMAT . " " . TIME_FORMAT) . " */\n" : "";
+        $compiled_file_mtime = file_exists("app/public/css/" . DEFAULT_THEME . ".css") ? filemtime("app/public/css/" . DEFAULT_THEME . ".css") : 0;
 
-        // Compile all scss into css
         foreach (glob("app/public/css/scss/*.scss") as $element)
         {
-            $css .= $compiler->compile(file_get_contents($element));
-        }
-
-        // Delete old css files
-        foreach (glob("app/public/css/*.css") as $old_css)
-        {
-            if (file_exists($old_css))
+            if (filemtime($element) > $compiled_file_mtime)
             {
-                unlink($old_css);
+                return true;
             }
         }
 
-        // Write compiled scss to css file
-        $filename = (DEFAULT_THEME) ? DEFAULT_THEME : "main";
-        file_put_contents("app/public/css/" . $filename . ".css", $css);
+        return false;
     }
 
 
-    private static function compileWithTheme($compiler)
+    private static function shouldCompileWithTheme()
     {
-        // Delete old css files
-        foreach (glob("app/public/css/*.css") as $old_css)
-        {
-            if (file_exists($old_css))
-            {
-                unlink($old_css);
-            }
-        }
-
-        // Create css file for every theme
         foreach (glob("app/public/css/themes/*.scss") as $theme)
         {
             $theme_name = str_replace(".scss", "", basename($theme));
-            $variables = file_get_contents($theme);
-            $css = (PRINT_COMPILE_DATE_CSS) ? "/* Generated at: " . date(DATE_FORMAT . " " . TIME_FORMAT) . " */\n" : "";
 
-            // Compile all scss
-            foreach (glob("app/public/css/scss/*.scss") as $element)
+            if (filemtime($theme) > filemtime("app/public/css/" . $theme_name . ".css"))
             {
-                $css .= $compiler->compile($variables . file_get_contents($element));
+                return true;
             }
 
-            // Write compiled scss to css file named by the theme
-            file_put_contents("app/public/css/" . $theme_name . ".css", $css);
+            foreach (glob("app/public/css/scss/*.scss") as $scss_file)
+            {
+                if (filemtime($scss_file) > filemtime("app/public/css/" . $theme_name . ".css"))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    
+    private static function compileWithoutTheme($compiler)
+    {
+        $scss = "";
+
+        // Add together all scss files
+        foreach (glob("app/public/css/scss/*.scss") as $file)
+        {
+            $scss .= file_get_contents($file);
+        }
+    
+        // Compile sass files
+        $compiled_css = $compiler->compile($scss);
+
+        // Add comment when file was last modified
+        if (PRINT_COMPILE_DATE_CSS) {
+            $compiled_css .= "\n\n\n/* Generated at: " . date(DATE_FORMAT . " " . TIME_FORMAT) . " */";
+        }
+
+        // Create css files from compiled sass
+        file_put_contents("app/public/css/" . DEFAULT_THEME . ".css", $compiled_css);
+    }
+
+    
+    private static function compileWithTheme($compiler)
+    {
+        $scss = "";
+        
+        // Go through all themes and generate their css
+        foreach (glob("app/public/css/themes/*.scss") as $theme)
+        {
+            // Get theme name
+            $theme_name = str_replace(".scss", "", basename($theme));
+
+            // Add theme variables
+            $scss .= file_get_contents($theme);
+
+            // Add together all scss files
+            foreach (glob("app/public/css/scss/*.scss") as $file)
+            {
+                $scss .= file_get_contents($file);
+            }
+    
+            // Compile sass files
+            $compiled_css = $compiler->compile($scss);
+
+            // Add comment when file was last modified
+            if (PRINT_COMPILE_DATE_CSS) {
+                $compiled_css .= "\n\n\n/* Generated at: " . date(DATE_FORMAT . " " . TIME_FORMAT) . " */";
+            }
+
+            // Create css files from compiled sass
+            file_put_contents("app/public/css/" . $theme_name . ".css", $compiled_css);
         }
     }
 }

@@ -24,10 +24,15 @@ class Database
             createError(["Database Cofiguration Error!", "Database (" . $params["database"] . ") was empty, please double check your config file!"]);
         }
 
-        // Create connection
         try
         {
-            $this->connection = new PDO("mysql:host=" . $databases[$params["database"]]->host . ";dbname=" . $databases[$params["database"]]->database_name . ";", $databases[$params["database"]]->username, $databases[$params["database"]]->password);
+            // Create connection
+            $this->connection = new PDO(
+                "mysql:host=" . $databases[$params["database"]]->host . ";dbname=" . $databases[$params["database"]]->database_name . ";",
+                $databases[$params["database"]]->username,
+                $databases[$params["database"]]->password,
+                [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_EMULATE_PREPARES => false]
+            );
         }
         catch (PDOException $e)
         {

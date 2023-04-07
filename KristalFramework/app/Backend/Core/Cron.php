@@ -4,6 +4,11 @@ defined("ACCESS") or exit("Access Denied");
 
 class Cron
 {
+    const INTERVAL_DAY = 'day';
+    const INTERVAL_WEEK = 'week';
+    const INTERVAL_MONTH = 'month';
+    const INTERVAL_YEAR = 'year';
+
     private $name;
     private $task;
     private $interval;
@@ -12,6 +17,11 @@ class Cron
 
     public function __construct($name, $task, $interval, $run_time = null, $start_date = null)
     {
+        if (!is_string($name) || !is_string($task))
+        {
+            throw new \InvalidArgumentException("Invalid input parameters for Cron class.");
+        }
+
         if (is_array($interval))
         {
             $this->interval = array(
@@ -23,11 +33,21 @@ class Cron
         {
             switch (strtolower($interval))
             {
-                case "daily": $this->interval = array("type" => "day", "amount" => 1); break;
-                case "weekly": $this->interval = array("type" => "week", "amount" => 1); break;
-                case "monthly": $this->interval = array("type" => "month", "amount" => 1); break;
-                case "yearly": $this->interval = array("type" => "year", "amount" => 1); break;
-                default: createError(["invalid interval for cron job: $name", "Value given was $interval"]); break;
+                case "daily":
+                    $this->interval = array("type" => self::INTERVAL_DAY, "amount" => 1);
+                    break;
+                case "weekly":
+                    $this->interval = array("type" => self::INTERVAL_WEEK, "amount" => 1);
+                    break;
+                case "monthly":
+                    $this->interval = array("type" => self::INTERVAL_MONTH, "amount" => 1);
+                    break;
+                case "yearly":
+                    $this->interval = array("type" => self::INTERVAL_YEAR, "amount" => 1);
+                    break;
+                default:
+                    createError(["invalid interval for cron job: $name", "Value given was $interval"]);
+                    break;
             }
         }
 
@@ -51,23 +71,32 @@ class Cron
 
     private function executeTask()
     {
-        include($this->task);
-    }
+        $taskFile = $this->task;
 
+        if (file_exists($taskFile) && is_readable($taskFile))
+        {
+            require_once($taskFile);
+        }
+        else
+        {
+            throw new \RuntimeException("Task file not found or not readable: $taskFile");
+        }
+    }
+    
 
     private function readyToExecute()
     {
         $file = $this->getTaskLocation();
-
+    
         if (file_exists($file))
         {
             $value = include $file;
-
+    
             if ($value === null)
             {
                 return true;
             }
-
+    
             return strtotime(date('Y-m-d H:i:s')) > strtotime($value);
         }
         else
@@ -75,21 +104,16 @@ class Cron
             return true;
         }
     }
-
+    
 
     private function updateTaskTimer()
     {
         $nextRunDate = date("Y-m-d {$this->run_time}", strtotime(date("Y-m-d {$this->run_time}") . "+{$this->interval['amount']} {$this->interval['type']}"));
-
-        $content =  "<?php\n\n" .
-        "// Last run at: " . date('Y-m-d H:i:s') . "\n" .
-        "// Next run at: $nextRunDate" . "\n\n" .
-        "return '$nextRunDate';";
-
+        $content = "<?php\n\n" . "// Last run at: " . date('Y-m-d H:i:s') . "\n" . "// Next run at: $nextRunDate" . "\n\n" . "return '$nextRunDate';";
         file_put_contents($this->getTaskLocation(), $content);
     }
-
-
+    
+    
     private function getTaskLocation()
     {
         return "cron/logs/" . getCleanName($this->name) . ".php";

@@ -13,7 +13,7 @@ class FormRequest
     public function __construct($params = array("allow_protected_calls" => false))
     {
         // Make sure form submit was valid
-        if (isset($_POST["form_request"]) && ($_POST["csrf_token"] === getCSRF($_POST["csrf_identifier"]) || !isset($_POST["csrf_token"])))
+        if (isset($_POST["form_request"]) && isset($_POST["csrf_token"]) && ($_POST["csrf_token"] === getCSRF($_POST["csrf_identifier"]) || !isset($_POST["csrf_token"])))
         {
             if (method_exists($this, $_POST["form_request"]))
             {

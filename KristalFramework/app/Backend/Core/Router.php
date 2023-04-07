@@ -34,11 +34,12 @@ class Router
     {
         // Parse page name and variables from the URL
         $root_url = str_replace("index.php", "", $_SERVER["PHP_SELF"]);
-        $url = str_replace($root_url, "", $_SERVER["REDIRECT_URL"]);
+        $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $url = substr($url, strlen($root_url));
         $url = explode("/", $url);
-        $page = $url[0];
+        $page = strtolower($url[0]);
         unset($url[0]);
-
+    
         $this->routeController($page, $url);
         if (file_exists(page("layouts/footer.php"))) include_once page("layouts/footer.php");
     }

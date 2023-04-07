@@ -2,50 +2,50 @@
 
 
 // Framework settings
-define("VERSION_NUMBER", 1);                            // Framework version you are currently using. WARNING: Changing this variable will download and install the requested version next time when the application is opened
-define("PRODUCTION_MODE", false);                       // Optimizes your application, remember to turn off when editing your page to unlock all the features
-define("MAINTENANCE_MODE", false);                      // Display maintenance page for users while you are working on your website
-define("DISPLAY_HELPER", false);                        // Displays a framework helper during maintenance mode
-define("MAINTENANCE_PASSWORD", "SECURE_PASSWORD");      // Password used to sign in during maintenance mode
+define("VERSION_NUMBER", 1);                                    // Framework version you are currently using. WARNING: Changing this variable will download and install the requested version next time when the application is opened
+define("PRODUCTION_MODE", false);                               // Optimizes your application, remember to turn off when editing your page to unlock all the features
+define("MAINTENANCE_MODE", false);                              // Display maintenance page for users while you are working on your website
+define("DISPLAY_HELPER", false);                                // Displays a framework helper during maintenance mode
+define("MAINTENANCE_PASSWORD", getenv('MAINTENANCE_PASSWORD')); // Password used to sign in during maintenance mode
 
 
 // MySQL Databases
 $databases = array(
     "primary" => (object) array(
-        "host" => "xxxxxxxx",
-        "database_name" => "xxxxxxxx",
-        "username" => "xxxxxxxx",
-        "password" => "xxxxxxxx"
+        "host" => getenv('PRIMARY_DATABASE_HOST'),
+        "database_name" => getenv('PRIMARY_DATABASE_DATABASE_NAME'),
+        "username" => getenv('PRIMARY_DATABASE_USERNAME'),
+        "password" => getenv('PRIMARY_DATABASE_PASSWORD')
     ),
     "secondary" => (object) array(
-        "host" => "xxxxxxxx",
-        "database_name" => "xxxxxxxx",
-        "username" => "xxxxxxxx",
-        "password" => "xxxxxxxx"
+        "host" => getenv('SECONDARY_DATABASE_HOST'),
+        "database_name" => getenv('SECONDARY_DATABASE_DATABASE_NAME'),
+        "username" => getenv('SECONDARY_DATABASE_USERNAME'),
+        "password" => getenv('SECONDARY_DATABASE_PASSWORD')
     ),
     "xxxxxxxx" => (object) array(
-        "host" => "xxxxxxxx",
-        "database_name" => "xxxxxxxx",
-        "username" => "xxxxxxxx",
-        "password" => "xxxxxxxx"
+        "host" => getenv('ADDITIONAL_DATABASE_HOST'),
+        "database_name" => getenv('ADDITIONAL_DATABASE_DATABASE_NAME'),
+        "username" => getenv('ADDITIONAL_DATABASE_USERNAME'),
+        "password" => getenv('ADDITIONAL_DATABASE_PASSWORD')
     ),
 );
 define("DATABASES", serialize($databases));
 
 
 // Session
-define("SESSION_NAME", "xxxxxxxx");                 // Replace this with a randomly generated string (30-50 characters recommended)
-define("SESSION_TIMEOUT", 18000);                   // Session expires after x seconds
-define("SESSION_AFK_TIMEOUT", 3600);                // Session expires after x seconds if user doesn't perform any actions
+define("SESSION_NAME", getenv('ADDITIONAL_DATABASE_PASSWORD')); // Replace this with a randomly generated string (30-50 characters recommended)
+define("SESSION_TIMEOUT", 18000);                               // Session expires after x seconds
+define("SESSION_AFK_TIMEOUT", 3600);                            // Session expires after x seconds if user doesn't perform any actions
 
 
 // Mailer
-define("MAILER_HOST", "xxxxxxxx");                  // Host of the email service
-define("MAILER_EMAIL", "xxxxxxxx");                 // Address of the email account
-define("MAILER_PASSWORD", "xxxxxxxx");              // Password to the email account
-define("MAILER_NAME", "xxxxxxxx");                  // Display name in emails
-define("MAILER_PROTOCOL", "");                      // Common protocols: ssl, leave empty ("") if your email service doesn't use any protection
-define("MAILER_PORT", 465);                         // Common ports: 25, 465, 587 and 2525
+define("MAILER_HOST", getenv('MAILER_HOST'));           // Host of the email service
+define("MAILER_EMAIL", getenv('MAILER_EMAIL'));         // Address of the email account
+define("MAILER_PASSWORD", getenv('MAILER_PASSWORD'));   // Password to the email account
+define("MAILER_NAME", getenv('MAILER_NAME'));           // Display name in emails
+define("MAILER_PROTOCOL", "");                          // Common protocols: ssl, leave empty ("") if your email service doesn't use any protection
+define("MAILER_PORT", 465);                             // Common ports: 25, 465, 587 and 2525
 
 
 // Minify HTML

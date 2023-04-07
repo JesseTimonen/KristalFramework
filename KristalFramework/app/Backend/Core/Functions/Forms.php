@@ -8,21 +8,21 @@ if (!isset($_SESSION["csrf"])) { resetCSRF(); }
 // Reset CSRF
 function resetCSRF()
 {
-    $_SESSION["csrf"] = array("default" => md5(mt_rand()));
+    $_SESSION["csrf"] = array("default" => bin2hex(random_bytes(32)));
 }
 
 
 // Create CSRF token
 function createNewCSRF($identifier = "default")
 {
-    if (!isset($_SESSION["csrf"]))
+    if (!isset($_SESSION["csrf"]) || $_SESSION["csrf"] === null)
     {
         resetCSRF();
     }
-    
+
     $_SESSION["csrf"] = array_merge(
         $_SESSION["csrf"],
-        array($identifier => md5(mt_rand()))
+        array($identifier => bin2hex(random_bytes(32)))
     );
 }
 
