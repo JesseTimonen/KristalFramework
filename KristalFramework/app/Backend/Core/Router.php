@@ -15,12 +15,15 @@ class Router
     protected function __construct()
     {
         // Init form requests
-        if (class_exists("Backend" . DIRECTORY_SEPARATOR . "Controllers" . DIRECTORY_SEPARATOR . "FormRequests")) { new FormRequests(); }
+        if (class_exists("Backend\Controllers\FormRequests"))
+        {
+            new FormRequests();
+        }
 
         // Init Framework helper form requests
         if (DISPLAY_HELPER && MAINTENANCE_MODE && $_SESSION["maintenance_access_granted"])
         {
-            if (class_exists("Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Helper" . DIRECTORY_SEPARATOR . "Actions" . DIRECTORY_SEPARATOR . "FrameworkHelper"))
+            if (class_exists("Backend\Core\Helper\Actions\FrameworkHelper"))
             {
                 new FrameworkHelper();
             }
