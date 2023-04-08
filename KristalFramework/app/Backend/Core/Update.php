@@ -7,9 +7,9 @@ use \ZipArchive;
 class Update
 {
     private $download_source = "https://jessetimonen.fi/kristal/app/public/downloads/updates/Kristal_Framework_Update_" . VERSION_NUMBER . ".zip";
-    private $download_destination = BASE_PATH . "app/Backend/Core/Updates/Kristal_Framework_Update_" . VERSION_NUMBER . ".zip";
-    private $downloaded_files_folder = BASE_PATH . "app/Backend/Core/Updates/Kristal_Framework_Update_" . VERSION_NUMBER . "/";
-    private $extract_folder = BASE_PATH . "app/Backend/Core/Updates/";
+    private $download_destination = BASE_PATH . "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Updates" . DIRECTORY_SEPARATOR . "Kristal_Framework_Update_" . VERSION_NUMBER . ".zip";
+    private $downloaded_files_folder = BASE_PATH . "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Updates" . DIRECTORY_SEPARATOR . "Kristal_Framework_Update_" . VERSION_NUMBER . DIRECTORY_SEPARATOR;
+    private $extract_folder = BASE_PATH . "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Updates" . DIRECTORY_SEPARATOR;
 
 
     public function __construct()
@@ -65,13 +65,13 @@ class Update
     private function overwriteFiles()
     {
         if (file_exists($this->downloaded_files_folder . "LICENSE")) { rename($this->downloaded_files_folder . "LICENSE", BASE_PATH . "LICENSE"); }
-        if (file_exists($this->downloaded_files_folder . "app/public/javascript/core.js")) { rename($this->downloaded_files_folder . "app/public/javascript/core.js", BASE_PATH . "app/public/javascript/core.js"); }
-        $this->overwriteFilesFromFolder("app/public/javascript/core/");
-        $this->overwriteFilesFromFolder("app/Backend/Core/Helper/Actions/");
-        $this->overwriteFilesFromFolder("app/Backend/Core/Helper/templates/");
-        $this->overwriteFilesFromFolder("app/Backend/Core/Helper/");
-        $this->overwriteFilesFromFolder("app/Backend/Core/Functions/");
-        $this->overwriteFilesFromFolder("app/Backend/Core/");
+        if (file_exists($this->downloaded_files_folder . "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "javascript" . DIRECTORY_SEPARATOR . "core.js")) { rename($this->downloaded_files_folder . "app/public/javascript/core.js", BASE_PATH . "app/public/javascript/core.js"); }
+        $this->overwriteFilesFromFolder("app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "javascript" . DIRECTORY_SEPARATOR . "core" . DIRECTORY_SEPARATOR);
+        $this->overwriteFilesFromFolder("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Helper" . DIRECTORY_SEPARATOR . "Actions" . DIRECTORY_SEPARATOR);
+        $this->overwriteFilesFromFolder("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Helper" . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR);
+        $this->overwriteFilesFromFolder("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Helper" . DIRECTORY_SEPARATOR);
+        $this->overwriteFilesFromFolder("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR);
+        $this->overwriteFilesFromFolder("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR);
     }
 
 
@@ -114,10 +114,10 @@ class Update
         // Make sure we are deleting a directory
         if (!is_dir($directory_path)) { return; }
 
-        // Add "/" if needed
-        if (substr($directory_path, strlen($directory_path) - 1, 1) != '/')
+        // Add directory seperator if needed
+        if (substr($directory_path, strlen($directory_path) - 1, 1) != DIRECTORY_SEPARATOR)
         {
-            $directory_path .= '/';
+            $directory_path .= DIRECTORY_SEPARATOR;
         }
 
         // Delete files and folders recursively

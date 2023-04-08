@@ -6,7 +6,7 @@ define("CURRENT_VERSION_NUMBER", 1);
 
 
 // Include cookie settings
-if (file_exists("app/Backend/Core/Env.php")){ require_once "app/Backend/Core/Env.php"; }
+if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Env.php")){ require_once "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Env.php"; }
 
 
 // Include variables from config file
@@ -14,36 +14,36 @@ if (file_exists("config.php")){ require_once "config.php"; }
 
 
 // Include notification helper to display errors
-if (file_exists("app/Backend/Core/Functions/Notifications.php")){ require_once "app/Backend/Core/Functions/Notifications.php"; }
+if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR . "Notifications.php")){ require_once "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR . "Notifications.php"; }
 
 
 // Try to load composer autoload.php, die if failed
-if (file_exists("app/vendor/autoload.php")){ require_once "app/vendor/autoload.php"; }
-else { createError(["Composer autoload was not found!", "Should be located at app/vendor/autoload.php<br>Go to app folder and run 'composer install' command"]); }
+if (file_exists("app" . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php")){ require_once "app" . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php"; }
+else { createError(["Composer autoload was not found!", "Should be located at app" . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php<br>Go to app folder and run 'composer install' command"]); }
 
 
 // Include debug functionality
-if (file_exists("app/Backend/Core/Functions/Debug.php")){ require_once "app/Backend/Core/Functions/Debug.php"; }
+if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR . "Debug.php")){ require_once "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR . "Debug.php"; }
 
 
 // Include framework update check
 if (CURRENT_VERSION_NUMBER !== VERSION_NUMBER && PRODUCTION_MODE == false)
 {
-    if (file_exists("app/Backend/Core/Update.php")){ require_once "app/Backend/Core/Update.php"; }
+    if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Update.php")){ require_once "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Update.php"; }
 }
 
 
 // Include translations
-if (file_exists("app/Backend/Core/Functions/Translator.php")){ require_once "app/Backend/Core/Functions/Translator.php"; }
+if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR . "Translator.php")){ require_once "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR . "Translator.php"; }
 
 
 // Include Helper functions
-if (file_exists("app/Backend/Core/Functions/Helper.php")){ require_once "app/Backend/Core/Functions/Helper.php"; }
-if (file_exists("app/Backend/Core/Functions/commonPasswords.php")){ require_once "app/Backend/Core/Functions/commonPasswords.php"; }
+if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR . "Helper.php")){ require_once "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR . "Helper.php"; }
+if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR . "commonPasswords.php")){ require_once "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR . "commonPasswords.php"; }
 
 
 // Include cookie settings
-if (file_exists("app/Backend/Core/Cookie.php")){ require_once "app/Backend/Core/Cookie.php"; }
+if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Cookie.php")){ require_once "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Cookie.php"; }
 
 
 // Start session
@@ -72,11 +72,11 @@ if (!PRODUCTION_MODE)
 
 
 // Include cross-site request forgery protection
-if (file_exists("app/Backend/Core/Functions/Forms.php")){ require_once "app/Backend/Core/Functions/Forms.php"; }
+if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR . "Forms.php")){ require_once "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR . "Forms.php"; }
 
 
 // Include cron
-if (file_exists("cron/cron.php")){ require_once "cron/cron.php"; }
+if (file_exists("cron" . DIRECTORY_SEPARATOR . "cron.php")){ require_once "cron" . DIRECTORY_SEPARATOR . "cron.php"; }
 
 
 if (MAINTENANCE_MODE === true && !isset($_SESSION["maintenance_access_granted"]))
@@ -98,13 +98,13 @@ if (MAINTENANCE_MODE === true && !isset($_SESSION["maintenance_access_granted"])
     // Display maintenance page if maintenance mode is enabled
     if (!isset($_SESSION["maintenance_access_granted"]))
     {
-        if (!file_exists("app/pages/maintenance/maintenance.php"))
+        if (!file_exists("app" . DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "maintenance" . DIRECTORY_SEPARATOR . "maintenance.php"))
         {
-            createError(["Maintenance page is missing!", "Should be located at app/pages/maintenance/maintenance.php"]);
+            createError(["Maintenance page is missing!", "Should be located at app" . DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "maintenance" . DIRECTORY_SEPARATOR . "maintenance.php"]);
         }
 
         $metadata = unserialize(METADATA);
-        include "app/pages/maintenance/maintenance.php";
+        include "app" . DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "maintenance" . DIRECTORY_SEPARATOR . "maintenance.php";
         exit;
     }
 }

@@ -116,6 +116,6 @@ class Cron
     
     private function getTaskLocation()
     {
-        return "cron/logs/" . getCleanName($this->name) . ".php";
+        return "cron" . DIRECTORY_SEPARATOR . "logs" . DIRECTORY_SEPARATOR . getCleanName($this->name) . ".php";
     }
 }

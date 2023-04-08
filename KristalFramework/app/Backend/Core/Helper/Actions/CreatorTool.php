@@ -75,11 +75,11 @@ class CreatorTool
         }
 
         // Write entity
-        if (!file_exists("app/Backend/Entities/" . $name . ".php"))
+        if (!file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Entities" . DIRECTORY_SEPARATOR . $name . ".php"))
         {
             try
             {
-                file_put_contents("app/Backend/Entities/" . $name . ".php", $template);
+                file_put_contents("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Entities" . DIRECTORY_SEPARATOR . $name . ".php", $template);
                 createNotification("Entity $name has been created successfully!", true);
             }
             catch (Exception $e)
@@ -100,20 +100,20 @@ class CreatorTool
         $name = getPureName(ucfirst(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS)));
 
         // Get template
-        if (file_exists("app/Backend/Core/Helper/templates/controller"))
+        if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Helper" . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . "controller"))
         {
-            $template = file_get_contents("app/Backend/Core/Helper/templates/controller");
+            $template = file_get_contents("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Helper" . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . "controller");
         }
 
         // Insert variables to template
         $template = str_replace("{{ name }}", $name, $template);
 
         // Write controller
-        if (!file_exists("app/Backend/Controllers/" . $name . ".php"))
+        if (!file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Controllers" . DIRECTORY_SEPARATOR . $name . ".php"))
         {
             try
             {
-                file_put_contents("app/Backend/Controllers/" . $name . ".php", $template);
+                file_put_contents("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Controllers" . DIRECTORY_SEPARATOR . $name . ".php", $template);
                 createNotification("Controller $name has been created successfully!", true);
             }
             catch (Exception $e)

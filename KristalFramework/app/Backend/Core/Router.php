@@ -15,12 +15,12 @@ class Router
     protected function __construct()
     {
         // Init form requests
-        if (class_exists("Backend\Controllers\FormRequests")) { new FormRequests(); }
+        if (class_exists("Backend" . DIRECTORY_SEPARATOR . "Controllers" . DIRECTORY_SEPARATOR . "FormRequests")) { new FormRequests(); }
 
         // Init Framework helper form requests
         if (DISPLAY_HELPER && MAINTENANCE_MODE && $_SESSION["maintenance_access_granted"])
         {
-            if (class_exists("Backend\Core\Helper\Actions\FrameworkHelper"))
+            if (class_exists("Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Helper" . DIRECTORY_SEPARATOR . "Actions" . DIRECTORY_SEPARATOR . "FrameworkHelper"))
             {
                 new FrameworkHelper();
             }
@@ -51,7 +51,7 @@ class Router
         }
 
         $this->routeController($page, $sanitizedVariables);
-        if (file_exists(page("layouts/footer.php"))) include_once page("layouts/footer.php");
+        if (file_exists(page("layouts" . DIRECTORY_SEPARATOR . "footer.php"))) include_once page("layouts" . DIRECTORY_SEPARATOR . "footer.php");
     }
 
 
@@ -73,8 +73,8 @@ class Router
         }
 
         // Include essential page sections
-        if (file_exists(page("layouts/header.php"))) include_once page("layouts/header.php");
-        if (file_exists("app/Backend/Core/Helper/frameworkHelper.php") && DISPLAY_HELPER && MAINTENANCE_MODE && $_SESSION["maintenance_access_granted"]) include_once "app/Backend/Core/Helper/frameworkHelper.php";
+        if (file_exists(page("layouts" . DIRECTORY_SEPARATOR . "header.php"))) include_once page("layouts" . DIRECTORY_SEPARATOR . "header.php");
+        if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Helper" . DIRECTORY_SEPARATOR . "frameworkHelper.php") && DISPLAY_HELPER && MAINTENANCE_MODE && $_SESSION["maintenance_access_granted"]) include_once "app/Backend/Core/Helper/frameworkHelper.php";
 
         // Add PHP variables to be used by JavaScript
         PHPJS::addJSVariable([
@@ -103,7 +103,7 @@ class Router
         $this->preRender();
 
         // Include blocks
-        foreach (glob("app/Backend/Blocks/*.php") as $block)
+        foreach (glob("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Blocks" . DIRECTORY_SEPARATOR . "*.php") as $block)
         {
             if (file_exists($block)) include_once $block;
         }
