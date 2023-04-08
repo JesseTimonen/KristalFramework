@@ -29,6 +29,10 @@ class Session
             $IP_address_list = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
             $IP_address = trim(end($IP_address_list));
         }
+        else if (isset($_SERVER['HTTP_CLIENT_IP']))
+        {
+            $IP_address = $_SERVER['HTTP_CLIENT_IP'];
+        }
         else if (isset($_SERVER['REMOTE_ADDR']))
         {
             $IP_address = $_SERVER['REMOTE_ADDR'];
@@ -41,7 +45,7 @@ class Session
         else
         {
             // Invalid IP address
-            return false;
+            return "unknown";
         }
     }
 

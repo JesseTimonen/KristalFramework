@@ -21,31 +21,29 @@ CHANGE LANGUAGES
 \*======================================================================================================================= */
 
 
-var language;							// Language used to translate texts
-var translations;						// Contains the data received from translations.json
-var language_key = "JT_Language";		// Language settings are saved under this name to local storage
+const language_key = "Kristal_Language";  // Language settings are saved under this name to local storage
+let language;                             // Language used to translate texts
+let translations;                         // Contains the data received from translations.json
+let url = "";
 
 
 $(document).ready(function()
 {
 	language = localStorage[language_key] || getVariable("language") || "en";
-	var url = getVariable("baseURL") + "/app/public/translations/translations.json";
+	url = getVariable("baseURL") + "/app/public/translations/translations.json";
 
 	// Prevent cache if production mode is disable
-	if (getVariable("production_mode") == "false")
+	if (getVariable("production_mode") === "false")
 	{
-		random = Math.round(Math.random() * (999999 - 1)) + 1;
+		const random = Math.round(Math.random() * (999999 - 1)) + 1;
 		url += "?" + random;
 	}
 	
 	// Get translations from json file
-	$.getJSON(url, function(data)
-	{
+	$.getJSON(url, (data) => {
 		translations = data;
 		initLanguage();
-	})
-	.fail(function()
-	{
+	}).fail(() => {
 		console.error("Failed to find translations file!\n\nTried to look at url:\n" + url + "\n\nAlternatively you may have an error in your json format!");
 	});
 });
@@ -54,13 +52,12 @@ $(document).ready(function()
 function initLanguage()
 {
 	updateLanguages();
-	
-	// Add listener to language buttons
+
 	$("[switchLanguage]").click(function(event)
 	{
 		event.preventDefault();
 		$("#" + language + "-button").removeClass("active");	// Remove active class from previous language
-		language = $(this).attr("switchLanguage");				// Get new language
+		language = $(event.target).attr("switchLanguage");		// Get new language
 		localStorage[language_key] = language;					// Store language to local storage
 		updateLanguages();
 	});
@@ -102,7 +99,7 @@ jQuery.fn.translate = function(key)
 	// Make sure translation for requested key exists
 	if (translations.hasOwnProperty(key))
 	{
-		if ($(this).is(":input") && typeof $(this).prop("placeholder") !== undefined && $(this).prop("placeholder") != false)
+		if (($(this).is(":input") && typeof $(this).prop("placeholder") !== undefined) || $(this).prop("placeholder") !== false)
 		{
 			$(this).prop("placeholder", translations[key][language]);
 		}

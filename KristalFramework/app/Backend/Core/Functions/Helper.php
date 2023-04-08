@@ -3,28 +3,18 @@
 
 function asset($folder, $file, array $params = array("path" => "url"))
 {
+    $appPublicPath = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR;
+
     // Find files using only its name
-    if (!file_exists("app/public/$folder/$file") && !empty($files = glob("app/public/$folder/$file*")))
+    if (!file_exists($appPublicPath . $folder . DIRECTORY_SEPARATOR . $file) && !empty($files = glob($appPublicPath . $folder . DIRECTORY_SEPARATOR . $file . "*")))
     {
-        if (strtolower($params["path"]) === "url")
-        {
-            return BASE_URL . $files[0];
-        }
-        else
-        {
-            return $files[0];
-        }
+        $path = strtolower($params["path"]) === "url" ? BASE_URL . $files[0] : $files[0];
+        return $path;
     }
 
     // Return file normally
-    if (strtolower($params["path"]) === "url")
-    {
-        return BASE_URL . "app/public/$folder/$file";
-    }
-    else
-    {
-        return "app/public/$folder/$file";
-    }
+    $path = strtolower($params["path"]) === "url" ? BASE_URL . $appPublicPath . $folder . DIRECTORY_SEPARATOR . $file : $appPublicPath . $folder . DIRECTORY_SEPARATOR . $file;
+    return $path;
 }
 
 // ============================================================================================================== \\
@@ -36,9 +26,9 @@ function image($file, array $params = array("path" => "url"))
 
 function thumbnail($file_path, array $params = array("path" => "url"))
 {
-    $thumbnail_path = str_replace("app/public/images/", "", $file_path);
-    $thumbnail_path = str_replace("/", "-", $thumbnail_path);
-    $thumbnail_path = "app/Backend/Core/thumbnails/" . $thumbnail_path;
+    $thumbnail_path = str_replace("app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "images" . DIRECTORY_SEPARATOR, "", $file_path);
+    $thumbnail_path = str_replace(DIRECTORY_SEPARATOR, "-", $thumbnail_path);
+    $thumbnail_path = "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "thumbnails" . DIRECTORY_SEPARATOR . $thumbnail_path;
 
     if (!file_exists($thumbnail_path))
     {
@@ -60,17 +50,20 @@ function thumbnail($file_path, array $params = array("path" => "url"))
         imagecopyresampled($thumbnail, $original, 0, 0, 0, 0, 150, 150, $size[0], $size[1]);
 
         // Save thumbnail
+        $result = null;
+
         switch ($mime)
         {
-            case 'image/jpeg' : imagejpeg($thumbnail, $thumbnail_path); break;
-            case 'image/png' : imagepng($thumbnail, $thumbnail_path); break;
-            case 'image/gif' : imagegif($thumbnail, $thumbnail_path); break;
-            case 'image/webp' : imagewebp($thumbnail, $thumbnail_path); break;
-            default: return null;
+            case 'image/jpeg' : imagejpeg($thumbnail, $thumbnail_path); $result = $thumbnail_path; break;
+            case 'image/png' : imagepng($thumbnail, $thumbnail_path); $result = $thumbnail_path; break;
+            case 'image/gif' : imagegif($thumbnail, $thumbnail_path); $result = $thumbnail_path; break;
+            case 'image/webp' : imagewebp($thumbnail, $thumbnail_path); $result = $thumbnail_path; break;
         }
 
         // Free memory
         imagedestroy($original); imagedestroy($thumbnail);
+
+        return $result ? getURL($result) : null;
     }
 
     return getURL($thumbnail_path);
@@ -111,12 +104,13 @@ function page($file)
 function pageExists($page)
 {
     // Make sure page is a php file
-    if (substr($page, -4) !== ".php")
+    $fileInfo = pathinfo($page);
+    if ($fileInfo['extension'] !== "php")
     {
         $page .= ".php";
     }
-    
-    return file_exists("app/pages/$page");
+
+    return file_exists("app" . DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . $page);
 }
 
 // ============================================================================================================== \\

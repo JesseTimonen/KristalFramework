@@ -30,7 +30,7 @@
         <script src = "<?= js("main.js"); ?>"></script>
 
         <!-- Page Information -->
-        <title><?php if (isset($metadata[$page]->title)) { echo $metadata[$page]->title; } else if (isset($metadata["*"]->title)) { echo $metadata["*"]->title; } ?></title>
+        <title><?= htmlspecialchars(isset($metadata[$page]->title) ? $metadata[$page]->title : (isset($metadata["*"]->title) ? $metadata["*"]->title : '')) ?></title>
         <link rel = "icon" type = "image/gif" href = "<?= image("icon_website.png"); ?>" />
 
         <!-- Element to hold all PHP set JavaScript variables -->

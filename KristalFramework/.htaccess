@@ -5,7 +5,7 @@ RewriteBase /
 #========================#
 # Force HTTPS Connection #
 #========================#
-RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI}
 
 
@@ -24,19 +24,10 @@ php_flag  display_errors    on
 php_value error_reporting   2039
 
 
-#====================#
-# Protect File Types #
-#====================#
-<Files ~ "\.(htaccess|htpasswd|ini|php|sql|lock)$">
-    Order Allow,Deny
-    Deny from all
-</Files>
-
-
 #========================#
 # Protect Specific Files #
 #========================#
-<FilesMatch "composer.json|README|LICENSE">
+<FilesMatch "\.(htaccess|htpasswd|env|ini|php|sql|lock|composer\.json|README|LICENSE)$">
     Order Allow,Deny
     Deny from all
 </FilesMatch>

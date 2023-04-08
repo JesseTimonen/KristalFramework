@@ -3,7 +3,7 @@
 	<div class = "container-fluid">
 
 		<a class = "navbar-brand" href = "<?= route(""); ?>">
-			<img src = "<?= image("icon_website.png"); ?>" alt = "" width = "50" height = "50" class = "d-inline-block align-text-top">
+			<img src = "<?= htmlspecialchars(image("icon_website.png")) ?>" alt = "Website Icon" width = "50" height = "50" class = "d-inline-block align-text-top">
 			<p>Kristal Framework</p>
 		</a>
 
@@ -35,8 +35,8 @@
 
 	<!-- language settings -->
 	<div id = "language-container">
-		<a class = "nav-link select-language" id = "fi-button" switchLanguage = "fi">FI</a>
-		<a class = "nav-link select-language" id = "en-button" switchLanguage = "en">EN</a>
+		<a class = "nav-link select-language" id = "fi-button" role="button" switchLanguage = "fi">FI</a>
+		<a class = "nav-link select-language" id = "en-button" role="button" switchLanguage = "en">EN</a>
 	</div>
 
 </nav>

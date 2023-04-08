@@ -6,6 +6,12 @@ use ScssPhp\ScssPhp\Compiler;
 
 final class SCSS_Compiler
 {
+    private static $themes_folder_path = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "css" . DIRECTORY_SEPARATOR . "themes" . DIRECTORY_SEPARATOR . "*.scss";
+    private static $scss_folder_path = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "css" . DIRECTORY_SEPARATOR . "scss" . DIRECTORY_SEPARATOR . "*.scss";
+    private static $compiled_css_folder_path = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "css" . DIRECTORY_SEPARATOR;
+    private static $core_scss_folder_path = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "css" . DIRECTORY_SEPARATOR . "core" . DIRECTORY_SEPARATOR . "*.scss";
+
+
     public static function compile()
     {
         $compiler = new Compiler();
@@ -20,7 +26,7 @@ final class SCSS_Compiler
             default: $compiler->setFormatter("ScssPhp\ScssPhp\Formatter\Compressed"); break;
         }
 
-        if (empty(glob("app/public/css/themes/*.scss")))
+        if (empty(glob(self::$themes_folder_path)))
         {
             if (self::shouldCompileWithoutTheme())
             {
@@ -39,9 +45,17 @@ final class SCSS_Compiler
 
     private static function shouldCompileWithoutTheme()
     {
-        $compiled_file_mtime = file_exists("app/public/css/" . DEFAULT_THEME . ".css") ? filemtime("app/public/css/" . DEFAULT_THEME . ".css") : 0;
+        $compiled_file_mtime = file_exists(self::$compiled_css_folder_path . DEFAULT_THEME . ".css") ? filemtime(self::$compiled_css_folder_path . DEFAULT_THEME . ".css") : 0;
 
-        foreach (glob("app/public/css/scss/*.scss") as $element)
+        foreach (glob(self::$scss_folder_path) as $element)
+        {
+            if (filemtime($element) > $compiled_file_mtime)
+            {
+                return true;
+            }
+        }
+
+        foreach (glob(self::$core_scss_folder_path) as $element)
         {
             if (filemtime($element) > $compiled_file_mtime)
             {
@@ -55,18 +69,26 @@ final class SCSS_Compiler
 
     private static function shouldCompileWithTheme()
     {
-        foreach (glob("app/public/css/themes/*.scss") as $theme)
+        foreach (glob(self::$themes_folder_path) as $theme)
         {
             $theme_name = str_replace(".scss", "", basename($theme));
 
-            if (filemtime($theme) > filemtime("app/public/css/" . $theme_name . ".css"))
+            if (filemtime($theme) > filemtime(self::$compiled_css_folder_path . $theme_name . ".css"))
             {
                 return true;
             }
 
-            foreach (glob("app/public/css/scss/*.scss") as $scss_file)
+            foreach (glob(self::$scss_folder_path) as $scss_file)
             {
-                if (filemtime($scss_file) > filemtime("app/public/css/" . $theme_name . ".css"))
+                if (filemtime($scss_file) > filemtime(self::$compiled_css_folder_path . $theme_name . ".css"))
+                {
+                    return true;
+                }
+            }
+
+            foreach (glob(self::$core_scss_folder_path) as $core_scss_file)
+            {
+                if (filemtime($core_scss_file) > filemtime(self::$compiled_css_folder_path . $theme_name . ".css"))
                 {
                     return true;
                 }
@@ -81,8 +103,14 @@ final class SCSS_Compiler
     {
         $scss = "";
 
+        // Add together all core scss files
+        foreach (glob(self::$core_scss_folder_path) as $file)
+        {
+            $scss .= file_get_contents($file);
+        }
+
         // Add together all scss files
-        foreach (glob("app/public/css/scss/*.scss") as $file)
+        foreach (glob(self::$scss_folder_path) as $file)
         {
             $scss .= file_get_contents($file);
         }
@@ -96,7 +124,7 @@ final class SCSS_Compiler
         }
 
         // Create css files from compiled sass
-        file_put_contents("app/public/css/" . DEFAULT_THEME . ".css", $compiled_css);
+        file_put_contents(self::$compiled_css_folder_path . DEFAULT_THEME . ".css", $compiled_css);
     }
 
     
@@ -105,7 +133,7 @@ final class SCSS_Compiler
         $scss = "";
         
         // Go through all themes and generate their css
-        foreach (glob("app/public/css/themes/*.scss") as $theme)
+        foreach (glob(self::$themes_folder_path) as $theme)
         {
             // Get theme name
             $theme_name = str_replace(".scss", "", basename($theme));
@@ -113,8 +141,14 @@ final class SCSS_Compiler
             // Add theme variables
             $scss .= file_get_contents($theme);
 
+            // Add together all core scss files
+            foreach (glob(self::$core_scss_folder_path) as $file)
+            {
+                $scss .= file_get_contents($file);
+            }
+
             // Add together all scss files
-            foreach (glob("app/public/css/scss/*.scss") as $file)
+            foreach (glob(self::$scss_folder_path) as $file)
             {
                 $scss .= file_get_contents($file);
             }
@@ -128,7 +162,7 @@ final class SCSS_Compiler
             }
 
             // Create css files from compiled sass
-            file_put_contents("app/public/css/" . $theme_name . ".css", $compiled_css);
+            file_put_contents(self::$compiled_css_folder_path . $theme_name . ".css", $compiled_css);
         }
     }
 }

@@ -13,27 +13,19 @@ final class JS_Compiler
 
         foreach ($js_bundles as $container => $files)
         {
-            $should_compile = false;
-
-            // Make sure containers get .js file extension
-            if (substr($container, -3) !== ".js")
-            {
-                $container .= ".js";
-            }
-
-            $compiled_file_path = "app/public/javascript/" . $container;
+            $container = self::ensureJsExtension($container);
+            $compiled_file_path = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "javascript" . DIRECTORY_SEPARATOR . $container;
             $compiled_file_mtime = file_exists($compiled_file_path) ? filemtime($compiled_file_path) : 0;
+
+            $should_compile = false;
 
             foreach ($files as $file)
             {
-                // Make sure file is a JavaScript file
-                if (substr($file, -3) !== ".js")
-                {
-                    $file .= ".js";
-                }
-
                 // Check is any js file updated since last JS compile
-                $file_path = "app/public/javascript/" . $file;
+                $file = self::ensureJsExtension($file);
+                $file_path = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "javascript" . DIRECTORY_SEPARATOR . $file;
+                 
+                // Check is any js file updated since last JS compile
                 if (file_exists($file_path) && filemtime($file_path) > $compiled_file_mtime)
                 {
                     $should_compile = true;
@@ -47,13 +39,8 @@ final class JS_Compiler
 
                 foreach ($files as $file)
                 {
-                    // Make sure file is a JavaScript file
-                    if (substr($file, -3) !== ".js")
-                    {
-                        $file .= ".js";
-                    }
-
-                    $path = "app/public/javascript/" . $file;
+                    $file = self::ensureJsExtension($file);
+                    $path = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "javascript" . DIRECTORY_SEPARATOR . $file;
                     $js = file_get_contents($path);
                     $compiled_js .= $compiler->squeeze($js,
                         true,   // $singleLine
@@ -70,5 +57,11 @@ final class JS_Compiler
                 file_put_contents($compiled_file_path, $compiled_js);
             }
         }
+    }
+
+    
+    private static function ensureJsExtension($filename)
+    {
+        return substr($filename, -3) !== '.js' ? $filename . '.js' : $filename;
     }
 }

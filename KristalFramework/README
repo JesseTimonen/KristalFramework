@@ -30,7 +30,7 @@ Only use this framework to mess around with it's features.
 
 ## Installing
 
-1. Upload the files (which are inside KristalFramework folder) to a server or developement environment.
+1. Upload the files (which are inside KristalFramework folder) to a server or development environment.
 2. Run composer install to install dependencies from app/composer.json file.
 
 After completing these steps you should now be able to access the built-in demo page by going to your server's URL.

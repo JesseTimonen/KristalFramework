@@ -160,7 +160,7 @@ $(document).ready(function ()
     $(".import-database-action-link").click(function(event)
     {
         event.preventDefault();
-        if ($(this).html() == "None Selected")
+        if ($(this).text() == "None Selected")
         {
             $("input[id='helper-choose-database-import']").click();
             return;
@@ -172,7 +172,7 @@ $(document).ready(function ()
     {
         event.preventDefault();
         document.getElementById("helper-choose-database-import").value = "";
-        $(".import-database-action-link").html("None Selected");
+        $(".import-database-action-link").text("None Selected");
         $("#action-import-database-link").toggleClass("active");
         $("#actions-import-database").slideToggle(300);
         $("#action-database-backup-link").toggle(300);
@@ -237,7 +237,7 @@ $(document).ready(function ()
     // Add required attribute to form inputs when needed
     $(".field-name").keyup(function()
     {
-        index = $(this).attr("name").slice(-1);
+        var index = $(this).attr("name").slice(-1);
         if (isNaN(index)){ return; }
 
         if ($(this).val() == "")
@@ -338,11 +338,13 @@ $(document).ready(function ()
 
     /* ====================================== API Calls ===================================== */
     // Get current version of the framework and update version message
-    current_version = "1";
+    var current_version = "1";
     $.ajax({
         url: "https://www.jessetimonen.fi/kristal/api/get_version",
         success: function(version)
         {
+            console.log(current_version);
+            console.log(version);
             if (current_version == version)
             {
                 $("#framework-version-message").html("You are using Kristal Framework version " + current_version + " <label style = 'color: gray; padding-left: 10px;'>(Your version is up to date)</label>");
@@ -402,10 +404,10 @@ function updateDatabaseImportFile()
             filename = filename.substring(1);
         }
 
-        $(".import-database-action-link").html("Import " + filename);
+        $(".import-database-action-link").text("Import " + filename);
     }
     else
     {
-        $(".import-database-action-link").html("None Selected");
+        $(".import-database-action-link").text("None Selected");
     }
 }

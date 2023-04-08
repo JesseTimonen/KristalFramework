@@ -8,10 +8,10 @@ class ImportDatabase extends Database
 {
     public function __construct($file)
     {
-        // This action can only be performed during developement mode
+        // This action can only be performed during development mode
         if (MAINTENANCE_MODE !== true)
         {
-            createError("This action can only be performed while developement mode is active!", true);
+            createError("This action can only be performed while development mode is active!", true);
         }
 
         // Get primary database
@@ -41,6 +41,13 @@ class ImportDatabase extends Database
             if ($file_extension !== "sql")
             {
                 createError(["Imported file needs to be in 'sql' format!", "Given file was in '$file_extension' format"]);
+            }
+
+
+            $finfo = new \finfo(FILEINFO_MIME_TYPE);
+            $mime_type = $finfo->file($file["tmp_name"]);
+            if ($mime_type !== "text/plain" && $mime_type !== "application/sql") {
+                createError(["Imported file needs to be in 'sql' format!", "Given file MIME type was '$mime_type'"]);
             }
 
 

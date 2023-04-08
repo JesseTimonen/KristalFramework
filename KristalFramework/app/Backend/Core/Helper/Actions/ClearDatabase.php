@@ -8,10 +8,10 @@ class ClearDatabase extends Database
 {
     public function __construct($database)
     {
-        // This action can only be performed during developement mode
+        // This action can only be performed during development mode
         if (MAINTENANCE_MODE !== true)
         {
-            createError("This action can only be performed while developement mode is active!", true);
+            createError("This action can only be performed while development mode is active!", true);
         }
 
         parent::__construct(["database" => $database]);

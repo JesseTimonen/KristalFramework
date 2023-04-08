@@ -12,9 +12,13 @@ class FrameworkHelper extends FormRequest
 {
     public function __construct()
     {
-        if ($_SESSION["maintenance_access_granted"] === true && MAINTENANCE_MODE === true && password_verify(SESSION_NAME . getCSRF($_POST["csrf_identifier"]) . $_SESSION["IP_address"], $_POST["authentication"]))
+        if ($_SESSION["maintenance_access_granted"] === true && MAINTENANCE_MODE === true && !empty($_POST["csrf_identifier"]) && filter_var($_SESSION["IP_address"], FILTER_VALIDATE_IP))
         {
-            parent::__construct(["allow_protected_calls" => true]);
+            $csrfToken = getCSRF($_POST["csrf_identifier"]);
+        
+            if (!empty($csrfToken) && password_verify(SESSION_NAME . $csrfToken . $_SESSION["IP_address"], $_POST["authentication"])) {
+                parent::__construct(["allow_protected_calls" => true]);
+            }
         }
     }
 

@@ -4,10 +4,10 @@ defined("ACCESS") or exit("Access Denied");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-
 class Mailer
 {
     private $mailer;
+    private static $email_template_path = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "emails" . DIRECTORY_SEPARATOR;
 
 
     public function __construct()
@@ -26,14 +26,14 @@ class Mailer
             $this->mailer->Password = MAILER_PASSWORD;
             $this->mailer->setFrom(MAILER_EMAIL, MAILER_NAME);
         }
-        catch (phpmailerException $e)
+        catch (Exception $e)
         {
-            createError(["Fatal Mailer Error!", $e->errorMessage()], true);
+            createError(["Fatal Mailer Error!", $e->getMessage()], true);
             return false;
         }
     }
 
-
+    
     public function send($receivers, $title, $content, array $variables = null)
     {
         try
@@ -57,29 +57,33 @@ class Mailer
             }
 
             // Get email template
-            $email = file_get_contents("app/public/emails/" . $content);
+            $email = file_get_contents(self::$email_template_path . $content);
 
             // Include variables passed to email
             if (!empty($variables))
             {
+                $search = [];
+                $replace = [];
                 foreach ($variables as $key => $value)
                 {
-                    $email = str_replace("{{ $key }}", $value, $email);
-                    $email = str_replace("{{$key }}", $value, $email);
-                    $email = str_replace("{{ $key}}", $value, $email);
-                    $email = str_replace("{{$key}}", $value, $email);
+                    $search[] = "{{ $key }}";
+                    $replace[] = $value;
                 }
+                $email = str_replace($search, $replace, $email);
             }
 
             // Send mail
             $this->mailer->Subject = $title;
             $this->mailer->Body = $email;
             $this->mailer->send();
+            
+            // Clear recipients for next send
+            $this->mailer->clearAddresses();
             return true;
         }
-        catch (phpmailerException $e)
+        catch (Exception $e)
         {
-            createError(["Fatal Mailer Error!", $e->errorMessage()], true);
+            createError(["Fatal Mailer Error!", $e->getMessage()], true);
             return false;
         }
     }

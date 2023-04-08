@@ -4,6 +4,7 @@ defined("ACCESS") or exit("Access Denied");
 use Backend\Controllers\FormRequests;
 use Backend\Core\Helper\Actions\FrameworkHelper;
 use Backend\Core\PHPJS;
+use voku\helper\HtmlMin;
 
 
 class Router
@@ -39,8 +40,17 @@ class Router
         $url = explode("/", $url);
         $page = strtolower($url[0]);
         unset($url[0]);
-    
-        $this->routeController($page, $url);
+
+        // Sanitize the page variable
+        $page = htmlspecialchars($page, ENT_QUOTES, 'UTF-8');
+
+        // Validate and sanitize URL variables
+        $sanitizedVariables = [];
+        foreach ($url as $key => $value) {
+            $sanitizedVariables[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        }
+
+        $this->routeController($page, $sanitizedVariables);
         if (file_exists(page("layouts/footer.php"))) include_once page("layouts/footer.php");
     }
 
@@ -76,20 +86,8 @@ class Router
 
     private function minifyHTML($buffer)
     {
-        $replace = array(
-            '/\>[^\S ]+/s' => '>',      // strip whitespaces after tags, except space
-            '/[^\S ]+\</s' => '<',      // strip whitespaces before tags, except space
-            '/(\s)+/s' => '\\1',        // shorten multiple whitespace sequences
-            '/<!--(.|\s)*?-->/' => '',  // Remove HTML comments
-            "/ = '/" => "='",           // Remove whitespaces around '='
-            '/ = "/' => '="',           // Remove whitespaces around '='
-            "/= '/" => "='",            // Remove whitespaces around '='
-            '/= "/' => '="',            // Remove whitespaces around '='
-            "/ ='/" => "='",            // Remove whitespaces around '='
-            '/ ="/' => '="'             // Remove whitespaces around '='
-        );
-
-        return preg_replace(array_keys($replace), array_values($replace), $buffer);
+        $minified_HTML = new HtmlMin();
+        return $minified_HTML->minify($buffer);
     }
 
 

@@ -66,10 +66,10 @@
 
         <!-- Social links -->
         <div class = "social-icons center">
-            <a href = "https://www.facebook.com" target = "_blank" data-toggle = "tooltip" title = "Facebook"><img border = "0" alt = "" src = "<?= image("logos/facebook.png"); ?>" width = "32" height = "32"></a>
-            <a href = "https://www.twitter.com" target = "_blank" data-toggle = "tooltip" title = "Twitter"><img border = "0" alt = "" src = "<?= image("logos/twitter.png"); ?>" width = "40" height = "40"></a>
-            <a href = "mailto:example.email@example.com" target = "_blank" data-toggle = "tooltip" title = "Email"><img border = "0" alt = "" src = "<?= image("logos/email.png"); ?>" width = "40" height = "40"></a>
-            <a href = "https://www.youtube.com" target = "_blank" data-toggle = "tooltip" title = "Youtube"><img border = "0" alt = "" src = "<?= image("logos/youtube.png"); ?>" width = "40" height = "40"></a>
+            <a href = "https://www.facebook.com" target = "_blank" data-toggle = "tooltip" title = "Facebook"><img border = "0" alt="Facebook Logo" src = "<?= htmlspecialchars(image("logos/facebook.png")) ?>" width = "32" height = "32"></a>
+            <a href = "https://www.twitter.com" target = "_blank" data-toggle = "tooltip" title = "Twitter"><img border = "0" alt="Twitter Logo" src = "<?= htmlspecialchars(image("logos/twitter.png")) ?>" width = "40" height = "40"></a>
+            <a href = "mailto:example.email@example.com" target = "_blank" data-toggle = "tooltip" title = "Email"><img border = "0" alt="Email Logo" src = "<?= htmlspecialchars(image("logos/email.png")) ?>" width = "40" height = "40"></a>
+            <a href = "https://www.youtube.com" target = "_blank" data-toggle = "tooltip" title = "Youtube"><img border = "0" alt="Youtube Logo" src = "<?= htmlspecialchars(image("logos/youtube.png")) ?>" width = "40" height = "40"></a>
         </div>
 
     </body>

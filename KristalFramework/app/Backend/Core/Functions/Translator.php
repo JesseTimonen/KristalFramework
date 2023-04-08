@@ -36,9 +36,11 @@ function translate($translation_key, $variables = array(""), $output = false)
     global $translations;
     if (!isset($translations))
     {
-        if (file_exists("app/public/translations/translations.php"))
+        $translationsFilePath = 'app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'translations' . DIRECTORY_SEPARATOR . 'translations.php';
+    
+        if (file_exists($translationsFilePath))
         {
-            $translations = include "app/public/translations/translations.php";
+            $translations = include $translationsFilePath;
         }
         else
         {
@@ -53,12 +55,7 @@ function translate($translation_key, $variables = array(""), $output = false)
     }
 
     // Get translation language
-    global $language;
-    if (!isset($language))
-    {
-        $language = (isset($_SESSION["translation_language"])) ? $_SESSION["translation_language"] : DEFAULT_LANGUAGE;
-    }
-
+    $language = getLanguage();
 
     // Check is translation found
     if (!array_key_exists($translation_key, $translations))
