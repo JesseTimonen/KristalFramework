@@ -99,17 +99,13 @@ jQuery.fn.translate = function(key)
 	// Make sure translation for requested key exists
 	if (translations.hasOwnProperty(key))
 	{
-		if (($(this).is(":input") && typeof $(this).prop("placeholder") !== undefined) || $(this).prop("placeholder") !== false)
+		if (($(this).is(":input") && $(this).attr('placeholder') !== undefined))
 		{
 			$(this).prop("placeholder", translations[key][language]);
 		}
-
-		if ($(this).is(":submit") || $(this).is(":button"))
-		{
-			$(this).prop("value", translations[key][language]);
+		else {
+			$(this).html(translations[key][language]);
 		}
-
-		$(this).html(translations[key][language]);
 	}
 	else
 	{

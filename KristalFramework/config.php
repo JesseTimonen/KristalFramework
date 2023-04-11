@@ -2,11 +2,11 @@
 
 
 // Framework settings
-define("VERSION_NUMBER", 1);                                    // Framework version you are currently using. WARNING: Changing this variable will download and install the requested version next time when the application is opened
-define("PRODUCTION_MODE", false);                               // Optimizes your application, remember to turn off when editing your page to unlock all the features
-define("MAINTENANCE_MODE", false);                              // Display maintenance page for users while you are working on your website
-define("DISPLAY_HELPER", false);                                // Displays a framework helper during maintenance mode
-define("MAINTENANCE_PASSWORD", getenv('MAINTENANCE_PASSWORD')); // Password used to sign in during maintenance mode
+define("VERSION_NUMBER", 1);                            // Framework version you are currently using. WARNING: Changing this variable will download and install the requested version next time when the application is opened
+define("PRODUCTION_MODE", false);                       // Optimizes your application, remember to turn off when editing your page to unlock all the features
+define("MAINTENANCE_MODE", false);                      // Display maintenance page for users while you are working on your website
+define("DISPLAY_HELPER", false);                        // Displays a framework helper during maintenance mode
+define("MAINTENANCE_PASSWORD", getenv('MAINTENANCE_PASSWORD'));
 
 
 // MySQL Databases
@@ -34,18 +34,18 @@ define("DATABASES", serialize($databases));
 
 
 // Session
-define("SESSION_NAME", getenv('SESSION_NAME'));         // Replace this with a randomly generated string (30-50 characters recommended)
-define("SESSION_TIMEOUT", 18000);                       // Session expires after x seconds
-define("SESSION_AFK_TIMEOUT", 3600);                    // Session expires after x seconds if user doesn't perform any actions
+define("SESSION_NAME", getenv('SESSION_NAME'));
+define("SESSION_TIMEOUT", getenv('SESSION_TIMEOUT'));
+define("SESSION_AFK_TIMEOUT", getenv('SESSION_AFK_TIMEOUT'));
 
 
 // Mailer
-define("MAILER_HOST", getenv('MAILER_HOST'));           // Host of the email service
-define("MAILER_EMAIL", getenv('MAILER_EMAIL'));         // Address of the email account
-define("MAILER_PASSWORD", getenv('MAILER_PASSWORD'));   // Password to the email account
-define("MAILER_NAME", getenv('MAILER_NAME'));           // Display name in emails
-define("MAILER_PROTOCOL", "");                          // Common protocols: ssl, leave empty ("") if your email service doesn't use any protection
-define("MAILER_PORT", 465);                             // Common ports: 25, 465, 587 and 2525
+define("MAILER_HOST", getenv('MAILER_HOST'));
+define("MAILER_EMAIL", getenv('MAILER_EMAIL'));
+define("MAILER_PASSWORD", getenv('MAILER_PASSWORD'));
+define("MAILER_NAME", getenv('MAILER_NAME'));
+define("MAILER_PROTOCOL", getenv('MAILER_PROTOCOL'));
+define("MAILER_PORT", getenv('MAILER_PORT'));
 
 
 // Minify HTML

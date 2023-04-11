@@ -269,7 +269,7 @@ class Database
         }
 
         // Create unique id for secure input parameter and expand where statement
-        $unique_string = uniqid();
+        $unique_string = 'param_' . uniqid();
         $this->arguments["where"] .= "$field $operator :$unique_string";
         $this->secured_inputs[$unique_string] = $value;
     }
@@ -545,7 +545,7 @@ class Database
         // Create string of all the insert values
         foreach ($values as $value)
         {
-            $unique_string = uniqid();
+            $unique_string = 'param_' . uniqid();
             $this->arguments["insert"] .= ":$unique_string, ";
             $this->secured_inputs[$unique_string] = $value;
         }
@@ -568,7 +568,7 @@ class Database
         // Create string of all the update values
         foreach ($args as $key => $value)
         {
-            $unique_string = uniqid();
+            $unique_string = 'param_' . uniqid();
             $this->arguments["update"] .= "$key = :$unique_string, ";
             $this->secured_inputs[$unique_string] = $value;
         }
