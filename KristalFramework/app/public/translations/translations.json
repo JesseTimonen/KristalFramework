@@ -71,24 +71,6 @@
 
 
 
-	"receiver": {
-		"en": "Receiver's Email",
-		"fi": "Vastaanottajan Sähköposti"
-	},
-	"send": {
-		"en": "Send",
-		"fi": "Lähetä"
-	},
-	"send_mail": {
-		"en": "Send example mail",
-		"fi": "Lähetä esimerkkiviesti"
-	},
-	"mail_warning": {
-		"en": "Notice! Sending email without correct email configurations will result a PHP error.",
-		"fi": "Huomautus! Sähköpostin lähettäminen ennen kuin sähköposti asetukset ovat oikein asetettu aiheuttaa PHP virheen."
-	},
-
-
 
 	"page_not_found": {
 		"en": "Page not found",
@@ -135,5 +117,9 @@
 	"maintenance_login": {
 		"en": "Sign In",
 		"fi": "Kirjaudu"
+	},
+	"maintenance_email": {
+		"en": "Email",
+		"fi": "Sähköposti"
 	}
 }

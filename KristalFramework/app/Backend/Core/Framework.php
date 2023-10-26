@@ -2,7 +2,6 @@
 
 // Grant access to php files
 define("ACCESS", "Granted");
-define("CURRENT_VERSION_NUMBER", 1);
 
 
 // Include cookie settings
@@ -24,13 +23,6 @@ else { createError(["Composer autoload was not found!", "Should be located at ap
 
 // Include debug functionality
 if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR . "Debug.php")){ require_once "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Functions" . DIRECTORY_SEPARATOR . "Debug.php"; }
-
-
-// Include framework update check
-if (CURRENT_VERSION_NUMBER !== VERSION_NUMBER && PRODUCTION_MODE == false)
-{
-    if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Update.php")){ require_once "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Update.php"; }
-}
 
 
 // Include translations

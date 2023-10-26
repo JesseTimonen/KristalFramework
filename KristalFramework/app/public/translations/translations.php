@@ -1,11 +1,6 @@
 <?php
 
 return array(
-    // Maintenance
-    "maintenance" => [
-        "en" => "Maintenance",
-        "fi" => "Päivitys"
-    ],
 
     // Theme
     "change_theme" => [
@@ -13,9 +8,16 @@ return array(
         "fi" => "Teema vaihdettiin automaattisesti URL kutsun ansiosta, uusi teema on: %s."
     ],
 
-    // Emails
-    "example_email_title" => [
-        "en" => "Example email title",
-        "fi" => "Esimerkki sähköpostiviestin otsikko"
+    // Maintenance
+    "maintenance" => [
+        "en" => "Maintenance",
+        "fi" => "Päivitys"
     ],
+
+    // Something else
+    "xxxxx" => [
+        "en" => "xxxxx",
+        "fi" => "xxxxx"
+    ],
+
 );

@@ -2,72 +2,30 @@
 
 
 // Framework settings
-define("VERSION_NUMBER", 1);                            // Framework version you are currently using. WARNING: Changing this variable will download and install the requested version next time when the application is opened
-define("PRODUCTION_MODE", false);                       // Optimizes your application, remember to turn off when editing your page to unlock all the features
-define("MAINTENANCE_MODE", false);                      // Display maintenance page for users while you are working on your website
-define("DISPLAY_HELPER", false);                        // Displays a framework helper during maintenance mode
-define("MAINTENANCE_PASSWORD", getenv('MAINTENANCE_PASSWORD'));
-
-
-// MySQL Databases
-$databases = array(
-    "primary" => (object) array(
-        "host" => getenv('PRIMARY_DATABASE_HOST'),
-        "database_name" => getenv('PRIMARY_DATABASE_DATABASE_NAME'),
-        "username" => getenv('PRIMARY_DATABASE_USERNAME'),
-        "password" => getenv('PRIMARY_DATABASE_PASSWORD')
-    ),
-    "secondary" => (object) array(
-        "host" => getenv('SECONDARY_DATABASE_HOST'),
-        "database_name" => getenv('SECONDARY_DATABASE_DATABASE_NAME'),
-        "username" => getenv('SECONDARY_DATABASE_USERNAME'),
-        "password" => getenv('SECONDARY_DATABASE_PASSWORD')
-    ),
-    "xxxxxxxx" => (object) array(
-        "host" => getenv('ADDITIONAL_DATABASE_HOST'),
-        "database_name" => getenv('ADDITIONAL_DATABASE_DATABASE_NAME'),
-        "username" => getenv('ADDITIONAL_DATABASE_USERNAME'),
-        "password" => getenv('ADDITIONAL_DATABASE_PASSWORD')
-    ),
-);
-define("DATABASES", serialize($databases));
-
-
-// Session
-define("SESSION_NAME", getenv('SESSION_NAME'));
-define("SESSION_TIMEOUT", getenv('SESSION_TIMEOUT'));
-define("SESSION_AFK_TIMEOUT", getenv('SESSION_AFK_TIMEOUT'));
-
-
-// Mailer
-define("MAILER_HOST", getenv('MAILER_HOST'));
-define("MAILER_EMAIL", getenv('MAILER_EMAIL'));
-define("MAILER_PASSWORD", getenv('MAILER_PASSWORD'));
-define("MAILER_NAME", getenv('MAILER_NAME'));
-define("MAILER_PROTOCOL", getenv('MAILER_PROTOCOL'));
-define("MAILER_PORT", getenv('MAILER_PORT'));
+define("PRODUCTION_MODE", false);           // Optimizes your application, remember to turn off when editing your page to unlock all the features
+define("DISPLAY_HELPER", false);            // Displays a framework helper during maintenance mode
+define("MAINTENANCE_MODE", false);          // Display maintenance page for users while you are working on your website
 
 
 // Minify HTML
-define("MINIFY_HTML", true);                            // Compresses HTML into one single line if set to true (can cause issues with <code> tags)
+define("MINIFY_HTML", true);                // Compresses HTML into one single line if set to true (can cause issues with <code> tags)
 
 
 // Compile SCSS (does not work when in production mode)
-define("AUTO_COMPILE_SCSS", true);                      // Auto compile scss every time page is reloaded and changes has been made to scss files
-define("COMPILED_CSS_TYPE", "compressed");              // Defines how scss if compressed, use: "compressed", "compact", "expanded", or "nested"
-define("DEFAULT_THEME", "light");                       // Specify default theme to be used if $_SESSION["theme"] doesn't have a value, if you don't use any themes give it value like "main" or "default"
-define("PRINT_COMPILE_DATE_CSS", true);                 // Prints comment saying when css file was last compiled
+define("AUTO_COMPILE_SCSS", true);          // Auto compile scss every time page is reloaded and changes has been made to scss files
+define("COMPILED_CSS_TYPE", "compressed");  // Defines how scss if compressed, use: "compressed", "compact", "expanded", or "nested"
+define("DEFAULT_THEME", "light");           // Specify default theme to be used if $_SESSION["theme"] doesn't have a value, if you don't use any themes give it value like "main" or "default"
+define("PRINT_COMPILE_DATE_CSS", true);     // Prints comment saying when css file was last compiled
 
 
 // Compile JavaScript (does not work when in production mode)
-define("AUTO_COMPILE_JS", true);                        // Auto compile javascript every time page is reloaded and changes has been made to js files
-define("PRINT_COMPILE_DATE_JS", true);                  // Prints comment saying when javascript file was last compiled
-$js_bundles = array(                                    // This array tells how to compile javascript, it combines given js files into compiled js file
+define("AUTO_COMPILE_JS", true);            // Auto compile javascript every time page is reloaded and changes has been made to js files
+define("PRINT_COMPILE_DATE_JS", true);      // Prints comment saying when javascript file was last compiled
+$js_bundles = array(                        // This array tells how to compile javascript, it combines given js files into compiled js file
     "core" => array(
-        "core/scrolling.js",
-        "core/translator.js",
-        "core/tooltip.js",
         "core/form.js",
+        "core/tooltip.js",
+        "core/translator.js",
     ),
     "main" => array(
         "scripts/main.js",
@@ -77,16 +35,16 @@ define("JS_BUNDLES", serialize($js_bundles));
 
 
 // Timezone
-date_default_timezone_set("UTC");                       // List of all available timezones: https://www.php.net/manual/en/timezones.php
+date_default_timezone_set("UTC");           // List of all available timezones: https://www.php.net/manual/en/timezones.php
 
 
 // Date Formats
-define("DATE_FORMAT", "j.n.Y");                         // Format which is used to display dates (31.1.2020 => "j.n.Y" | 01/31/2020 => "m/d/Y" | January 31, 2020 => "F j, Y")
-define("TIME_FORMAT", "H:i:s");                         // Format which is used to display dates (18:50:04 => "H:i:s" | 06:50 pm => "g:i a" | 06:50:04 pm => "g:i:s a")
+define("DATE_FORMAT", "j.n.Y");             // Format which is used to display dates (31.1.2020 => "j.n.Y" | 01/31/2020 => "m/d/Y" | January 31, 2020 => "F j, Y")
+define("TIME_FORMAT", "H:i:s");             // Format which is used to display dates (18:50:04 => "H:i:s" | 06:50 pm => "g:i a" | 06:50:04 pm => "g:i:s a")
 
 
 // Translations
-define("DEFAULT_LANGUAGE", "en");                       // Default language which translators should use if none is specified
+define("DEFAULT_LANGUAGE", "en");           // Default language which translators should use if none is specified
 
 
 // Base URL and path of your website (DO NOT MODIFY UNLESS REQUIRED)
@@ -163,3 +121,46 @@ $metadata = array(
     ),
 );
 define("METADATA", serialize($metadata));
+
+
+// Maintenance
+define("MAINTENANCE_PASSWORD", getenv('MAINTENANCE_PASSWORD'));
+
+
+// MySQL Databases
+$databases = array(
+    "primary" => (object) array(
+        "host" => getenv('PRIMARY_DATABASE_HOST'),
+        "database_name" => getenv('PRIMARY_DATABASE_DATABASE_NAME'),
+        "username" => getenv('PRIMARY_DATABASE_USERNAME'),
+        "password" => getenv('PRIMARY_DATABASE_PASSWORD')
+    ),
+    "secondary" => (object) array(
+        "host" => getenv('SECONDARY_DATABASE_HOST'),
+        "database_name" => getenv('SECONDARY_DATABASE_DATABASE_NAME'),
+        "username" => getenv('SECONDARY_DATABASE_USERNAME'),
+        "password" => getenv('SECONDARY_DATABASE_PASSWORD')
+    ),
+    "xxxxxxxx" => (object) array(
+        "host" => getenv('ADDITIONAL_DATABASE_HOST'),
+        "database_name" => getenv('ADDITIONAL_DATABASE_DATABASE_NAME'),
+        "username" => getenv('ADDITIONAL_DATABASE_USERNAME'),
+        "password" => getenv('ADDITIONAL_DATABASE_PASSWORD')
+    ),
+);
+define("DATABASES", serialize($databases));
+
+
+// Session
+define("SESSION_NAME", getenv('SESSION_NAME'));
+define("SESSION_TIMEOUT", getenv('SESSION_TIMEOUT'));
+define("SESSION_AFK_TIMEOUT", getenv('SESSION_AFK_TIMEOUT'));
+
+
+// Mailer
+define("MAILER_HOST", getenv('MAILER_HOST'));
+define("MAILER_EMAIL", getenv('MAILER_EMAIL'));
+define("MAILER_PASSWORD", getenv('MAILER_PASSWORD'));
+define("MAILER_NAME", getenv('MAILER_NAME'));
+define("MAILER_PROTOCOL", getenv('MAILER_PROTOCOL'));
+define("MAILER_PORT", getenv('MAILER_PORT'));

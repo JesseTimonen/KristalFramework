@@ -23,7 +23,6 @@
     <li class = "list-group-item framework-helper-list-group-item" id = "link-actions">Actions</li>
     <li class = "list-group-item framework-helper-list-group-item" id = "link-creator">Creator Tools</li>
     <li class = "list-group-item framework-helper-list-group-item" id = "link-media-library" data-bs-toggle = "modal" data-bs-target = "#media-library-modal">Media Library</li>
-    <li class = "list-group-item framework-helper-list-group-item" id = "link-version">Version</li>
 
 
     <!-- Media library modal -->
@@ -95,12 +94,6 @@
             </div>
         </div>
     </div>
-    
-
-    <!-- version navigation -->
-    <ul class = "navbar-nav" id = "navigation-version" style = "display: none;">
-        <li class = "nav-item nav-link active" id = "framework-version-message" style = "max-width: 1000px;"></li>
-    </ul>
 
 
     <!-- Training navigation -->

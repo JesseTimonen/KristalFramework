@@ -20,14 +20,12 @@ $(document).ready(function ()
         $("#link-training").show(300).removeClass("active");
         $("#link-actions").show(300).removeClass("active");
         $("#link-creator").show(300).removeClass("active");
-        $("#link-version").show(300).removeClass("active");
 
         // Hide helper navigations
         $("#navigation-documentation").hide(0).removeClass("active");
         $("#navigation-training").hide(0).removeClass("active");
         $("#navigation-actions").hide(0).removeClass("active");
         $("#navigation-creator").hide(0).removeClass("active");
-        $("#navigation-version").hide(0).removeClass("active");
 
         // Remove active class from child navigations
         $("#action-database-backup-link").removeClass("active");
@@ -50,7 +48,6 @@ $(document).ready(function ()
         $("#link-actions").toggle(300);
         $("#link-creator").toggle(300);
         $("#link-training").toggle(300);
-        $("#link-version").toggle(300);
         $("#link-media-library").toggle(300);
     });
 
@@ -61,7 +58,6 @@ $(document).ready(function ()
         $("#link-documentation").toggle(300);
         $("#link-actions").toggle(300);
         $("#link-creator").toggle(300);
-        $("#link-version").toggle(300);
         $("#link-media-library").toggle(300);
     });
 
@@ -77,7 +73,6 @@ $(document).ready(function ()
         $("#link-documentation").toggle(300);
         $("#link-training").toggle(300);
         $("#link-creator").toggle(300);
-        $("#link-version").toggle(300);
         $("#link-media-library").toggle(300);
     });
 
@@ -88,18 +83,6 @@ $(document).ready(function ()
         $("#link-documentation").toggle(300);
         $("#link-training").toggle(300);
         $("#link-actions").toggle(300);
-        $("#link-version").toggle(300);
-        $("#link-media-library").toggle(300);
-    });
-
-    $("#link-version").click(function()
-    {
-        $(this).toggleClass("active");
-        $("#navigation-version").slideToggle(300);
-        $("#link-actions").toggle(300);
-        $("#link-creator").toggle(300);
-        $("#link-training").toggle(300);
-        $("#link-documentation").toggle(300);
         $("#link-media-library").toggle(300);
     });
 
@@ -333,32 +316,6 @@ $(document).ready(function ()
             }
         });
     }
-
-
-
-    /* ====================================== API Calls ===================================== */
-    // Get current version of the framework and update version message
-    var current_version = "1";
-    $.ajax({
-        url: "https://www.jessetimonen.fi/kristal/api/get_version",
-        success: function(version)
-        {
-            console.log(current_version);
-            console.log(version);
-            if (current_version == version)
-            {
-                $("#framework-version-message").html("You are using Kristal Framework version " + current_version + " <label style = 'color: gray; padding-left: 10px;'>(Your version is up to date)</label>");
-            }
-            else
-            {
-                $("#framework-version-message").html("You are using Kristal Framework version " + current_version + " <label style = 'color: gray; padding-left: 10px;'>(You can download and install version " + version + " from your config.php file)</label>");
-            }
-        },
-        error: function()
-        {
-            $("#framework-version-message").html("You are using Kristal Framework version " + current_version + " <label style = 'color: gray; padding-left: 10px;'>(Error occured while checking for updates, please try again later)</label>");
-        }
-    });
 });
 
 

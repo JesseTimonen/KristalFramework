@@ -1,31 +1,6 @@
-/* Body */
-$body_background_color: #0c0b11;
-$title_color: #f8a219;
-$font_color: #ddd;
-$link_color: #f8a219;
-$link_hover_color: #f83600;
-
-/* Universal colors */
-$color_success: #0d0 !important;
-$color_error: red !important;
-$color_warning: orange !important;
-$color_danger: rgb(255, 100, 0) !important;
-
-/* 404 and 500 errors */
-$error_title_color: orange;
-$error_link_color: #bbb;
-$error_link_hover_color: white;
-
-/* Navbar */
-$navbar_border_color: black;
-$navbar_link_color: rgba(255, 255, 255, 0.55);
-$navbar_link_hover_color: rgba(255, 255, 255, 0.75);
-$navbar_link_active_color: white;
-
-/* Scroll bar */
-$scroll_button_color: white;
-$scroll_button_bg_color: #222;
-$scroll_button_bg_color_hover: #181818;
-
-/* Footer */
-$footer_border_color: gray;
+/* Fonts */
+$title_color: white;
+$default_color: #f1f1f1;
+$text_color: #f1f1f1;
+$link_color: cyan;
+$link_hover_color: darkcyan;

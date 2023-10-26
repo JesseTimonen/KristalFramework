@@ -9,21 +9,19 @@ class Settings
     public function changeTheme($theme = null)
     {
         // Make sure theme is not null
-        if ($theme === null)
-        {
+        if ($theme === null) {
             return false;
         }
 
-        $valid_themes = array("dark", "light");
         $theme = strtolower($theme);
+        $valid_themes = ["dark", "light"];
 
-        // Check if given theme is a valid theme
-        if (!in_array($theme, $valid_themes, true))
-        {
+        // Check if requested theme is valid
+        if (!in_array($theme, $valid_themes, true)) {
             return false;
         }
 
-        // Add new theme to session
+        // Add the new theme to session
         Session::add("theme", $theme);
         return true;
     }

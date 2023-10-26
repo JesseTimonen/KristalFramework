@@ -22,28 +22,11 @@
 // Require parent router
 use Backend\Core\Router;
 
-// Optional controllers, entities, etc.
-use Backend\Controllers\Settings;
-use Backend\DBInterfaces\Users;
-use Backend\Entities\User;
-
 
 class Routes extends Router
 {
-    private $settings;
-    private $db_users;
-    private $user;
-
-
     public function __construct()
     {
-        // Create instance of your optional controllers, entities, etc.
-        $this->settings = new Settings();
-
-        // You should only call entities and DB Interfaces after you have given valid database configurations in the config file
-        // $this->db_users = Users::getInstance();
-        // $this->user = new User();
-
         // Activate Router
         parent::__construct();
     }
@@ -56,9 +39,8 @@ class Routes extends Router
         {
             case "": $this->callView("home"); break;
             case "/": $this->callView("home"); break;
-            case "about": $this->callView("about"); break;
+            case "home": $this->callView("home"); break;
             case "theme": $this->callView("theme", $variables); break;
-            case "mail": $this->callView("mail"); break;
             default: $this->callView("pageNotFound"); break;
         }
     }
@@ -71,25 +53,11 @@ class Routes extends Router
         $this->render("home");
     }
 
-
-    function about()
-    {
-        // Render content from app/pages/about.php
-        $this->render("about");
-    }
-
     
     function theme()
     {
         // Render content from app/pages/theme.php
         $this->render("theme");
-    }
-
-
-    function mail()
-    {
-        // Render content from app/pages/mail.php
-        $this->render("mail");
     }
 
 
