@@ -1,0 +1,26 @@
+.navbar {
+    
+    .nav-link {
+        color: $unactive_color;
+        cursor: pointer;
+    }
+
+    .nav-link.active {
+        font-weight: bold;
+        color: $active_color;
+    }
+
+    .language-menu {
+        img.select-language {
+            width: 50px;
+            padding: 10px;
+            cursor: pointer;
+            filter: brightness(66%);
+        }
+
+        img.select-language.active {
+            filter: brightness(100%);
+        }
+    }
+
+}

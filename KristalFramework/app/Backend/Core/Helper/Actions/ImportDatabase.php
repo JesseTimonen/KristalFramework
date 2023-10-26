@@ -11,7 +11,7 @@ class ImportDatabase extends Database
         // This action can only be performed during development mode
         if (MAINTENANCE_MODE !== true)
         {
-            createError("This action can only be performed while development mode is active!", true);
+            throw new Exception("This action can only be performed while development mode is active!");
         }
 
         // Get primary database
@@ -31,7 +31,7 @@ class ImportDatabase extends Database
             {
                 if ($file["error"] !== 0)
                 {
-                    createError(["Your file had an error with code: {$file['error']}!", "<a href = 'https://www.php.net/manual/en/features.file-upload.errors.php' target = '_blank'>See PHP documentation to see what this error means.</a>", true]);
+                    throw new Exception("Your file had an error with code: " . $file['error'] . "! See PHP documentation (https://www.php.net/manual/en/features.file-upload.errors.php) to see what this error means.</a>");
                 }
             }
 
@@ -40,14 +40,14 @@ class ImportDatabase extends Database
             $file_extension = substr($file["name"], strrpos($file["name"], '.') +1);
             if ($file_extension !== "sql")
             {
-                createError(["Imported file needs to be in 'sql' format!", "Given file was in '$file_extension' format"]);
+                throw new Exception("Imported file needs to be in 'sql' format! Given file was in '$file_extension' format");
             }
 
 
             $finfo = new \finfo(FILEINFO_MIME_TYPE);
             $mime_type = $finfo->file($file["tmp_name"]);
             if ($mime_type !== "text/plain" && $mime_type !== "application/sql") {
-                createError(["Imported file needs to be in 'sql' format!", "Given file MIME type was '$mime_type'"]);
+                throw new Exception("Imported file needs to be in 'sql' format! Given file MIME type was '$mime_type'");
             }
 
 
@@ -72,11 +72,11 @@ class ImportDatabase extends Database
                 }
             }
 
-            createNotification("Database has been successfully updated!", true);
+            debug("Database has been successfully updated!");
         }
         catch (Exception $e)
         {
-            createError("Failed to import database file!", true);
+            throw new Exception('Failed to import database file!');
         }
     }
 }

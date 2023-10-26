@@ -18,7 +18,7 @@ if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . 
 
 // Try to load composer autoload.php, die if failed
 if (file_exists("app" . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php")){ require_once "app" . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php"; }
-else { createError(["Composer autoload was not found!", "Should be located at app" . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php<br>Go to app folder and run 'composer install' command"]); }
+else { throw new Exception("Composer autoload was not found! Should be located at app" . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php<br>Go to app folder and run 'composer install' command"); }
 
 
 // Include debug functionality
@@ -90,13 +90,13 @@ if (MAINTENANCE_MODE === true && !isset($_SESSION["maintenance_access_granted"])
     // Display maintenance page if maintenance mode is enabled
     if (!isset($_SESSION["maintenance_access_granted"]))
     {
-        if (!file_exists("app" . DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "maintenance" . DIRECTORY_SEPARATOR . "maintenance.php"))
+        if (!file_exists("app" . DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "maintenance.php"))
         {
-            createError(["Maintenance page is missing!", "Should be located at app" . DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "maintenance" . DIRECTORY_SEPARATOR . "maintenance.php"]);
+            throw new Exception("Maintenance page is missing! Should be located at app" . DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "maintenance.php");
         }
 
         $metadata = unserialize(METADATA);
-        include "app" . DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "maintenance" . DIRECTORY_SEPARATOR . "maintenance.php";
+        include "app" . DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "maintenance.php";
         exit;
     }
 }

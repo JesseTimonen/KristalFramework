@@ -11,7 +11,7 @@ class ClearDatabase extends Database
         // This action can only be performed during development mode
         if (MAINTENANCE_MODE !== true)
         {
-            createError("This action can only be performed while development mode is active!", true);
+            throw new Exception("This action can only be performed while development mode is active!");
         }
 
         parent::__construct(["database" => $database]);
@@ -26,6 +26,6 @@ class ClearDatabase extends Database
             }
         }
 
-        createNotification("Database has been successfully Cleared!", true);
+        debug("Database has been successfully Cleared!");
     }
 }

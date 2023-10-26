@@ -44,7 +44,7 @@ function translate($translation_key, $variables = array(""), $output = false)
         }
         else
         {
-            createError(["Failed to load translations file!", "Missing translations.php file at app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "translations" . DIRECTORY_SEPARATOR]);
+            throw new Exception("Failed to load translations file! Missing translations.php file at app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "translations" . DIRECTORY_SEPARATOR);
         }
     }
 

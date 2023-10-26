@@ -28,8 +28,7 @@ class Mailer
         }
         catch (Exception $e)
         {
-            createError(["Fatal Mailer Error!", $e->getMessage()], true);
-            return false;
+            throw new Exception("Fatal Mailer Error! " . $e->getMessage());
         }
     }
 
@@ -83,8 +82,7 @@ class Mailer
         }
         catch (Exception $e)
         {
-            createError(["Fatal Mailer Error!", $e->getMessage()], true);
-            return false;
+            throw new Exception("Fatal Mailer Error! " . $e->getMessage());
         }
     }
 }

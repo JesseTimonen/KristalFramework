@@ -1,9 +1,9 @@
-    User-agent: *
-    Disallow: /LICENSE
-    Disallow: /README
-    Disallow: /cache/
-    Disallow: /cron/
-    Disallow: /.env
-    Disallow: /config.php
+User-agent: *
+Disallow: /LICENSE
+Disallow: /README
+Disallow: /cache/
+Disallow: /cron/
+Disallow: /.env
+Disallow: /config.php
 
-    Sitemap: https://www.YOUR_WEBSITE.com/sitemap.xml
+Sitemap: https://www.YOUR_WEBSITE.com/sitemap.xml

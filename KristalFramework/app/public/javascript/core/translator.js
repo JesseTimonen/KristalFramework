@@ -26,7 +26,6 @@
  */
 
 
-
 const kristal_language_key = "Kristal_Language";
 let kristal_language;
 let kristal_translations;

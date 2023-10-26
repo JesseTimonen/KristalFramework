@@ -1,58 +1,40 @@
 {
-	"navbar_title":
+	"nav_title":
 	{
 		"en": "Kristal Framework",
 		"fi": "Kristal Framework"
 	},
-
-
-
 	"nav_home": {
 		"en": "Home",
 		"fi": "Etusivu"
-	},
-	"nav_about": {
-		"en": "About",
-		"fi": "Tietoa"
 	},
 	"nav_theme": {
 		"en": "Theme",
 		"fi": "Teema"
 	},
-	"nav_mail": {
-		"en": "Mail",
-		"fi": "Postitus"
+
+
+
+
+
+	"home_title": {
+		"en": "Kristal Framework",
+		"fi": "Kristal Framework"
 	},
-
-
-
-	"version": {
-		"en": "Version: update 1",
-		"fi": "Versio: päivitys 1"
+	"home_version": {
+		"en": "Version 1.0, Developed by Jesse Timonen. Happy Coding!",
+		"fi": "Versio 1.0, kehittäjänä Jesse Timonen."
 	},
-	"developer": {
-		"en": "Developed by Jesse Timonen",
-		"fi": "Kehittänyt Jesse Timonen"
-	},
-	"message": {
-		"en": "Happy Coding!",
-		"fi": "Iloista Koodailua!"
-	},
-
-
-
-	"about": {
-		"en": "About the Framework",
-		"fi": "Tietoa Frameworkista"
-	},
-	"info_1": {
+	"home_information_1": {
 		"en": "Kristal Framework is PHP based framework which aims to offer developers clean and simple MVC environment where they can develope their websites. Kristal Framework was released to the public under MIT license, which allows people to use, modify and share this framework as they wish.",
 		"fi": "Kristal Framework on PHP:en pohjautuva nettisivujen kehittämiseen tarkoitettu alusta, jonka tarkoituksena on luoda nettisivujen kehittäjille puhdas ja yksinkertainen MVC ympäristö. Kristal Framework on julkaistu MIT lisenssin alla, joka sallii sovelluksen vapaan käytön, muokkaamisen ja jakamisen."
 	},
-	"info_2": {
+	"home_information_2": {
 		"en": "Thanks for trying out Kristal Framework, to get started please visit the <a href = 'https://www.jessetimonen.fi/kristal/documentation/latest/' target = '_blank'>documentations</a>, or check out some of our <a href = 'https://www.jessetimonen.fi/kristal/tutorials/latest/' target = '_blank'>tutorials</a>.",
 		"fi": "Kiitos Kristal Framework:in kokeilemisesta, jotta pääset alkuun käy tutustumassa <a href = 'https://www.jessetimonen.fi/kristal/documentation/latest/' target = '_blank'>dokumentaatioihin</a>, tai katso meidän luomia <a href = 'https://www.jessetimonen.fi/kristal/tutorials/latest/' target = '_blank'>harjoituksia</a>."
 	},
+
+
 
 
 
@@ -60,37 +42,29 @@
 		"en": "Change Theme",
 		"fi": "Vaihda Teemaa"
 	},
-	"dark": {
-		"en": "Dark",
-		"fi": "Tumma"
+	"activate_dark_button": {
+		"en": "Activate Dark Theme",
+		"fi": "Aktivoi Tumma Teema"
 	},
-	"light": {
-		"en": "Light",
-		"fi": "Vaalea"
+	"activate_light_button": {
+		"en": "Activate Light Theme",
+		"fi": "Aktivoi Vaalea Teema"
 	},
 
 
 
 
-	"page_not_found": {
+
+	"404_page_not_found": {
 		"en": "Page not found",
 		"fi": "Sivua ei löytynyt"
 	},
-	"return_link": {
+	"404_return_link": {
 		"en": "Return to home page by clicking here!",
 		"fi": "Palaa takaisin etusivulle painamalla tästä!"
 	},
 
 
-	
-	"footer_credits": {
-		"en": "Powered by <a href = 'https://www.jessetimonen.fi/kristal' target = '_blank'>Kristal Framework</a>",
-		"fi": "Luotu käyttäen sovellusta <a href = 'https://www.jessetimonen.fi/kristal' target = '_blank'>Kristal Framework</a>"
-	},
-	"scroll_up": {
-		"en": "Scroll Up",
-		"fi": "Ylös"
-	},
 
 
 

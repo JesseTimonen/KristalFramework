@@ -9,7 +9,7 @@ class CreatorTool
         // This action can only be performed during development mode
         if (MAINTENANCE_MODE !== true)
         {
-            createError("This action can only be performed while development mode is active!", true);
+            throw new Exception("This action can only be performed while development mode is active!");
         }
     }
 
@@ -80,16 +80,16 @@ class CreatorTool
             try
             {
                 file_put_contents("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Entities" . DIRECTORY_SEPARATOR . $name . ".php", $template);
-                createNotification("Entity $name has been created successfully!", true);
+                debug("Entity $name has been created successfully!");
             }
             catch (Exception $e)
             {
-                createError("Failed to create entity!", true);
+                throw new Exception("Failed to create entity!");
             }
         }
         else
         {
-            createError("Failed to create entity since entity $name already exists!", true);
+            throw new Exception("Failed to create entity since entity $name already exists!");
         }
     }
 
@@ -114,16 +114,16 @@ class CreatorTool
             try
             {
                 file_put_contents("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Controllers" . DIRECTORY_SEPARATOR . $name . ".php", $template);
-                createNotification("Controller $name has been created successfully!", true);
+                debug("Controller $name has been created successfully!");
             }
             catch (Exception $e)
             {
-                createError("Failed to create controller!", true);
+                throw new Exception("Failed to create controller!");
             }
         }
         else
         {
-            createError("Failed to create controller since controller $name already exists!", true);
+            throw new Exception("Failed to create controller since controller $name already exists!");
         }
     }
 }

@@ -14,7 +14,7 @@ define("MINIFY_HTML", true);                // Compresses HTML into one single l
 // Compile SCSS (does not work when in production mode)
 define("AUTO_COMPILE_SCSS", true);          // Auto compile scss every time page is reloaded and changes has been made to scss files
 define("COMPILED_CSS_TYPE", "compressed");  // Defines how scss if compressed, use: "compressed", "compact", "expanded", or "nested"
-define("DEFAULT_THEME", "light");           // Specify default theme to be used if $_SESSION["theme"] doesn't have a value, if you don't use any themes give it value like "main" or "default"
+define("DEFAULT_THEME", "dark");            // Specify default theme to be used if $_SESSION["theme"] doesn't have a value, if you don't use any themes give it value like "main" or "default"
 define("PRINT_COMPILE_DATE_CSS", true);     // Prints comment saying when css file was last compiled
 
 
@@ -27,29 +27,14 @@ $js_bundles = array(                        // This array tells how to compile j
         "core/tooltip.js",
         "core/translator.js",
     ),
+    "maintenance" => array(
+        "scripts/maintenance.js",
+    ),
     "main" => array(
         "scripts/main.js",
-    )
+    ),
 );
 define("JS_BUNDLES", serialize($js_bundles));
-
-
-// Timezone
-date_default_timezone_set("UTC");           // List of all available timezones: https://www.php.net/manual/en/timezones.php
-
-
-// Date Formats
-define("DATE_FORMAT", "j.n.Y");             // Format which is used to display dates (31.1.2020 => "j.n.Y" | 01/31/2020 => "m/d/Y" | January 31, 2020 => "F j, Y")
-define("TIME_FORMAT", "H:i:s");             // Format which is used to display dates (18:50:04 => "H:i:s" | 06:50 pm => "g:i a" | 06:50:04 pm => "g:i:s a")
-
-
-// Translations
-define("DEFAULT_LANGUAGE", "en");           // Default language which translators should use if none is specified
-
-
-// Base URL and path of your website (DO NOT MODIFY UNLESS REQUIRED)
-define("BASE_URL", ((!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== 'off') ? "https://" : "http://") . $_SERVER["HTTP_HOST"] . str_replace("index.php", "", $_SERVER["PHP_SELF"]));
-define("BASE_PATH", __DIR__ . "/");
 
 
 // Metadata (used to display info at page header) (you can add, modify or even delete metadata tags as you wish)
@@ -57,65 +42,39 @@ $metadata = array(
     // Metadata for home page
     "home" => (object) array(
         "type" => "website",                            // Type of the website
-        "author" => "xxxxxxxx",                         // Author name used for search engines
-        "publisher" => "xxxxxxxx",                      // Publisher name used for search engines
-        "url" => BASE_URL,                              // URL of you website
-        "title" => "xxxxxxxx",                          // Page title displayed in the browser tab
-        "og:title" => "xxxxxxxx",                       // Page title displayed in social media search engines
-        "description" => "xxxxxxxx",                    // Description which helps search engines determine what the page is about
-        "og:description" => "xxxxxxxx",                 // Description which helps social media search engines determine what the page is about
+        "author" => "________",                         // Author name used for search engines
+        "publisher" => "________",                      // Publisher name used for search engines
+        "url" => '________',                            // URL of you website
+        "title" => "________",                          // Page title displayed in the browser tab
+        "og:title" => "________",                       // Page title displayed in social media search engines
+        "description" => "________",                    // Description which helps search engines determine what the page is about
+        "og:description" => "________",                 // Description which helps social media search engines determine what the page is about
         "keywords" => "Key, Words, Here",               // Keywords which helps search engines determine what the page is about
         "robots" => "all",                              // Use "none" to prevent search engines and "all" to let them have access to your website
-    ),
-    // Metadata from '/about' page
-    "about" => (object) array(
-        "type" => "website",
-        "author" => "xxxxxxxx",
-        "publisher" => "xxxxxxxx",
-        "url" => BASE_URL . "/about",
-        "title" => "xxxxxxxx",
-        "og:title" => "xxxxxxxx",
-        "description" => "xxxxxxxx",
-        "og:description" => "xxxxxxxx",
-        "keywords" => "Key, Words, Here",
-        "robots" => "all",
     ),
     // Metadata from '/theme' page
     "theme" => (object) array(
         "type" => "website",
-        "author" => "xxxxxxxx",
-        "publisher" => "xxxxxxxx",
-        "url" => BASE_URL . "/theme",
-        "title" => "xxxxxxxx",
-        "og:title" => "xxxxxxxx",
-        "description" => "xxxxxxxx",
-        "og:description" => "xxxxxxxx",
-        "keywords" => "Key, Words, Here",
-        "robots" => "all",
-    ),
-    // Metadata from '/mail' page
-    "mail" => (object) array(
-        "type" => "website",
-        "author" => "xxxxxxxx",
-        "publisher" => "xxxxxxxx",
-        "url" => BASE_URL . "/mail",
-        "title" => "xxxxxxxx",
-        "og:title" => "xxxxxxxx",
-        "description" => "xxxxxxxx",
-        "og:description" => "xxxxxxxx",
+        "author" => "________",
+        "publisher" => "________",
+        "url" => '________',
+        "title" => "________",
+        "og:title" => "________",
+        "description" => "________",
+        "og:description" => "________",
         "keywords" => "Key, Words, Here",
         "robots" => "all",
     ),
     // Metadata for every other page
     "*" => (object) array(
         "type" => "website",
-        "author" => "xxxxxxxx",
-        "publisher" => "xxxxxxxx",
-        "url" => BASE_URL,
-        "title" => "xxxxxxxx",
-        "og:title" => "xxxxxxxx",
-        "description" => "xxxxxxxx",
-        "og:description" => "xxxxxxxx",
+        "author" => "________",
+        "publisher" => "________",
+        "url" => '________',
+        "title" => "________",
+        "og:title" => "________",
+        "description" => "________",
+        "og:description" => "________",
         "keywords" => "Key, Words, Here",
         "robots" => "all",
     ),
@@ -123,9 +82,15 @@ $metadata = array(
 define("METADATA", serialize($metadata));
 
 
+
+
+
+/* ============================================================== */
+/* ====  That's it, rest of the settings are from .env file  ==== */
+/* ============================================================== */
+
 // Maintenance
 define("MAINTENANCE_PASSWORD", getenv('MAINTENANCE_PASSWORD'));
-
 
 // MySQL Databases
 $databases = array(
@@ -141,7 +106,7 @@ $databases = array(
         "username" => getenv('SECONDARY_DATABASE_USERNAME'),
         "password" => getenv('SECONDARY_DATABASE_PASSWORD')
     ),
-    "xxxxxxxx" => (object) array(
+    "________" => (object) array(
         "host" => getenv('ADDITIONAL_DATABASE_HOST'),
         "database_name" => getenv('ADDITIONAL_DATABASE_DATABASE_NAME'),
         "username" => getenv('ADDITIONAL_DATABASE_USERNAME'),
@@ -150,12 +115,10 @@ $databases = array(
 );
 define("DATABASES", serialize($databases));
 
-
 // Session
 define("SESSION_NAME", getenv('SESSION_NAME'));
 define("SESSION_TIMEOUT", getenv('SESSION_TIMEOUT'));
 define("SESSION_AFK_TIMEOUT", getenv('SESSION_AFK_TIMEOUT'));
-
 
 // Mailer
 define("MAILER_HOST", getenv('MAILER_HOST'));
@@ -164,3 +127,15 @@ define("MAILER_PASSWORD", getenv('MAILER_PASSWORD'));
 define("MAILER_NAME", getenv('MAILER_NAME'));
 define("MAILER_PROTOCOL", getenv('MAILER_PROTOCOL'));
 define("MAILER_PORT", getenv('MAILER_PORT'));
+
+// Time Settings
+date_default_timezone_set(getenv('TIMEZONE') ?: 'UTC'); 
+define("DATE_FORMAT", getenv('DATE_FORMAT') ?: "j.n.Y"); 
+define("TIME_FORMAT", getenv('TIME_FORMAT') ?: "H:i:s");
+
+// Translations
+define("DEFAULT_LANGUAGE", getenv('DEFAULT_LANGUAGE') ?: "en");
+
+// Base URL and path of your website
+define("BASE_URL", ((!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== 'off') ? "https://" : "http://") . $_SERVER["HTTP_HOST"] . str_replace("index.php", "", $_SERVER["PHP_SELF"]));
+define("BASE_PATH", __DIR__ . "/");
