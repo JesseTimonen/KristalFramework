@@ -7,7 +7,7 @@
 
     <br><br>
 
-    <p><?php if (isset($message)) echo $message; ?></p>
+    <p><?php if (!empty($message)) echo $message; ?></p>
 
     <div class="row">
         <div class="col-md-12">

@@ -18,19 +18,19 @@ function getLanguage()
 // Output translation
 function ts($translation_key, $variables = array(""))
 {
-    translate($translation_key, $variables, true);
+    return translate($translation_key, $variables);
 }
 
 
 // Return translation
 function trans($translation_key, $variables = array(""))
 {
-    return translate($translation_key, $variables, false);
+    return translate($translation_key, $variables);
 }
 
 
 // Return translation
-function translate($translation_key, $variables = array(""), $output = false)
+function translate($translation_key, $variables = array(""))
 {
     // Get translations
     global $translations;
@@ -118,14 +118,7 @@ function translate($translation_key, $variables = array(""), $output = false)
     // Check if given language is found from translation
     if (array_key_exists($language, $valid_languages))
     {
-        if ($output)
-        {
-            vprintf($translations[$translation_key][$language], $variables);
-        }
-        else
-        {
-            return vsprintf($translations[$translation_key][$language], $variables);
-        }
+        return vsprintf($translations[$translation_key][$language], $variables);
     }
     else
     {

@@ -9,7 +9,7 @@ class CreatorTool
         // This action can only be performed during development mode
         if (MAINTENANCE_MODE !== true)
         {
-            throw new Exception("This action can only be performed while development mode is active!");
+            throw new \Exception("This action can only be performed while development mode is active!");
         }
     }
 
@@ -84,12 +84,12 @@ class CreatorTool
             }
             catch (Exception $e)
             {
-                throw new Exception("Failed to create entity!");
+                throw new \Exception("Failed to create entity!");
             }
         }
         else
         {
-            throw new Exception("Failed to create entity since entity $name already exists!");
+            throw new \Exception("Failed to create entity since entity $name already exists!");
         }
     }
 
@@ -118,12 +118,12 @@ class CreatorTool
             }
             catch (Exception $e)
             {
-                throw new Exception("Failed to create controller!");
+                throw new \Exception("Failed to create controller!");
             }
         }
         else
         {
-            throw new Exception("Failed to create controller since controller $name already exists!");
+            throw new \Exception("Failed to create controller since controller $name already exists!");
         }
     }
 }

@@ -94,8 +94,7 @@ if (MAINTENANCE_MODE === true && !isset($_SESSION["maintenance_access_granted"])
         {
             throw new Exception("Maintenance page is missing! Should be located at app" . DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "maintenance.php");
         }
-
-        $metadata = unserialize(METADATA);
+        
         include "app" . DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . "maintenance.php";
         exit;
     }

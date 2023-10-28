@@ -12,7 +12,7 @@ class DatabaseBackup extends Database
         // This action can only be performed during development mode
         if (MAINTENANCE_MODE !== true)
         {
-            throw new Exception("This action can only be performed while development mode is active!");
+            throw new \Exception("This action can only be performed while development mode is active!");
         }
 
         parent::__construct(["database" => $database]);

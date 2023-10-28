@@ -6,12 +6,12 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="generator" content="Kristal Framework" />
-        <?php if (isset($metadata[$page])): ?>
-            <?php foreach ($metadata[$page] as $key => $value): ?>
+        <?php if (isset($kristal_metadata[$page])): ?>
+            <?php foreach ($kristal_metadata[$page] as $key => $value): ?>
                 <meta property="<?= $key ?>" content="<?= $value ?>" />
             <?php endforeach; ?>
-        <?php elseif (isset($metadata["*"])): ?>
-            <?php foreach ($metadata["*"] as $key => $value): ?>
+        <?php elseif (isset($kristal_metadata["*"])): ?>
+            <?php foreach ($kristal_metadata["*"] as $key => $value): ?>
                 <meta property="<?= $key ?>" content="<?= $value ?>" />
             <?php endforeach; ?>
         <?php endif; ?>
@@ -34,7 +34,7 @@
 
 
         <!-- Page Information -->
-        <title><?= htmlspecialchars(isset($metadata[$page]->title) ? $metadata[$page]->title : (isset($metadata["*"]->title) ? $metadata["*"]->title : '')) ?></title>
+        <title><?= htmlspecialchars(isset($kristal_metadata[$page]->title) ? $kristal_metadata[$page]->title : (isset($kristal_metadata["*"]->title) ? $kristal_metadata["*"]->title : '')) ?></title>
         <link rel="icon" type="image/gif" href="<?= image("icon_website.png"); ?>" />
 
 

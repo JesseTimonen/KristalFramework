@@ -24,10 +24,19 @@ php_flag  display_errors    on
 php_value error_reporting   2039
 
 
+#==================================#
+# Protect Specific File extensions #
+#==================================#
+<FilesMatch "\.(htaccess|htpasswd|env|ini|php|sql)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+
 #========================#
 # Protect Specific Files #
 #========================#
-<FilesMatch "\.(htaccess|htpasswd|env|ini|php|sql|lock|composer\.json|README|LICENSE)$">
+<FilesMatch "composer.json|composer.lock|README|LICENSE">
     Order Allow,Deny
     Deny from all
 </FilesMatch>

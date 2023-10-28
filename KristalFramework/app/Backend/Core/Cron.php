@@ -46,7 +46,7 @@ class Cron
                     $this->interval = array("type" => self::INTERVAL_YEAR, "amount" => 1);
                     break;
                 default:
-                    throw new Exception("invalid interval for cron job: " . $name . ". Value given was $interval");
+                    throw new \Exception("invalid interval for cron job: " . $name . ". Value given was $interval");
                     break;
             }
         }

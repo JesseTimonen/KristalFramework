@@ -17,13 +17,12 @@ final class SCSS_Compiler
         $compiler = new Compiler();
 
         // Select formatter
+        
         switch (strtolower(COMPILED_CSS_TYPE))
         {
-            case "compressed": $compiler->setFormatter("ScssPhp\ScssPhp\Formatter\Compressed"); break;
-            case "compact": $compiler->setFormatter("ScssPhp\ScssPhp\Formatter\Compact"); break;
-            case "expanded": $compiler->setFormatter("ScssPhp\ScssPhp\Formatter\Expanded"); break;
-            case "nested": $compiler->setFormatter("ScssPhp\ScssPhp\Formatter\Nested"); break;
-            default: $compiler->setFormatter("ScssPhp\ScssPhp\Formatter\Compressed"); break;
+            case "expanded": $compiler->setOutputStyle("expanded"); break;
+            case "compressed": $compiler->setOutputStyle("compressed"); break;
+            default: $compiler->setOutputStyle("compressed"); break;
         }
 
         if (empty(glob(self::$themes_folder_path)))

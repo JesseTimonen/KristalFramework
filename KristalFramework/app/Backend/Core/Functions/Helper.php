@@ -1,27 +1,59 @@
 <?php defined("ACCESS") or exit("Access Denied");
 
 
-function asset($folder, $file, array $params = array("path" => "url"))
+function kristal_getAssetPath($folder, $file, array $params = ["path" => "url"])
 {
     $appPublicPath = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR;
+    $filePath = $appPublicPath . $folder . DIRECTORY_SEPARATOR . $file;
 
-    // Find files using only its name
-    if (!file_exists($appPublicPath . $folder . DIRECTORY_SEPARATOR . $file) && !empty($files = glob($appPublicPath . $folder . DIRECTORY_SEPARATOR . $file . "*")))
-    {
-        $path = strtolower($params["path"]) === "url" ? BASE_URL . $files[0] : $files[0];
-        return $path;
+    // Validate the "path" parameter
+    $pathType = strtolower($params["path"] ?? "url");
+
+    if (!in_array($pathType, ["url", "path"], true)) {
+        throw new Exception("Invalid path parameter passed to " . $folder . "() method. It should be either 'url' or 'path'");
     }
 
-    // Return file normally
-    $path = strtolower($params["path"]) === "url" ? BASE_URL . $appPublicPath . $folder . DIRECTORY_SEPARATOR . $file : $appPublicPath . $folder . DIRECTORY_SEPARATOR . $file;
-    return $path;
+    // Handle glob matching
+    if (!file_exists($filePath)) {
+
+        $files = glob($filePath . "*");
+
+        if (!empty($files)) {
+            $filePath = $files[0];
+        } else {
+            return "";
+        }
+    }
+
+    // Determine the return path type
+    return $pathType === "url" ? BASE_URL . $filePath : $filePath;
 }
 
 // ============================================================================================================== \\
 
-function image($file, array $params = array("path" => "url"))
+function image($file, array $params = ["path" => "url"]): string
 {
-    return asset("images", $file, $params);
+    return kristal_getAssetPath("images", $file, $params);
+}
+
+function css($file, array $params = ["path" => "url"]): string
+{
+    return kristal_getAssetPath("css", $file, $params);
+}
+
+function js($file, array $params = ["path" => "url"]): string
+{
+    return kristal_getAssetPath("javascript", $file, $params);
+}
+
+function download($file, array $params = ["path" => "url"]): string
+{
+    return kristal_getAssetPath("downloads", $file, $params);
+}
+
+function audio($file, array $params = ["path" => "url"]): string
+{
+    return kristal_getAssetPath("audio", $file, $params);
 }
 
 function thumbnail($file_path, array $params = array("path" => "url"))
@@ -67,26 +99,6 @@ function thumbnail($file_path, array $params = array("path" => "url"))
     }
 
     return getURL($thumbnail_path);
-}
-
-function css($file, array $params = array("path" => "url"))
-{
-    return asset("css", $file, $params);
-}
-
-function js($file, array $params = array("path" => "url"))
-{
-    return asset("javascript", $file, $params);
-}
-
-function download($file, array $params = array("path" => "url"))
-{
-    return asset("downloads", $file, $params);
-}
-
-function audio($file, array $params = array("path" => "url"))
-{
-    return asset("audio", $file, $params);
 }
 
 // ============================================================================================================== \\

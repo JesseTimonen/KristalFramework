@@ -13,7 +13,7 @@ define("MINIFY_HTML", true);                // Compresses HTML into one single l
 
 // Compile SCSS (does not work when in production mode)
 define("AUTO_COMPILE_SCSS", true);          // Auto compile scss every time page is reloaded and changes has been made to scss files
-define("COMPILED_CSS_TYPE", "compressed");  // Defines how scss if compressed, use: "compressed", "compact", "expanded", or "nested"
+define("COMPILED_CSS_TYPE", "compressed");  // Defines how scss if compiled, use: "expanded" or "compressed"
 define("DEFAULT_THEME", "dark");            // Specify default theme to be used if $_SESSION["theme"] doesn't have a value, if you don't use any themes give it value like "main" or "default"
 define("PRINT_COMPILE_DATE_CSS", true);     // Prints comment saying when css file was last compiled
 

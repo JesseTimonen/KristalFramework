@@ -45,7 +45,7 @@ class Routes extends Router
 
     function home()
     {
-        // Render function will render a page template from your pages folder
+        // Render() method will render a page template from your pages folder
         // For example the following line will render content from /app/pages/home.php
         $this->render("home");
     }
@@ -54,16 +54,18 @@ class Routes extends Router
     // Even though an array of variables was passed to callView(), each element in the array becomes an individual parameter
     function theme($selected_theme = null, $additional_variables = null)
     {
-        $feedback = null;
+        $feedback = "";
 
-        if (isset($selected_theme) && !empty ($selected_theme)) {
+        if (isset($selected_theme) && !empty($selected_theme)) {
 
             // Trying to change the theme by calling settings controller which has the custom changeTheme() method
             // Settings controller can be found at app/Backend/Controllers/ folder
-            if ($this->settings->changeTheme($selected_theme)) {
+            if ($this->settings->changeTheme($selected_theme))
+            {
                 $feedback = translate("change_theme_successful_message", [$selected_theme]);
             }
-            else {
+            else
+            {
                 $feedback = translate("change_theme_failed_message", [$selected_theme]);
             }
         }

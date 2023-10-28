@@ -22,31 +22,20 @@ class Session
 
     function getClientIPAddress()
     {
-        $IP_address = '';
-    
-        if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-        {
-            $IP_address_list = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-            $IP_address = trim(end($IP_address_list));
+        $ip_keys = ['HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'];
+
+        foreach ($ip_keys as $key) {
+            if (array_key_exists($key, $_SERVER)) {
+                foreach (explode(',', $_SERVER[$key]) as $ip) {
+                    $ip = trim($ip);
+                    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+                        return $ip;
+                    }
+                }
+            }
         }
-        else if (isset($_SERVER['HTTP_CLIENT_IP']))
-        {
-            $IP_address = $_SERVER['HTTP_CLIENT_IP'];
-        }
-        else if (isset($_SERVER['REMOTE_ADDR']))
-        {
-            $IP_address = $_SERVER['REMOTE_ADDR'];
-        }
-    
-        if (filter_var($IP_address, FILTER_VALIDATE_IP))
-        {
-            return $IP_address;
-        }
-        else
-        {
-            // Invalid IP address
-            return "unknown";
-        }
+
+        return 'unknown';
     }
 
 
