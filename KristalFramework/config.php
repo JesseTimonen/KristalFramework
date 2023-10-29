@@ -8,7 +8,7 @@ define("MAINTENANCE_MODE", false);          // Display maintenance page for user
 
 
 // Minify HTML
-define("MINIFY_HTML", true);                // Compresses HTML into one single line if set to true (can cause issues with <code> tags)
+define("MINIFY_HTML", false);               // Compresses HTML into one single line if set to true (can cause issues with <code> tags)
 
 
 // Compile SCSS (does not work when in production mode)
@@ -85,14 +85,14 @@ define("METADATA", serialize($metadata));
 
 
 
-/* ============================================================== */
-/* ====  That's it, rest of the settings are from .env file  ==== */
-/* ============================================================== */
+/* ====================================================================== */
+/* ====  That's it, rest of the settings are fetched from .env file  ==== */
+/* ====================================================================== */
 
 // Maintenance
 define("MAINTENANCE_PASSWORD", getenv('MAINTENANCE_PASSWORD'));
 
-// MySQL Databases
+// Databases
 $databases = array(
     "primary" => (object) array(
         "host" => getenv('PRIMARY_DATABASE_HOST'),
@@ -128,7 +128,7 @@ define("MAILER_NAME", getenv('MAILER_NAME'));
 define("MAILER_PROTOCOL", getenv('MAILER_PROTOCOL'));
 define("MAILER_PORT", getenv('MAILER_PORT'));
 
-// Time Settings
+// Time
 date_default_timezone_set(getenv('TIMEZONE') ?: 'UTC'); 
 define("DATE_FORMAT", getenv('DATE_FORMAT') ?: "j.n.Y"); 
 define("TIME_FORMAT", getenv('TIME_FORMAT') ?: "H:i:s");

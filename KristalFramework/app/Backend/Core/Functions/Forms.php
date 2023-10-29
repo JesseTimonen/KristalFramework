@@ -12,32 +12,28 @@ function resetCSRF()
 }
 
 
-// Create CSRF token
+// Create new CSRF token
 function createNewCSRF($identifier = "default")
 {
-    if (!isset($_SESSION["csrf"]) || $_SESSION["csrf"] === null)
-    {
-        resetCSRF();
-    }
-
-    $_SESSION["csrf"] = array_merge(
-        $_SESSION["csrf"],
-        array($identifier => bin2hex(random_bytes(32)))
-    );
+    $_SESSION["csrf"][$identifier] = bin2hex(random_bytes(32));
 }
 
 
 // Return current CSRF token
 function getCSRF($identifier = "default")
 {
+    if (!isset($_SESSION["csrf"][$identifier])) {
+        return false;
+    }
+
     return $_SESSION["csrf"][$identifier];
 }
 
 
-// Echo form request form input
+// Echo form request input field
 function request($action)
 {
-    echo "<input type = 'hidden' name = 'form_request' value = '$action'>";
+    echo "<input type='hidden' name='form_request' value='$action'>";
 }
 
 
@@ -49,6 +45,6 @@ function csrf($identifier = "default")
         createNewCSRF($identifier);
     }
 
-    echo "<input type = 'hidden' name = 'csrf_identifier' value = '$identifier'>";
-    echo "<input type = 'hidden' name = 'csrf_token' value = '{$_SESSION['csrf'][$identifier]}'>";
+    echo "<input type='hidden' name='csrf_identifier' value='$identifier'>";
+    echo "<input type='hidden' name='csrf_token' value='{$_SESSION['csrf'][$identifier]}'>";
 }

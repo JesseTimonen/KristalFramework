@@ -17,13 +17,11 @@ $(document).ready(function ()
         // Activate main links
         $("#link-documentation").show(300).removeClass("active");
         $("#link-media-library").show(300).removeClass("active");
-        $("#link-training").show(300).removeClass("active");
         $("#link-actions").show(300).removeClass("active");
         $("#link-creator").show(300).removeClass("active");
 
         // Hide helper navigations
         $("#navigation-documentation").hide(0).removeClass("active");
-        $("#navigation-training").hide(0).removeClass("active");
         $("#navigation-actions").hide(0).removeClass("active");
         $("#navigation-creator").hide(0).removeClass("active");
 
@@ -47,17 +45,6 @@ $(document).ready(function ()
         $("#navigation-documentation").slideToggle(300);
         $("#link-actions").toggle(300);
         $("#link-creator").toggle(300);
-        $("#link-training").toggle(300);
-        $("#link-media-library").toggle(300);
-    });
-
-    $("#link-training").click(function()
-    {
-        $(this).toggleClass("active");
-        $("#navigation-training").slideToggle(300);
-        $("#link-documentation").toggle(300);
-        $("#link-actions").toggle(300);
-        $("#link-creator").toggle(300);
         $("#link-media-library").toggle(300);
     });
 
@@ -71,7 +58,6 @@ $(document).ready(function ()
         $("#action-clear-database-link").show(0);
 
         $("#link-documentation").toggle(300);
-        $("#link-training").toggle(300);
         $("#link-creator").toggle(300);
         $("#link-media-library").toggle(300);
     });
@@ -81,7 +67,6 @@ $(document).ready(function ()
         $(this).toggleClass("active");
         $("#navigation-creator").slideToggle(300);
         $("#link-documentation").toggle(300);
-        $("#link-training").toggle(300);
         $("#link-actions").toggle(300);
         $("#link-media-library").toggle(300);
     });

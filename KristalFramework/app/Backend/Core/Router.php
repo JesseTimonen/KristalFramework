@@ -68,6 +68,7 @@ class Router
     private function minifyHTML($buffer)
     {
         $minified_HTML = new HtmlMin();
+        $minified_HTML->doNotRemoveWhitespaceAroundTags(array('code'));
         return $minified_HTML->minify($buffer);
     }
 
@@ -130,5 +131,7 @@ class Router
 
         // Render footer
         if (file_exists(page("layouts" . DIRECTORY_SEPARATOR . "footer.php"))) include_once page("layouts" . DIRECTORY_SEPARATOR . "footer.php");
+
+        ob_end_flush();
     }
 }

@@ -111,10 +111,10 @@ jQuery.fn.tooltipTranslate = function(key) {
     if (!kristal_translations) return;
 
     key = key || $(this).attr("tooltipTranslationKey");
-	
+    
     if (kristal_translations.hasOwnProperty(key)) {
         $(this).attr("data-bs-title", kristal_translations[key][kristal_language]);
-		kristal_reinitializeTooltip(this.get(0));
+        kristal_reinitializeTooltip(this.get(0));
     } else {
         console.warn("Translator was not able to translate tooltip value '" + key + "'!");
     }

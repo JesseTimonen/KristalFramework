@@ -1,99 +1,99 @@
 {
-	"nav_title":
-	{
-		"en": "Kristal Framework",
-		"fi": "Kristal Framework"
-	},
-	"nav_home": {
-		"en": "Home",
-		"fi": "Etusivu"
-	},
-	"nav_theme": {
-		"en": "Theme",
-		"fi": "Teema"
-	},
+    "nav_title":
+    {
+        "en": "Kristal Framework",
+        "fi": "Kristal Framework"
+    },
+    "nav_home": {
+        "en": "Home",
+        "fi": "Etusivu"
+    },
+    "nav_theme": {
+        "en": "Theme",
+        "fi": "Teema"
+    },
 
 
 
 
 
-	"home_title": {
-		"en": "Kristal Framework",
-		"fi": "Kristal Framework"
-	},
-	"home_version": {
-		"en": "Version 1.0, Developed by Jesse Timonen. Happy Coding!",
-		"fi": "Versio 1.0, kehittäjänä Jesse Timonen."
-	},
-	"home_information_1": {
-		"en": "Kristal Framework is PHP based framework which aims to offer developers clean and simple MVC environment where they can develope their websites. Kristal Framework was released to the public under MIT license, which allows people to use, modify and share this framework as they wish.",
-		"fi": "Kristal Framework on PHP:en pohjautuva nettisivujen kehittämiseen tarkoitettu alusta, jonka tarkoituksena on luoda nettisivujen kehittäjille puhdas ja yksinkertainen MVC ympäristö. Kristal Framework on julkaistu MIT lisenssin alla, joka sallii sovelluksen vapaan käytön, muokkaamisen ja jakamisen."
-	},
-	"home_information_2": {
-		"en": "Thanks for trying out Kristal Framework, to get started please visit the <a href = 'https://www.jessetimonen.fi/kristal/documentation/latest/' target = '_blank'>documentations</a>, or check out some of our <a href = 'https://www.jessetimonen.fi/kristal/tutorials/latest/' target = '_blank'>tutorials</a>.",
-		"fi": "Kiitos Kristal Framework:in kokeilemisesta, jotta pääset alkuun käy tutustumassa <a href = 'https://www.jessetimonen.fi/kristal/documentation/latest/' target = '_blank'>dokumentaatioihin</a>, tai katso meidän luomia <a href = 'https://www.jessetimonen.fi/kristal/tutorials/latest/' target = '_blank'>harjoituksia</a>."
-	},
+    "home_title": {
+        "en": "Kristal Framework",
+        "fi": "Kristal Framework"
+    },
+    "home_version": {
+        "en": "Version 1.0, Developed by Jesse Timonen. Happy Coding!",
+        "fi": "Versio 1.0, kehittäjänä Jesse Timonen."
+    },
+    "home_information_1": {
+        "en": "Kristal Framework is PHP based framework which aims to offer developers clean and simple MVC environment where they can develope their websites. Kristal Framework was released to the public under MIT license, which allows people to use, modify and share this framework as they wish.",
+        "fi": "Kristal Framework on PHP:en pohjautuva nettisivujen kehittämiseen tarkoitettu alusta, jonka tarkoituksena on luoda nettisivujen kehittäjille puhdas ja yksinkertainen MVC ympäristö. Kristal Framework on julkaistu MIT lisenssin alla, joka sallii sovelluksen vapaan käytön, muokkaamisen ja jakamisen."
+    },
+    "home_information_2": {
+        "en": "Thanks for trying out Kristal Framework, to get started please visit the <a href = 'https://www.jessetimonen.fi/kristal/documentation/latest/' target = '_blank'>documentations</a>, or check out some of our <a href = 'https://www.jessetimonen.fi/kristal/tutorials/latest/' target = '_blank'>tutorials</a>.",
+        "fi": "Kiitos Kristal Framework:in kokeilemisesta, jotta pääset alkuun käy tutustumassa <a href = 'https://www.jessetimonen.fi/kristal/documentation/latest/' target = '_blank'>dokumentaatioihin</a>, tai katso meidän luomia <a href = 'https://www.jessetimonen.fi/kristal/tutorials/latest/' target = '_blank'>harjoituksia</a>."
+    },
 
 
 
 
 
-	"change_theme": {
-		"en": "Change Theme",
-		"fi": "Vaihda Teemaa"
-	},
-	"activate_dark_button": {
-		"en": "Activate Dark Theme",
-		"fi": "Aktivoi Tumma Teema"
-	},
-	"activate_light_button": {
-		"en": "Activate Light Theme",
-		"fi": "Aktivoi Vaalea Teema"
-	},
+    "change_theme": {
+        "en": "Change Theme",
+        "fi": "Vaihda Teemaa"
+    },
+    "activate_dark_button": {
+        "en": "Activate Dark Theme",
+        "fi": "Aktivoi Tumma Teema"
+    },
+    "activate_light_button": {
+        "en": "Activate Light Theme",
+        "fi": "Aktivoi Vaalea Teema"
+    },
 
 
 
 
 
-	"404_page_not_found": {
-		"en": "Page not found",
-		"fi": "Sivua ei löytynyt"
-	},
-	"404_return_link": {
-		"en": "Return to home page by clicking here!",
-		"fi": "Palaa takaisin etusivulle painamalla tästä!"
-	},
+    "404_page_not_found": {
+        "en": "Page not found",
+        "fi": "Sivua ei löytynyt"
+    },
+    "404_return_link": {
+        "en": "Return to home page by clicking here!",
+        "fi": "Palaa takaisin etusivulle painamalla tästä!"
+    },
 
 
 
 
 
-	"maintenance_title": {
-		"en": "Maintenance",
-		"fi": "Päivitys"
-	},
-	"maintenance_description": {
-		"en": "We are currently maintaining our website, we will be back shortly. Thanks for your patience.",
-		"fi": "Olemme päivittämässä sivujamme, olemme valmiina hetken kuluttua. Kiitos kärsivällisyydestäsi."
-	},
-	"maintenance_authentication": {
-		"en": "Authentication",
-		"fi": "Kirjautuminen"
-	},
-	"maintenance_password": {
-		"en": "Password",
-		"fi": "Salasana"
-	},
-	"maintenance_authentication_failed": {
-		"en": "Failed to authenticate!",
-		"fi": "Kirjautuminen epäonnistui!"
-	},
-	"maintenance_login": {
-		"en": "Sign In",
-		"fi": "Kirjaudu"
-	},
-	"maintenance_email": {
-		"en": "Email",
-		"fi": "Sähköposti"
-	}
+    "maintenance_title": {
+        "en": "Maintenance",
+        "fi": "Päivitys"
+    },
+    "maintenance_description": {
+        "en": "We are currently maintaining our website, we will be back shortly. Thanks for your patience.",
+        "fi": "Olemme päivittämässä sivujamme, olemme valmiina hetken kuluttua. Kiitos kärsivällisyydestäsi."
+    },
+    "maintenance_authentication": {
+        "en": "Authentication",
+        "fi": "Kirjautuminen"
+    },
+    "maintenance_password": {
+        "en": "Password",
+        "fi": "Salasana"
+    },
+    "maintenance_authentication_failed": {
+        "en": "Failed to authenticate!",
+        "fi": "Kirjautuminen epäonnistui!"
+    },
+    "maintenance_login": {
+        "en": "Sign In",
+        "fi": "Kirjaudu"
+    },
+    "maintenance_email": {
+        "en": "Email",
+        "fi": "Sähköposti"
+    }
 }

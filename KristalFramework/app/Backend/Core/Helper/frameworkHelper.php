@@ -19,7 +19,6 @@
 
     <!-- Helper links -->
     <li class = "list-group-item framework-helper-list-group-item" id = "link-documentation">Documentation</li>
-    <li class = "list-group-item framework-helper-list-group-item" id = "link-training">Training</li>
     <li class = "list-group-item framework-helper-list-group-item" id = "link-actions">Actions</li>
     <li class = "list-group-item framework-helper-list-group-item" id = "link-creator">Creator Tools</li>
     <li class = "list-group-item framework-helper-list-group-item" id = "link-media-library" data-bs-toggle = "modal" data-bs-target = "#media-library-modal">Media Library</li>
@@ -94,24 +93,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Training navigation -->
-        <ul class = "navbar-nav" id = "navigation-training" style = "display: none;">
-        <li class = "nav-item"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/training/latest/configuration" target = "_blank">Configuration</a></li>
-        <li class = "nav-item"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/training/latest/routes" target = "_blank">Routes</a></li>
-        <li class = "nav-item"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/training/latest/pages" target = "_blank">Pages</a></li>
-        <li class = "nav-item"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/training/latest/forms" target = "_blank">Forms</a></li>
-        <li class = "nav-item"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/training/latest/controllers" target = "_blank">Controllers</a></li>
-        <li class = "nav-item"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/training/latest/sessions" target = "_blank">Sessions</a></li>
-        <li class = "nav-item"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/training/latest/database" target = "_blank">Database</a></li>
-        <li class = "nav-item"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/training/latest/entities" target = "_blank">Entities</a></li>
-        <li class = "nav-item"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/training/latest/translations" target = "_blank">Translations</a></li>
-        <li class = "nav-item"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/training/latest/mailer" target = "_blank">Mailer</a></li>
-        <li class = "nav-item"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/training/latest/cache" target = "_blank">Cache</a></li>
-        <li class = "nav-item"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/training/latest/javascript" target = "_blank">JavaScript</a></li>
-        <li class = "nav-item"><a class = "nav-link" href = "https://jessetimonen.fi/kristal/training/latest/scss" target = "_blank">SCSS</a></li>
-    </ul>
 
 
     <!-- Documentations navigation -->

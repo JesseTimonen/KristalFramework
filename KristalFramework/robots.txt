@@ -3,7 +3,11 @@ Disallow: /LICENSE
 Disallow: /README
 Disallow: /cache/
 Disallow: /cron/
+Disallow: /app/composer.json
+Disallow: /app/composer.lock
 Disallow: /.env
 Disallow: /config.php
+
+Crawl-delay: 10
 
 Sitemap: https://www.YOUR_WEBSITE.com/sitemap.xml

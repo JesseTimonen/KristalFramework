@@ -5,7 +5,8 @@ RewriteBase /
 #========================#
 # Force HTTPS Connection #
 #========================#
-RewriteCond %{SERVER_PORT} !^443$
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{SERVER_PORT} 80
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 
@@ -17,17 +18,25 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.+)$ index.php [L]
 
 
-#=================#
-# Error Reporting #
-#=================#
+#====================================#
+# Error Reporting (Development Only) #
+#====================================#
 php_flag  display_errors    on
 php_value error_reporting   2039
+
+
+#===============#
+# Cache Control #
+#===============#
+<FilesMatch "\.(jpg|jpeg|png|gif|swf|css|js)$">
+    Header set Cache-Control "max-age=604800, public"
+</FilesMatch>
 
 
 #==================================#
 # Protect Specific File extensions #
 #==================================#
-<FilesMatch "\.(htaccess|htpasswd|env|ini|php|sql)$">
+<FilesMatch "\.(htaccess|htpasswd|env|ini|php|sql|bak|tmp|swp|yml|yaml|json|log)$">
     Order Allow,Deny
     Deny from all
 </FilesMatch>
@@ -45,7 +54,13 @@ php_value error_reporting   2039
 #=============#
 # Allow Files #
 #=============#
-<FilesMatch "index.php|robots.txt">
+<FilesMatch "index.php|robots.txt|sitemap.xml|translations.json">
     Order Allow,Deny
     Allow from all
 </FilesMatch>
+
+
+#===========#
+# Hide .git #
+#===========#
+RedirectMatch 404 /\.git

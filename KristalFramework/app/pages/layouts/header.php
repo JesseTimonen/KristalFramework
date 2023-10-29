@@ -8,11 +8,11 @@
         <meta name="generator" content="Kristal Framework" />
         <?php if (isset($kristal_metadata[$page])): ?>
             <?php foreach ($kristal_metadata[$page] as $key => $value): ?>
-                <meta property="<?= $key ?>" content="<?= $value ?>" />
+                <meta property="<?= htmlspecialchars($key) ?>" content="<?= htmlspecialchars($value) ?>" />
             <?php endforeach; ?>
         <?php elseif (isset($kristal_metadata["*"])): ?>
             <?php foreach ($kristal_metadata["*"] as $key => $value): ?>
-                <meta property="<?= $key ?>" content="<?= $value ?>" />
+                <meta property="<?= htmlspecialchars($key) ?>" content="<?= htmlspecialchars($value) ?>" />
             <?php endforeach; ?>
         <?php endif; ?>
 
@@ -20,7 +20,7 @@
         <!-- Styles -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
         <?php if (isset($_SESSION["theme"])): ?>
-            <link rel="stylesheet" type="text/css" href="<?= css($_SESSION["theme"] . ".css"); ?><?php if (AUTO_COMPILE_SCSS) {echo "?" . rand(); } ?>">
+            <link rel="stylesheet" type="text/css" href="<?= css($_SESSION["theme"]); ?><?php if (AUTO_COMPILE_SCSS) {echo "?" . rand(); } ?>">
         <?php else: ?>
             <link rel="stylesheet" type="text/css" href="<?= css(((DEFAULT_THEME) ? DEFAULT_THEME : "main") . ".css"); ?><?php if (AUTO_COMPILE_SCSS) {echo "?" . rand(); } ?>">
         <?php endif; ?>
