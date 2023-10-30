@@ -15,12 +15,12 @@ class Session
         // Start session if it is not yet active
         if (!$this->isActive())
         {
-            $this->startSession($this->getClientIPAddress());
+            $this->startSession($this->getClientIPAddress(), $this->getUserAgentHash());
         }
     }
 
 
-    function getClientIPAddress()
+    public function getClientIPAddress()
     {
         $IP_address = '';
     
@@ -37,35 +37,32 @@ class Session
         {
             $IP_address = $_SERVER['REMOTE_ADDR'];
         }
-    
-        if (filter_var($IP_address, FILTER_VALIDATE_IP))
-        {
-            return $IP_address;
-        }
-        else
-        {
-            // Invalid IP address
-            return "unknown";
-        }
+
+        return filter_var($IP_address, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) ? $IP_address : 'unknown';
     }
 
 
-    private function startSession($IP_address)
+    public function getUserAgentHash()
+    {
+        return hash('sha256', $_SERVER['HTTP_USER_AGENT']);
+    }
+
+
+    private function startSession($IP_address, $user_agent_hash)
     {
         session_name(SESSION_NAME);
         
-        ini_set('session.cookie_secure', '1');
+        if (PRODUCTION_MODE) { ini_set('session.cookie_secure', '1'); }
         ini_set('session.cookie_httponly', '1');
         ini_set('session.cookie_samesite', 'Strict');
 
         session_start();
         session_regenerate_id(true);
 
-
         // Restart if user's IP address doesn't match the original one
-        if (!empty($_SESSION["IP_address"]))
+        if (!empty($_SESSION["IP_address"]) && !empty($_SESSION["user_agent_hash"]))
         {
-            if ($_SESSION["IP_address"] !== $IP_address)
+            if ($_SESSION["IP_address"] !== $IP_address || $_SESSION["user_agent_hash"] !== $user_agent_hash)
             {
                 $this->restart();
             }
@@ -73,14 +70,14 @@ class Session
         else
         {
             $_SESSION["IP_address"] = $IP_address;
+            $_SESSION["user_agent_hash"] = $user_agent_hash;
         }
-
 
         // Check session duration
         $this->afk_timeout(SESSION_AFK_TIMEOUT);
         $this->timeout(SESSION_TIMEOUT);
     }
-
+    
 
     public function end()
     {

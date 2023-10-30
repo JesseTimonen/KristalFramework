@@ -30,8 +30,8 @@
         "fi": "Kristal Framework on PHP-pohjainen kehys, joka on suunniteltu tarjoamaan kehittäjille virtaviivainen ja yksinkertaistettu MVC-ympäristö verkkosivustojen kehittämiseen. Kehys on julkaistu julkisesti MIT-lisenssin alaisena, mikä antaa käyttäjille vapauden käyttää, muokata ja jakaa sitä mielensä mukaan."
     },
     "home_information_2": {
-        "en": "Thanks for trying out Kristal Framework, to get started please visit the <a href = 'https://www.jessetimonen.fi/kristal/documentation/latest/' target = '_blank'>documentations</a>.",
-        "fi": "Kiitos Kristal Framework:in kokeilemisesta, jotta pääset alkuun käy tutustumassa <a href = 'https://www.jessetimonen.fi/kristal/documentation/latest/' target = '_blank'>dokumentaatioihin</a>."
+        "en": "Thanks for trying out Kristal Framework, to get started please visit the <a href = 'https://www.jessetimonen.fi/kristal/documentation' target = '_blank'>documentations</a>.",
+        "fi": "Kiitos Kristal Framework:in kokeilemisesta, jotta pääset alkuun käy tutustumassa <a href = 'https://www.jessetimonen.fi/kristal/documentation' target = '_blank'>dokumentaatioihin</a>."
     },
 
 
