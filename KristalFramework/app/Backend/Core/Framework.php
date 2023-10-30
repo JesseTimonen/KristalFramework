@@ -69,6 +69,9 @@ if (file_exists("cron" . DIRECTORY_SEPARATOR . "cron.php")){ require_once "cron"
 
 if (MAINTENANCE_MODE === true && !isset($_SESSION["maintenance_access_granted"]))
 {
+    // Variable to tell authentication was failed
+    $kristal_authentication_failed = false;
+    
     // Maintenance authentication
     if (isset($_POST["maintenance-password"]))
     {
@@ -79,7 +82,7 @@ if (MAINTENANCE_MODE === true && !isset($_SESSION["maintenance_access_granted"])
         else
         {
             // Variable to tell authentication was failed
-            $authentication_failed = true;
+            $kristal_authentication_failed = true;
         }
     }
 

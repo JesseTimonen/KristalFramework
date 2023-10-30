@@ -1,15 +1,15 @@
 # Kristal Framework
 
-Kristal Framework is a PHP based framework which aims to offer developers clean and simple MVC environment to develope their websites.
-Kristal Framework was released to the public under MIT license, which allows people to use, modify and share this framework as they wish.
+Kristal Framework is a PHP-based architecture designed to furnish developers with a clean and straightforward MVC environment for website development.
+The framework is publicly available under the MIT License, granting individuals the latitude to utilize, modify, and distribute it as they deem appropriate.
 
 
 
 ## Important
 
-This project was made to learn how PHP frameworks work and to have a little bit of fun. This is not a proper framework for real life application.
-This framework may very well have plenty of security vulnerabilities and I will not be actively updating the framework to keep it secure.
-Only use this framework to mess around with it's features.
+This project was initiated as a learning exercise to delve into the mechanics of PHP frameworks while allowing for some creative experimentation.
+It is not designed for use in production environments. Please be advised that the framework may contain security vulnerabilities, and there is the possibility that updates to the framework may cease without notice.
+As such, it is advised to use this framework strictly for exploratory or experimental applications.
 
 
 
@@ -29,6 +29,7 @@ Only use this framework to mess around with it's features.
 ## Server
 
 * Ideally Apache or litespeed server with .htaccess support
+* May or may not work with nginx
 
 
 
@@ -51,9 +52,10 @@ to a full path
 
     RewriteRule ^(.+)$ https://www.example.com/index.php [L]
 
-As this is a personal project, I don't have the capability to make sure everything works with every system out from the gate,
-so if you experience any issues with the framework please let me know by sending an email to jesse.timonen@outlook.com
-so I can try to help you fix the issue and improve the framework.
+As this is a personal project, compatibility with all systems out-of-the-box is not guaranteed.
+Should you encounter any issues while utilizing the framework,
+please do not hesitate to reach out via email at jesse.timonen@outlook.com.
+Your feedback will aid in both resolving your issue and further refining the framework.
 
 
 

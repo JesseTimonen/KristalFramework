@@ -15,7 +15,7 @@ define("DEBUG_SHOW_NOTICES", true);
 
 
 // Minify HTML
-define("MINIFY_HTML", false);               // Compresses HTML into one single line if set to true (can cause issues with <code> tags)
+define("MINIFY_HTML", true);               // Compresses HTML into one single line if set to true (can cause issues with <code> tags)
 
 
 // Compile SCSS (does not work when in production mode)

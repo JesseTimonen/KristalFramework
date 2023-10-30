@@ -1,8 +1,11 @@
-<nav class="navbar bg-dark border-bottom navbar-expand-lg bg-body-tertiary border-body" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg border-bottom bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
 
-        <!-- Navbar Title -->
-        <a class="navbar-brand" href="<?= route(""); ?>" translationKey="nav_title">Kristal Framework</a>
+        <!-- Navbar Title (text) -->
+        <!--<a class="navbar-brand" href="<?= route(""); ?>" translationKey="nav_title">Kristal Framework</a> -->
+
+        <!-- Navbar Title (image) -->
+        <a class="navbar-brand" href="<?= route(""); ?>"><img class="navbar-logo" src="<?= image("kristal_framework_logo_with_name.png"); ?>" /></a>
 
         <!-- Navbar mobile toggle button -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,7 +15,7 @@
         <div class="collapse navbar-collapse" id="navbar-menu">
 
             <!-- Navbar links -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link" page="home.php" href="<?= route(""); ?>" translationKey="nav_home">Home</a>
                 </li>
@@ -22,7 +25,7 @@
             </ul>
       
             <!-- Language settings -->
-            <ul class="language-menu navbar-nav ml-auto justify-content-end">
+            <ul class="language-menu navbar-nav justify-content-end">
                 <!-- Language menu (text) -->
                 <!-- <li class="nav-item"><a id="fi-button" class="nav-link select-language" switchLanguage="fi">FI</a></li> -->
                 <!-- <li class="nav-item"><a id="en-button" class="nav-link select-language" switchLanguage="en">EN</a></li> -->

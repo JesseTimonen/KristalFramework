@@ -68,7 +68,6 @@ class Router
     private function minifyHTML($buffer)
     {
         $minified_HTML = new HtmlMin();
-        $minified_HTML->doNotRemoveWhitespaceAroundTags(array('code'));
         return $minified_HTML->minify($buffer);
     }
 

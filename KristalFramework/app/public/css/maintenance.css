@@ -66,6 +66,11 @@ a {
     padding: 10px;
     cursor: pointer;
     filter: brightness(66%);
+    transition: filter 0.2s ease-in-out;
+}
+
+#language-selection .select-language:hover {
+    filter: brightness(80%);
 }
 
 #language-selection .select-language.active {
@@ -113,6 +118,7 @@ a {
 
 .social-menu-link {
     filter: brightness(66%);
+    transition: filter 0.2s ease-in-out;
 }
 
 .social-menu-link:hover {

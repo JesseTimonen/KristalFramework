@@ -18,13 +18,15 @@
         <script src="<?= js("core.js"); ?>"></script>
         <script src="<?= js("maintenance.js"); ?>"></script>
 
-        <!-- Page Information -->
+        <!-- Page title -->
         <title><?= translate("maintenance"); ?></title>
-        <link rel="icon" type="image/gif" href="<?= image("kristal_framework_logo.png"); ?>" />
+
+        <!-- Website icon -->
+        <link rel="icon" type="image/gif" href="<?= image("kristal_framework_icon.png"); ?>" />
 
         <!-- Element to hold all PHP set JavaScript variables -->
-        <script>function getVariable(key){ return $("#javascript-variables").attr(key); }</script>
         <div id="javascript-variables" style="display: none" baseURL="<?= BASE_URL ?>"></div>
+        <script>function getVariable(key){ return $("#javascript-variables").attr(key); }</script>
     </head>
 
 
@@ -58,14 +60,13 @@
 
                 <button type="submit" class="btn btn-primary" translationKey="maintenance_login">Sign In</button>
                     
-                <?php if ($authentication_failed) : ?>
-                    <p id="feedback" translationKey="maintenance_authentication_failed" style="color: red;">Failed to authenticate!</p>
-                <?php else: ?>
-                    <p id="feedback" style="color: transparent;">.</p>
+                <?php if ($kristal_authentication_failed) : ?>
+                    <p id="feedback" style="color: red;" translationKey="maintenance_authentication_failed">Failed to authenticate!</p>
                 <?php endif; ?>
             </form>
         </div>
 
+        
         <!-- Social links -->
         <div class="social-icons">
             <!-- Email -->

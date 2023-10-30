@@ -1,13 +1,24 @@
 .navbar {
-    
+
+    .navbar-logo {
+        width: 135px;
+        margin-left: 10px;
+        margin-right: 40px;
+    }
+
     .nav-link {
-        color: $unactive_color;
+        color: $nav_unactive_color;
         cursor: pointer;
+        transition: color 0.2s ease-in-out;
+    }
+
+    .nav-link:hover {
+        color: $nav_hover_color;
     }
 
     .nav-link.active {
         font-weight: bold;
-        color: $active_color;
+        color: $nav_active_color;
     }
 
     .language-menu {
@@ -16,6 +27,11 @@
             padding: 10px;
             cursor: pointer;
             filter: brightness(66%);
+            transition: filter 0.2s ease-in-out;
+        }
+
+        img.select-language:hover {
+            filter: brightness(80%);
         }
 
         img.select-language.active {

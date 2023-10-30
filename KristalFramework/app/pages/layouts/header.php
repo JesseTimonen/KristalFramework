@@ -33,14 +33,23 @@
         <script src="<?= js("main.js"); ?>"></script>
 
 
-        <!-- Page Information -->
-        <title><?= htmlspecialchars(isset($kristal_metadata[$page]->title) ? $kristal_metadata[$page]->title : (isset($kristal_metadata["*"]->title) ? $kristal_metadata["*"]->title : '')) ?></title>
-        <link rel="icon" type="image/gif" href="<?= image("kristal_framework_logo.png"); ?>" />
+        <!-- Page title -->
+        <?php if (!empty($kristal_metadata[$page]->title)): ?>
+            <title><?= htmlspecialchars($kristal_metadata[$page]->title); ?></title>
+        <?php elseif (!empty($kristal_metadata["*"]->title)): ?>
+            <title><?= htmlspecialchars($kristal_metadata["*"]->title); ?></title>
+        <?php else: ?>
+            <title><?= BASE_URL . $page; ?></title>
+        <?php endif; ?>
+
+
+        <!-- Website icon -->
+        <link rel="icon" type="image/gif" href="<?= image("kristal_framework_icon.png"); ?>" />
 
 
         <!-- Element to hold all PHP set JavaScript variables -->
-        <script>function getVariable(key){ return $("#javascript-variables").attr(key); }</script>
         <div id="javascript-variables" style="display: none" baseURL="<?= BASE_URL ?>"></div>
+        <script>function getVariable(key){ return $("#javascript-variables").attr(key); }</script>
 
     </head>
     <body>
