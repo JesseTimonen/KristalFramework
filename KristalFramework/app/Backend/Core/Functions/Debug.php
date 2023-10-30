@@ -11,3 +11,31 @@ function debug($variable, $name = null)
 
     echo "</pre><hr />";
 }
+
+
+function kristal_init_debug() {
+
+    if (!DEBUG_DISPLAY_ERRORS) {
+        ini_set('display_errors', '0');
+        ini_set('error_reporting', '0');
+        return;
+    }
+
+    ini_set('display_errors', '1');
+
+    $error_level = 0;
+
+    if (DEBUG_SHOW_ERRORS) {
+        $error_level |= E_ERROR;
+    }
+    if (DEBUG_SHOW_WARNINGS) {
+        $error_level |= E_WARNING;
+    }
+    if (DEBUG_SHOW_NOTICES) {
+        $error_level |= E_NOTICE;
+    }
+
+    ini_set('error_reporting', $error_level);
+}
+
+kristal_init_debug();

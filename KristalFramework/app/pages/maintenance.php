@@ -20,7 +20,7 @@
 
         <!-- Page Information -->
         <title><?= translate("maintenance"); ?></title>
-        <link rel="icon" type="image/gif" href="<?= image("icon_website.png"); ?>" />
+        <link rel="icon" type="image/gif" href="<?= image("kristal_framework_logo.png"); ?>" />
 
         <!-- Element to hold all PHP set JavaScript variables -->
         <script>function getVariable(key){ return $("#javascript-variables").attr(key); }</script>

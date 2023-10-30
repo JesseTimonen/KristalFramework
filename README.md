@@ -9,14 +9,13 @@ Kristal Framework was released to the public under MIT license, which allows peo
 
 This project was made to learn how PHP frameworks work and to have a little bit of fun. This is not a proper framework for real life application.
 This framework may very well have plenty of security vulnerabilities and I will not be actively updating the framework to keep it secure.
-Only use this framework to mess around with its features.
+Only use this framework to mess around with it's features.
 
 
 
 ## Server requirements
 
-* PHP 7.0+
-* Apache server with htaccess support
+* PHP 7.4+
 * Composer
 
 
@@ -24,14 +23,19 @@ Only use this framework to mess around with its features.
 ## Database requirements
 
 * PDO PHP extension
-* MySQL 5.6+
+
+
+
+## Server
+
+* Ideally Apache or litespeed server with .htaccess support
 
 
 
 ## Installing
 
-1. Upload the files (which are inside KristalFramework folder) to a server or developement environment.
-2. Run composer install to install dependencies from app/composer.json file.
+1. Upload the files (which are inside KristalFramework folder) to a server or local development environment.
+2. Run 'composer install --prefer-dist --optimize-autoloader' to install dependencies from app/composer.json file.
 
 After completing these steps you should now be able to access the built-in demo page by going to your server's URL.
 

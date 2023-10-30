@@ -35,7 +35,7 @@
 
         <!-- Page Information -->
         <title><?= htmlspecialchars(isset($kristal_metadata[$page]->title) ? $kristal_metadata[$page]->title : (isset($kristal_metadata["*"]->title) ? $kristal_metadata["*"]->title : '')) ?></title>
-        <link rel="icon" type="image/gif" href="<?= image("icon_website.png"); ?>" />
+        <link rel="icon" type="image/gif" href="<?= image("kristal_framework_logo.png"); ?>" />
 
 
         <!-- Element to hold all PHP set JavaScript variables -->

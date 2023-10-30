@@ -17,7 +17,7 @@ class ThemeController
         }
     
         // Format theme name: remove the file extension, convert to lowercase and add .css extension
-        $formatted_theme_name = strtolower(pathinfo($theme, PATHINFO_FILENAME)) . 'css';
+        $formatted_theme_name = strtolower(pathinfo($theme, PATHINFO_FILENAME)) . '.css';
     
         // Check if the theme file exists
         if (!file_exists($this->themes_folder_path . $formatted_theme_name)) {

@@ -16,7 +16,6 @@ Only use this framework to mess around with it's features.
 ## Server requirements
 
 * PHP 7.4+
-* Apache server with htaccess support
 * Composer
 
 
@@ -24,7 +23,12 @@ Only use this framework to mess around with it's features.
 ## Database requirements
 
 * PDO PHP extension
-* MySQL 5.6 or above
+
+
+
+## Server
+
+* Ideally Apache or litespeed server with .htaccess support
 
 
 

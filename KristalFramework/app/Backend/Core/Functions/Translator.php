@@ -56,6 +56,7 @@ function translate($translation_key, $variables = array(""))
 
     // Get translation language
     $language = getLanguage();
+    $not_found = false;
 
     // Check is translation found
     if (!array_key_exists($translation_key, $translations))

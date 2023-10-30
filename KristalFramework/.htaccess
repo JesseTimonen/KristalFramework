@@ -2,12 +2,12 @@ RewriteEngine On
 RewriteBase /
 
 
-#========================#
-# Force HTTPS Connection #
-#========================#
-RewriteCond %{HTTPS} off [OR]
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+#==========================================================================#
+# Force HTTPS Connection (activate when you have htaccess for you website) #
+#==========================================================================#
+# RewriteCond %{HTTPS} off [OR]
+# RewriteCond %{SERVER_PORT} 80
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 
 #====================#
@@ -16,21 +16,6 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.+)$ index.php [L]
-
-
-#====================================#
-# Error Reporting (Development Only) #
-#====================================#
-php_flag  display_errors    on
-php_value error_reporting   2039
-
-
-#===============#
-# Cache Control #
-#===============#
-<FilesMatch "\.(jpg|jpeg|png|gif|swf|css|js)$">
-    Header set Cache-Control "max-age=604800, public"
-</FilesMatch>
 
 
 #==================================#

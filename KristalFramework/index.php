@@ -4,18 +4,18 @@
 use Backend\Core\Router;
 
 // Optional controllers, entities, etc.
-use Backend\Controllers\Settings;
+use Backend\Controllers\ThemeController;
 
 
 class Routes extends Router
 {
-    private $settings;
+    private $theme_controller;
 
 
     public function __construct()
     {
        // Create instance of your optional controllers, entities, etc.
-        $this->settings = new Settings();
+        $this->theme_controller = new ThemeController();
 
         // Activate Router
         parent::__construct();
@@ -56,18 +56,10 @@ class Routes extends Router
     {
         $feedback = "";
 
-        if (isset($selected_theme) && !empty($selected_theme)) {
-
-            // Trying to change the theme by calling settings controller which has the custom changeTheme() method
-            // Settings controller can be found at app/Backend/Controllers/ folder
-            if ($this->settings->changeTheme($selected_theme))
-            {
-                $feedback = translate("change_theme_successful_message", [$selected_theme]);
-            }
-            else
-            {
-                $feedback = translate("change_theme_failed_message", [$selected_theme]);
-            }
+        if (!empty($selected_theme)) {
+            // try to change the theme by calling theme controller which has a custom changeTheme() method
+            // theme controller can be found at app/Backend/Controllers/ folder
+            $feedback = $this->theme_controller->changeTheme($selected_theme) ? translate("change_theme_successful_message", [$selected_theme]) : translate("change_theme_failed_message", [$selected_theme]);
         }
 
         // Render content from app/pages/theme.php and create $message variable that can be used in the template

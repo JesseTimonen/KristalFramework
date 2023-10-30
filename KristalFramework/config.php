@@ -7,6 +7,13 @@ define("DISPLAY_HELPER", false);            // Displays a framework helper durin
 define("MAINTENANCE_MODE", false);          // Display maintenance page for users while you are working on your website
 
 
+// Error reporting
+define("DEBUG_DISPLAY_ERRORS", true);
+define("DEBUG_SHOW_ERRORS", true);
+define("DEBUG_SHOW_WARNINGS", true);
+define("DEBUG_SHOW_NOTICES", true);
+
+
 // Minify HTML
 define("MINIFY_HTML", false);               // Compresses HTML into one single line if set to true (can cause issues with <code> tags)
 
@@ -24,7 +31,7 @@ define("PRINT_COMPILE_DATE_JS", true);      // Prints comment saying when javasc
 $js_bundles = array(                        // This array tells how to compile javascript, it combines given js files into compiled js file
     "core" => array(
         "core/form.js",
-        "core/tooltip.js",
+        "core/tooltips.js",
         "core/translator.js",
     ),
     "maintenance" => array(
