@@ -40,7 +40,6 @@ class Routes extends Router
             case "theme": $this->callView("theme", $variables); break;
             default: $this->callView("pageNotFound"); break;
         }
-        debug($_SESSION);
     }
 
 
