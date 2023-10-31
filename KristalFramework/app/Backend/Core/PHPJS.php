@@ -6,38 +6,37 @@ class PHPJS
 {
     public static function addJSVariable($variable, $value = "")
     {
-        if (is_array($variable))
+        self::generateScript(function() use ($variable, $value)
         {
-            ?>
-            <script>
-                window.addEventListener("DOMContentLoaded", function() {
-                    <?php foreach($variable as $key => $value): ?>
-                        document.getElementById("javascript-variables").setAttribute("<?= $key ?>", "<?= $value ?>");
-                    <?php endforeach; ?>
-                });
-            </script>
-            <?php
-        }
-        else
-        {
-            ?>
-            <script>
-                window.addEventListener("DOMContentLoaded", function() {
-                    document.getElementById("javascript-variables").setAttribute("<?= $variable ?>", "<?= $value ?>");
-                });
-            </script>
-            <?php
-        }
+            if (is_array($variable))
+            {
+                foreach ($variable as $key => $val)
+                {
+                    echo "document.getElementById('javascript-variables').setAttribute('$key', '$val');";
+                }
+            }
+            else
+            {
+                echo "document.getElementById('javascript-variables').setAttribute('$variable', '$value');";
+            }
+        });
     }
 
 
     public static function script($script)
     {
+        self::generateScript(function() use ($script)
+        {
+            echo $script;
+        });
+    }
+
+
+    private static function generateScript($callback)
+    {
         ?>
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                <?= $script ?>
-            });
+            window.addEventListener("DOMContentLoaded", function() {<?php $callback(); ?>});
         </script>
         <?php
     }

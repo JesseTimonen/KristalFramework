@@ -3,30 +3,33 @@
 
 function kristal_getAssetPath($folder, $file, array $params = ["path" => "url"])
 {
-    $appPublicPath = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR;
-    $filePath = $appPublicPath . $folder . DIRECTORY_SEPARATOR . $file;
+    $filePath = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR . $file;
 
     // Validate the "path" parameter
-    $pathType = strtolower($params["path"] ?? "url");
+    $path_type = strtolower($params["path"] ?? "url");
 
-    if (!in_array($pathType, ["url", "path"], true)) {
+    if (!in_array($path_type, ["url", "path"], true))
+    {
         throw new Exception("Invalid path parameter passed to " . $folder . "() method. It should be either 'url' or 'path'");
     }
 
     // Handle glob matching
-    if (!file_exists($filePath)) {
-
+    if (!file_exists($filePath))
+    {
         $files = glob($filePath . "*");
 
-        if (!empty($files)) {
+        if (!empty($files))
+        {
             $filePath = $files[0];
-        } else {
+        }
+        else
+        {
             return "";
         }
     }
 
     // Determine the return path type
-    return $pathType === "url" ? BASE_URL . $filePath : $filePath;
+    return $path_type === "url" ? BASE_URL . $filePath : $filePath;
 }
 
 // ============================================================================================================== \\
@@ -116,8 +119,8 @@ function page($file)
 function pageExists($page)
 {
     // Make sure page is a php file
-    $fileInfo = pathinfo($page);
-    if ($fileInfo['extension'] !== "php")
+    $file_info = pathinfo($page);
+    if ($file_info['extension'] !== "php")
     {
         $page .= ".php";
     }

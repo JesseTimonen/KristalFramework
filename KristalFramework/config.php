@@ -2,33 +2,39 @@
 
 
 // Framework settings
-define("PRODUCTION_MODE", false);           // Optimizes your application, remember to turn off when editing your page to unlock all the features
-define("DISPLAY_HELPER", false);            // Displays a framework helper during maintenance mode
-define("MAINTENANCE_MODE", false);          // Display maintenance page for users while you are working on your website
+define("PRODUCTION_MODE", false);                       // Optimizes your application, remember to turn off when editing your page to unlock all the features
+define("DISPLAY_HELPER", false);                        // Displays a framework helper during maintenance mode
+define("MAINTENANCE_MODE", false);                      // Display maintenance page for users while you are working on your website
 
 
 // Error reporting
-define("DEBUG_DISPLAY_ERRORS", true);
-define("DEBUG_SHOW_ERRORS", true);
-define("DEBUG_SHOW_WARNINGS", true);
-define("DEBUG_SHOW_NOTICES", true);
+define("ENABLE_DEBUG", true);                           // Controls whether debugging features should be activated. (Setting this to false will disable all error debugging features)
+define("ENABLE_DEBUG_LOG", true);                       // Determines if debug messages should be logged to a file
+define("ENABLE_DEBUG_DISPLAY", true);                   // Indicates if debug messages should be displayed
+define("DEBUG_IGNORE_WARNINGS", false);                 // If true, PHP warnings are neither displayed nor logged. (can not be displayed in production mode)
+define("DEBUG_IGNORE_NOTICES", false);                  // If true, PHP notices are neither displayed nor logged. (can not be displayed in production mode)
+define("DEBUG_IGNORE_DEPRECATED", false);               // If true, PHP deprecated notices are neither displayed nor logged. (can not be displayed in production mode)
+define("DEBUG_IGNORE_STRICT", false);                   // If true, PHP strict standards notices are neither displayed nor logged. (can not be displayed in production mode)
+define("DEBUG_LOG_PATH", "..\debug.log");               // Sets the file path for logging debug messages.
+
+
 
 
 // Minify HTML
-define("MINIFY_HTML", true);               // Compresses HTML into one single line if set to true (can cause issues with <code> tags)
+define("MINIFY_HTML", true);                            // Compresses HTML into one single line if set to true (can cause issues with <code> tags)
 
 
 // Compile SCSS (does not work when in production mode)
-define("AUTO_COMPILE_SCSS", true);          // Auto compile scss every time page is reloaded and changes has been made to scss files
-define("COMPILED_CSS_TYPE", "compressed");  // Defines how scss if compiled, use: "expanded" or "compressed"
-define("DEFAULT_THEME", "dark");            // Specify default theme to be used if $_SESSION["theme"] doesn't have a value, if you don't use any themes give it value like "main" or "default"
-define("PRINT_COMPILE_DATE_CSS", true);     // Prints comment saying when css file was last compiled
+define("AUTO_COMPILE_SCSS", true);                      // Auto compile scss every time page is reloaded and changes has been made to scss files
+define("COMPILED_CSS_TYPE", "compressed");              // Defines how scss if compiled, use: "expanded" or "compressed"
+define("DEFAULT_THEME", "dark");                        // Specify default theme to be used if $_SESSION["theme"] doesn't have a value, if you don't use any themes give it value like "main" or "default"
+define("PRINT_COMPILE_DATE_CSS", true);                 // Prints comment saying when css file was last compiled
 
 
 // Compile JavaScript (does not work when in production mode)
-define("AUTO_COMPILE_JS", true);            // Auto compile javascript every time page is reloaded and changes has been made to js files
-define("PRINT_COMPILE_DATE_JS", true);      // Prints comment saying when javascript file was last compiled
-$js_bundles = array(                        // This array tells how to compile javascript, it combines given js files into compiled js file
+define("AUTO_COMPILE_JS", true);                        // Auto compile javascript every time page is reloaded and changes has been made to js files
+define("PRINT_COMPILE_DATE_JS", true);                  // Prints comment saying when javascript file was last compiled
+$js_bundles = array(                                    // This array tells how to compile javascript, it combines given js files into compiled js file
     "core" => array(
         "core/form.js",
         "core/tooltips.js",

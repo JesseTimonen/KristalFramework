@@ -36,11 +36,11 @@ function translate($translation_key, $variables = array(""))
     global $translations;
     if (!isset($translations))
     {
-        $translationsFilePath = 'app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'translations' . DIRECTORY_SEPARATOR . 'translations.php';
+        $translations_file_path = 'app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'translations' . DIRECTORY_SEPARATOR . 'translations.php';
     
-        if (file_exists($translationsFilePath))
+        if (file_exists($translations_file_path))
         {
-            $translations = include $translationsFilePath;
+            $translations = include $translations_file_path;
         }
         else
         {

@@ -74,7 +74,7 @@ class Session
         }
 
         // Check session duration
-        $this->afk_timeout(SESSION_AFK_TIMEOUT);
+        $this->afkTimeout(SESSION_AFK_TIMEOUT);
         $this->timeout(SESSION_TIMEOUT);
     }
     
@@ -194,7 +194,7 @@ class Session
 
 
     // End Session if user isn't active for x seconds (specified in the config.php)
-    private function afk_timeout($duration)
+    private function afkTimeout($duration)
     {
         if ($this->get("afk_timeout") !== null)
         {

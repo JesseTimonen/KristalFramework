@@ -91,7 +91,7 @@ final class SCSS_Compiler
         }
     
         // Compile sass files
-        $compiled_css = $compiler->compile($scss);
+        $compiled_css = $compiler->compileString($scss)->getCSS();
 
         // Add comment when file was last modified
         if (PRINT_COMPILE_DATE_CSS) {
@@ -123,7 +123,7 @@ final class SCSS_Compiler
             }
     
             // Compile sass files
-            $compiled_css = $compiler->compile($scss);
+            $compiled_css = $compiler->compileString($scss)->getCSS();
 
             // Add comment when file was last modified
             if (PRINT_COMPILE_DATE_CSS) {

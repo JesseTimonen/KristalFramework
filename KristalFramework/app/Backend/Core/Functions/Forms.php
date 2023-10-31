@@ -22,10 +22,7 @@ function createNewCSRF($identifier = "default")
 // Return current CSRF token
 function getCSRF($identifier = "default")
 {
-    if (!isset($_SESSION["csrf"][$identifier])) {
-        return false;
-    }
-
+    if (!isset($_SESSION["csrf"][$identifier])) { return false; }
     return $_SESSION["csrf"][$identifier];
 }
 

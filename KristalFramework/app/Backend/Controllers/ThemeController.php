@@ -23,7 +23,7 @@ class ThemeController
         if (!file_exists($this->themes_folder_path . $formatted_theme_name)) {
             return false;
         }
-    
+        
         // Add the new theme to session
         Session::add("theme", $formatted_theme_name);
         return true;

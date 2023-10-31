@@ -1,5 +1,42 @@
 <?php
 
+
+function isSecurePassword($password)
+{
+    // Check the length
+    if (strlen($password) < 8)
+    {
+        return false;
+    }
+
+    // Check for uppercase letter
+    if (!preg_match('/[A-Z]/', $password))
+    {
+        return false;
+    }
+
+    // Check for lowercase letter
+    if (!preg_match('/[a-z]/', $password))
+    {
+        return false;
+    }
+
+    // Check for digit
+    if (!preg_match('/\d/', $password))
+    {
+        return false;
+    }
+
+    // Check for special character
+    if (!preg_match('/[\W_]/', $password))
+    {
+        return false;
+    }
+
+    return true;
+}
+
+
 function isPasswordCommon($password)
 {
     $common_passwords = array(
@@ -103,16 +140,13 @@ function isPasswordCommon($password)
         "thunder" => true,
         "taylor" => true,
         "matrix" => true,
-        "" => true,
-        "101–10000" => true,
-        "" => true,
         "william" => true,
         "corvette" => true,
         "hello" => true,
         "martin" => true,
         "heather" => true,
         "secret" => true,
-        "YourNan" => true,
+        "fucker" => true,
         "merlin" => true,
         "diamond" => true,
         "1234qwer" => true,
@@ -4751,7 +4785,7 @@ function isPasswordCommon($password)
         "1017" => true,
         "02061985" => true,
         "02011987" => true,
-        " *****" => true,
+        "*****" => true,
         "zhun" => true,
         "ying" => true,
         "yang" => true,
@@ -7026,7 +7060,7 @@ function isPasswordCommon($password)
         "02051981" => true,
         "01031985" => true,
         "01021990" => true,
-        " ******" => true,
+        "******" => true,
         "zildjian" => true,
         "yfnfkb" => true,
         "yeah" => true,
