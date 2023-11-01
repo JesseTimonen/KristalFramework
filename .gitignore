@@ -1,4 +1,5 @@
 KristalFramework/App/Backend/Core/vendor
+KristalFramework/.env
 .vscode
 .vs
 .idea
