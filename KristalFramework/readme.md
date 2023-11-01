@@ -35,8 +35,10 @@ As such, it is advised to use this framework strictly for exploratory or experim
 
 ## Installing
 
-1. Upload the files (which are inside KristalFramework folder) to a server or local development environment.
-2. Run 'composer install --prefer-dist --optimize-autoloader' on 'App/Backend/Core/' to install dependencies from composer.json file.
+1. Rename .env.example to .env and configure the settings
+2. Configure settings in the config.php
+3. Upload the framework files to a server or local development environment.
+4. Run 'composer install --prefer-dist --optimize-autoloader' on 'App/Backend/Core/' folder to install dependencies from composer.json file.
 
 After completing these steps you should now be able to access the built-in demo page by going to your server's URL.
 
