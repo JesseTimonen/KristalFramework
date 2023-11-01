@@ -1,0 +1,34 @@
+<?php namespace Backend\Entities;
+defined("ACCESS") or exit("Access Denied");
+
+use Backend\Core\Entity;
+
+
+class {{ name }} extends Entity
+{
+    protected $database = "primary";
+    protected $table;
+    protected $columns;
+    protected $primary_key;
+
+    // Table columns with default values
+    {{ field_defaults_0 }}{{ field_defaults_1 }}{{ field_defaults_2 }}{{ field_defaults_3 }}{{ field_defaults_4 }}{{ field_defaults_5 }}{{ field_defaults_6 }}{{ field_defaults_7 }}{{ field_defaults_8 }}{{ field_defaults_9 }}{{ field_defaults_10 }}{{ field_defaults_11 }}{{ field_defaults_12 }}{{ field_defaults_13 }}{{ field_defaults_14 }}{{ field_defaults_15 }}{{ field_defaults_16 }}{{ field_defaults_17 }}{{ field_defaults_18 }}{{ field_defaults_19 }}
+
+    // Construct entity
+    public function __construct($identifier_key = null, $identifier_value = null)
+    {
+        // Table construction information
+        $this->table = "{{ table }}";
+        $this->primary_key = "{{ primary_key }}";
+        $this->columns = array({{ field_0 }}{{ field_1 }}{{ field_2 }}{{ field_3 }}{{ field_4 }}{{ field_5 }}{{ field_6 }}{{ field_7 }}{{ field_8 }}{{ field_9 }}{{ field_10 }}{{ field_11 }}{{ field_12 }}{{ field_13 }}{{ field_14 }}{{ field_15 }}{{ field_16 }}{{ field_17 }}{{ field_18 }}{{ field_19 }}
+        );
+
+        parent::__construct([
+            "database" => $this->database,
+            "identifier_key" => $identifier_key,
+            "identifier_value" => $identifier_value
+        ]);
+    }
+
+    {{ get_set_0 }}{{ get_set_1 }}{{ get_set_2 }}{{ get_set_3 }}{{ get_set_4 }}{{ get_set_5 }}{{ get_set_6 }}{{ get_set_7 }}{{ get_set_8 }}{{ get_set_9 }}{{ get_set_10 }}{{ get_set_11 }}{{ get_set_12 }}{{ get_set_13 }}{{ get_set_14 }}{{ get_set_15 }}{{ get_set_16 }}{{ get_set_17 }}{{ get_set_18 }}{{ get_set_19 }}
+}

@@ -15,40 +15,60 @@ class Session
         // Start session if it is not yet active
         if (!$this->isActive())
         {
-            $this->startSession($this->getClientIPAddress(), $this->getUserAgentHash());
+            $this->startSession($this->getUsersUniqueIdentity());
         }
     }
 
 
     public function getClientIPAddress()
     {
-        $IP_address = '';
-    
-        if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-        {
-            $IP_address_list = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-            $IP_address = trim(end($IP_address_list));
-        }
-        else if (isset($_SERVER['HTTP_CLIENT_IP']))
-        {
-            $IP_address = $_SERVER['HTTP_CLIENT_IP'];
-        }
-        else if (isset($_SERVER['REMOTE_ADDR']))
-        {
-            $IP_address = $_SERVER['REMOTE_ADDR'];
-        }
+        $IP_address = 'unknown';
 
-        return filter_var($IP_address, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) ? $IP_address : 'unknown';
+        $keys = array('HTTP_X_REAL_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR');
+        foreach ($keys as $key) 
+        {
+            if (isset($_SERVER[$key])) 
+            {
+                $ip_list = explode(',', $_SERVER[$key]);
+                foreach ($ip_list as $ip) 
+                {
+                    $ip = trim($ip); // remove any extra spaces
+                    if (filter_var($ip, FILTER_VALIDATE_IP)) 
+                    {
+                        $IP_address = $ip;
+                        return $IP_address;
+                    }
+                }
+            }
+        }
+      
+        return $IP_address;
     }
 
 
     public function getUserAgentHash()
     {
-        return hash('sha256', $_SERVER['HTTP_USER_AGENT']);
+        return $_SERVER['HTTP_USER_AGENT'] ?? 'unknown';
     }
 
 
-    private function startSession($IP_address, $user_agent_hash)
+    public function getUsersUniqueIdentity()
+    {
+        // Use the IP address (consider using a more reliable method to get this)
+        $IP_address = $this->getClientIPAddress();
+
+        // Use the User-Agent string
+        $user_agent = $this->getUserAgentHash();
+
+        // Collect additional data if available
+        $additional_data = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+
+        // Generate a id by hashing these together
+        return hash('sha256', $IP_address . $user_agent . $additional_data);
+    }
+
+
+    private function startSession($visitor_identity)
     {
         session_name(SESSION_NAME);
         
@@ -60,17 +80,16 @@ class Session
         session_regenerate_id(true);
 
         // Restart if user's IP address doesn't match the original one
-        if (!empty($_SESSION["IP_address"]) && !empty($_SESSION["user_agent_hash"]))
+        if (!empty($_SESSION["visitor_identity"]))
         {
-            if ($_SESSION["IP_address"] !== $IP_address || $_SESSION["user_agent_hash"] !== $user_agent_hash)
+            if ($_SESSION["visitor_identity"] !== $visitor_identity)
             {
                 $this->restart();
             }
         }
         else
         {
-            $_SESSION["IP_address"] = $IP_address;
-            $_SESSION["user_agent_hash"] = $user_agent_hash;
+            $_SESSION["visitor_identity"] = $visitor_identity;
         }
 
         // Check session duration

@@ -23,20 +23,13 @@ function ts($translation_key, $variables = array(""))
 
 
 // Return translation
-function trans($translation_key, $variables = array(""))
-{
-    return translate($translation_key, $variables);
-}
-
-
-// Return translation
 function translate($translation_key, $variables = array(""))
 {
     // Get translations
     global $translations;
     if (!isset($translations))
     {
-        $translations_file_path = 'app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'translations' . DIRECTORY_SEPARATOR . 'translations.php';
+        $translations_file_path = 'App/Public/Translations/translations.php';
     
         if (file_exists($translations_file_path))
         {
@@ -44,7 +37,7 @@ function translate($translation_key, $variables = array(""))
         }
         else
         {
-            throw new Exception("Failed to load translations file! Missing translations.php file at app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "translations" . DIRECTORY_SEPARATOR);
+            throw new Exception("Failed to load translations file! Missing translations.php file at App/Public/Translations/");
         }
     }
 
@@ -56,53 +49,24 @@ function translate($translation_key, $variables = array(""))
 
     // Get translation language
     $language = getLanguage();
-    $not_found = false;
 
-    // Check is translation found
+    // Incase we can not find translation with a key we should check can we find translation that matches he key
+    // We do this to allow the user translate like this: tarnslate("Hello there, how are you {s}?", $username);
+    // Compared to: translate("hello_message", $username)
     if (!array_key_exists($translation_key, $translations))
     {
-        $not_found = true;
-
-        // Try to find possible match for translation from the content of translations
+        // Check does the translation key match any translation
         foreach ($translations as $key => $value)
         {
             foreach ($value as $translation)
             {
-                if (strpos($translation_key, $translation) !== false)
-                {
-                    $not_found = false;
-                    $translation_key = $key;
-                    break;
-                }
-            }
-            if (!$not_found) break;
-        }
-
-        if ($not_found)
-        {
-            // Try to find possible match for translation
-            foreach ($translations as $key => $value)
-            {
-                // Check if translation key is found within the requested key
-                if (strpos($key, $translation_key) !== false)
-                {
-                    $not_found = false;
-                    $translation_key = $key;
-                    break;
-                }
-                else if (strpos($translation_key, $key) !== false)
-                {
-                    $not_found = false;
+                if ($translation_key == $translation) {
                     $translation_key = $key;
                     break;
                 }
             }
         }
-    }
 
-
-    if ($not_found)
-    {
         // Display JavaScript warning about missing translation
         ?><script>console.warn("PHP translator was not able to translate key: <?= $translation_key ?>!");</script><?php
         return "";
@@ -124,6 +88,6 @@ function translate($translation_key, $variables = array(""))
     else
     {
         ?><script>console.warn("PHP translator was not able to translate key: <?= $translation_key ?> with language: <?= $language ?>!");</script><?php
-        return "";
+        return (array_key_exists(DEFAULT_LANGUAGE, $valid_languages)) ? vsprintf($translations[$translation_key][DEFAULT_LANGUAGE], $variables) : "";
     }
 }

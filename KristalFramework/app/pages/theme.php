@@ -1,4 +1,4 @@
-<?php include "layouts/navigation.php"; ?>
+<?php include "Partials/navigation.php"; ?>
 
 
 <div class="container">

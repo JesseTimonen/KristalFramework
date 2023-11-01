@@ -86,7 +86,7 @@ class Cron
 
     private function readyToExecute()
     {
-        $file = $this->getTaskLocation();
+        $file = $this->getLogLocation();
     
         if (file_exists($file))
         {
@@ -110,12 +110,12 @@ class Cron
     {
         $nextRunDate = date("Y-m-d {$this->run_time}", strtotime(date("Y-m-d {$this->run_time}") . "+{$this->interval['amount']} {$this->interval['type']}"));
         $content = "<?php\n\n" . "// Last run at: " . date('Y-m-d H:i:s') . "\n" . "// Next run at: $nextRunDate" . "\n\n" . "return '$nextRunDate';";
-        file_put_contents($this->getTaskLocation(), $content);
+        file_put_contents($this->getLogLocation(), $content);
     }
     
     
-    private function getTaskLocation()
+    private function getLogLocation()
     {
-        return "cron" . DIRECTORY_SEPARATOR . "logs" . DIRECTORY_SEPARATOR . getCleanName($this->name) . ".php";
+        return "App/Backend/Cron/Logs/" . getCleanName($this->name) . ".php";
     }
 }

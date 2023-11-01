@@ -1,4 +1,4 @@
-;console.log('Thanks for using Kristal Framework! (Message sent from /app/public/javascript/main.js)');
+;console.log('Thanks for using Kristal Framework! (Message sent from /App/Public/Javascript/main.js)');
 
 
-/* Generated at: 8.4.2023 14:14:39 */
+/* Generated at: 1.11.2023 16:10:05 */

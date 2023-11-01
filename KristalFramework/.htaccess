@@ -18,34 +18,28 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.+)$ index.php [L]
 
 
-#==================================#
-# Protect Specific File extensions #
-#==================================#
-<FilesMatch "\.(htaccess|htpasswd|env|ini|php|sql|bak|tmp|swp|yml|yaml|json|log)$">
+#=========================#
+# Protect File extensions #
+#=========================#
+<FilesMatch "\.(htaccess|htpasswd|env|ini|php|sql|bak|bk|tmp|swp|yml|yaml|json|lock|log|xml|txt|md|gitignore)$">
     Order Allow,Deny
     Deny from all
 </FilesMatch>
 
 
-#========================#
-# Protect Specific Files #
-#========================#
-<FilesMatch "composer.json|composer.lock|README|LICENSE">
-    Order Allow,Deny
-    Deny from all
-</FilesMatch>
-
-
-#=============#
-# Allow Files #
-#=============#
+#==============================================================#
+# Allow Files some key files that would otherwise be protected #
+#==============================================================#
 <FilesMatch "index.php|robots.txt|sitemap.xml|translations.json">
     Order Allow,Deny
     Allow from all
 </FilesMatch>
 
 
-#===========#
-# Hide .git #
-#===========#
+#===============================#
+# Hide IDE Directories and GIT  #
+#===============================#
 RedirectMatch 404 /\.git
+RedirectMatch 404 /\.vscode
+RedirectMatch 404 /\.vs
+RedirectMatch 404 /\.idea

@@ -103,20 +103,8 @@ class Router
         }
 
         // Include essential page sections
-        if (file_exists(page("layouts" . DIRECTORY_SEPARATOR . "header.php"))) include_once page("layouts" . DIRECTORY_SEPARATOR . "header.php");
-        if (file_exists("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "Helper" . DIRECTORY_SEPARATOR . "frameworkHelper.php") && DISPLAY_HELPER && MAINTENANCE_MODE && $_SESSION["maintenance_access_granted"]) include_once "app/Backend/Core/Helper/frameworkHelper.php";
-
-        // Add PHP variables to be used by JavaScript
-        PHPJS::addJSVariable([
-            "production_mode" => (PRODUCTION_MODE ? "true" : "false"),
-            "language" => (isset($_SESSION["translation_language"])) ? $_SESSION["translation_language"] : DEFAULT_LANGUAGE,
-        ]);
-
-        // Include blocks
-        foreach (glob("app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Blocks" . DIRECTORY_SEPARATOR . "*.php") as $block)
-        {
-            if (file_exists($block)) include_once $block;
-        }
+        if (file_exists(page("Base/header.php"))) include_once page("Base/header.php");
+        if (file_exists("App/Backend/Core/Helper/frameworkHelper.php") && DISPLAY_HELPER && MAINTENANCE_MODE && $_SESSION["maintenance_access_granted"]) include_once "App/Backend/Core/Helper/frameworkHelper.php";
 
         // Make sure page is a php file
         if (substr($page, -4) !== ".php")
@@ -128,8 +116,11 @@ class Router
         if (file_exists(page($page))) include page($page);
         else if (file_exists(page("404.php"))) include page("404.php");
 
+        // Render PHP created javascript variables and code
+        PHPJS::release();
+        
         // Render footer
-        if (file_exists(page("layouts" . DIRECTORY_SEPARATOR . "footer.php"))) include_once page("layouts" . DIRECTORY_SEPARATOR . "footer.php");
+        if (file_exists(page("Base/footer.php"))) include_once page("Base/footer.php");
 
         ob_end_flush();
     }

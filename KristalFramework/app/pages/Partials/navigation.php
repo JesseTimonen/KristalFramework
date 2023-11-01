@@ -31,8 +31,8 @@
                 <!-- <li class="nav-item"><a id="en-button" class="nav-link select-language" switchLanguage="en">EN</a></li> -->
 
                 <!-- Language menu (flags) -->
-                <li class="nav-item"><img src="<?= image("flags/fi.jpg"); ?>" id="fi-button" class="select-language" switchLanguage="fi" /></li>
-                <li class="nav-item"><img src="<?= image("flags/en.jpg"); ?>" id="en-button" class="select-language" switchLanguage="en" /></li>
+                <li class="nav-item"><img src="<?= image("Flags/fi.jpg"); ?>" id="fi-button" class="select-language" switchLanguage="fi" /></li>
+                <li class="nav-item"><img src="<?= image("Flags/en.jpg"); ?>" id="en-button" class="select-language" switchLanguage="en" /></li>
             </ul>
      
         </div>

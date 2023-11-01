@@ -1,4 +1,5 @@
-<?php include "layouts/navigation.php"; ?>
+<?php include "Partials/navigation.php"; ?>
+
 
 <div class="container">
     <h1 translationKey="home_title">Kristal Framework</h1>

@@ -1,3 +1,4 @@
-KristalFramework/app/vendor
+KristalFramework/App/Backend/Core/vendor
 .vscode
 .vs
+.idea

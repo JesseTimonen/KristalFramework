@@ -10,7 +10,7 @@
         <!-- Styles -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="<?= css("maintenance.css"); ?>">
-        <style>body { background-image: url("<?= image('backgrounds/maintenance.jpg'); ?>"); }</style>
+        <style>body { background-image: url("<?= image('Backgrounds/maintenance.jpg'); ?>"); }</style>
 
         <!-- Scripts -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -23,10 +23,6 @@
 
         <!-- Website icon -->
         <link rel="icon" type="image/gif" href="<?= image("kristal_framework_icon.png"); ?>" />
-
-        <!-- Element to hold all PHP set JavaScript variables -->
-        <div id="javascript-variables" style="display: none" baseURL="<?= BASE_URL ?>"></div>
-        <script>function getVariable(key){ return $("#javascript-variables").attr(key); }</script>
     </head>
 
 
@@ -34,8 +30,8 @@
         
         <!-- language settings -->
         <div id="language-selection">
-            <img src="<?= image("flags/fi.jpg"); ?>" id="fi-button" class="select-language" switchLanguage="fi" />
-            <img src="<?= image("flags/en.jpg"); ?>" id="en-button" class="select-language" switchLanguage="en" />
+            <img src="<?= image("Flags/fi.jpg"); ?>" id="fi-button" class="select-language" switchLanguage="fi" />
+            <img src="<?= image("Flags/en.jpg"); ?>" id="en-button" class="select-language" switchLanguage="en" />
         </div>
 
 
@@ -71,22 +67,22 @@
         <div class="social-icons">
             <!-- Email -->
             <a class="social-menu-link" href="mailto:example@example.com" target="_blank" data-bs-toggle="tooltip" tooltipTranslationKey="maintenance_email" data-bs-title="Email">
-                <img class="social-menu-image" src="<?= image("icons/email.png") ?>">
+                <img class="social-menu-image" src="<?= image("Icons/email.png") ?>">
             </a>
 
             <!-- Twitter -->
             <a class="social-menu-link" href="https://twitter.com" target="_blank" data-bs-toggle="tooltip" data-bs-title="Twitter">
-                <img class="social-menu-image" src="<?= image("icons/twitter.png") ?>">
+                <img class="social-menu-image" src="<?= image("Icons/twitter.png") ?>">
             </a>
 
             <!-- Facebook -->
             <a class="social-menu-link" href="https://facebook.com" target="_blank" data-bs-toggle="tooltip" data-bs-title="Facebook">
-                <img class="social-menu-image" src="<?= image("icons/facebook.png") ?>">
+                <img class="social-menu-image" src="<?= image("Icons/facebook.png") ?>">
             </a>
 
             <!-- Youtube -->
             <a class="social-menu-link" href="https://youtube.com" target="_blank" data-bs-toggle="tooltip" data-bs-title="Youtube">
-                <img class="social-menu-image" src="<?= image("icons/youtube.png") ?>">
+                <img class="social-menu-image" src="<?= image("Icons/youtube.png") ?>">
             </a>
         </div>
 

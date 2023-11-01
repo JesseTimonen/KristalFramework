@@ -1,0 +1,17 @@
+<?php namespace Backend\Controllers;
+defined("ACCESS") or exit("Access Denied");
+
+
+class {{ name }}
+{
+    public function __construct()
+    {
+        // ...
+    }
+
+
+    public function xxxxxxxx()
+    {
+        // ...
+    }
+}

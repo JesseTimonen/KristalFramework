@@ -3,7 +3,7 @@
 
 function kristal_getAssetPath($folder, $file, array $params = ["path" => "url"])
 {
-    $filePath = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR . $file;
+    $filePath = "App/Public/" . $folder . "/" . $file;
 
     // Validate the "path" parameter
     $path_type = strtolower($params["path"] ?? "url");
@@ -61,9 +61,9 @@ function audio($file, array $params = ["path" => "url"]): string
 
 function thumbnail($file_path, array $params = array("path" => "url"))
 {
-    $thumbnail_path = str_replace("app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "images" . DIRECTORY_SEPARATOR, "", $file_path);
-    $thumbnail_path = str_replace(DIRECTORY_SEPARATOR, "-", $thumbnail_path);
-    $thumbnail_path = "app" . DIRECTORY_SEPARATOR . "Backend" . DIRECTORY_SEPARATOR . "Core" . DIRECTORY_SEPARATOR . "thumbnails" . DIRECTORY_SEPARATOR . $thumbnail_path;
+    $thumbnail_path = str_replace("App/Public/Images/", "", $file_path);
+    $thumbnail_path = str_replace("/", "-", $thumbnail_path);
+    $thumbnail_path = "App/Backend/Core/Thumbnails/" . $thumbnail_path;
 
     if (!file_exists($thumbnail_path))
     {
@@ -108,12 +108,12 @@ function thumbnail($file_path, array $params = array("path" => "url"))
 
 function page($file)
 {
-    if (!file_exists("app/pages/$file") && !empty($files = glob("app/pages/$file*")))
+    if (!file_exists("App/Pages/$file") && !empty($files = glob("App/Pages/$file*")))
     {
-        return "app/pages/" . $files[0];
+        return "App/Pages/" . $files[0];
     }
 
-    return "app/pages/$file";
+    return "App/Pages/$file";
 }
 
 function pageExists($page)
@@ -125,7 +125,7 @@ function pageExists($page)
         $page .= ".php";
     }
 
-    return file_exists("app" . DIRECTORY_SEPARATOR . "pages" . DIRECTORY_SEPARATOR . $page);
+    return file_exists("App/Pages/" . $page);
 }
 
 // ============================================================================================================== \\

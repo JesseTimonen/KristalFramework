@@ -27,9 +27,7 @@
  * <img src="example.jpg" translationKey="TRANSLATION_KEY" alt="default text">
  */
 
-const KRISTAL_DEFAULT_LANGUAGE = "en";
 const KRISTAL_LANGUAGE_KEY = "Kristal_Language";
-const KRISTAL_TRANSLATIONS_URL_PATH = "/app/public/translations/translations.json";
 let kristal_language;
 let kristal_translation_url;
 let kristal_translations;
@@ -38,8 +36,8 @@ let kristal_translations;
 // Get translations
 $(document).ready(function()
 {
-    kristal_language = localStorage.getItem(KRISTAL_LANGUAGE_KEY) || getVariable("language") || KRISTAL_DEFAULT_LANGUAGE;
-    kristal_translation_url = getVariable("baseURL") + KRISTAL_TRANSLATIONS_URL_PATH;
+    kristal_language = localStorage.getItem(KRISTAL_LANGUAGE_KEY) || getVariable("language") || "en";
+    kristal_translation_url = getVariable("baseURL") + "/App/Public/Translations/translations.json";
 
     // Force browsers to get latest version when not in production
     if (getVariable("production_mode") === "false")

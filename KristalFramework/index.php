@@ -1,4 +1,4 @@
-<?php include "app/Backend/Core/Framework.php";
+<?php include "App/Backend/Core/Framework.php";
 
 // Require parent router
 use Backend\Core\Router;
@@ -46,7 +46,7 @@ class Routes extends Router
     function home()
     {
         // Render() method will render a page template from your pages folder
-        // For example the following line will render content from /app/pages/home.php
+        // For example the following line will render content from /App/Pages/home.php
         $this->render("home");
     }
 
@@ -58,11 +58,11 @@ class Routes extends Router
 
         if (!empty($selected_theme)) {
             // try to change the theme by calling theme controller which has a custom changeTheme() method
-            // theme controller can be found at app/Backend/Controllers/ folder
+            // theme controller can be found at App/Backend/Controllers/ folder
             $feedback = $this->theme_controller->changeTheme($selected_theme) ? translate("change_theme_successful_message", [$selected_theme]) : translate("change_theme_failed_message", [$selected_theme]);
         }
 
-        // Render content from app/pages/theme.php and create $message variable that can be used in the template
+        // Render content from App/Pages/theme.php and create $message variable that can be used in the template
         $this->render("theme", [
             "message" => $feedback,
         ]);
@@ -71,7 +71,7 @@ class Routes extends Router
 
     function pageNotFound()
     {
-        // Render content from app/pages/404.php
+        // Render content from App/Pages/404.php
         $this->render("404");
     }
 }

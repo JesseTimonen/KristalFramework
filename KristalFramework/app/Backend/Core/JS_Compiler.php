@@ -6,6 +6,9 @@ use Patchwork\JSqueeze;
 
 final class JS_Compiler
 {
+    private static $folder_path = "App/Public/Javascript/";
+
+    
     public static function compile()
     {
         $compiler = new JSqueeze();
@@ -13,8 +16,8 @@ final class JS_Compiler
 
         foreach ($js_bundles as $container => $files)
         {
-            $container = self::ensureJsExtension($container);
-            $compiled_file_path = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "javascript" . DIRECTORY_SEPARATOR . $container;
+            $container = self::ensureExtension($container);
+            $compiled_file_path = self::$folder_path . $container;
             $compiled_file_mtime = file_exists($compiled_file_path) ? filemtime($compiled_file_path) : 0;
 
             $should_compile = false;
@@ -22,8 +25,8 @@ final class JS_Compiler
             foreach ($files as $file)
             {
                 // Check is any js file updated since last JS compile
-                $file = self::ensureJsExtension($file);
-                $file_path = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "javascript" . DIRECTORY_SEPARATOR . $file;
+                $file = self::ensureExtension($file);
+                $file_path = self::$folder_path . $file;
                  
                 // Check is any js file updated since last JS compile
                 if (file_exists($file_path) && filemtime($file_path) > $compiled_file_mtime)
@@ -39,8 +42,8 @@ final class JS_Compiler
 
                 foreach ($files as $file)
                 {
-                    $file = self::ensureJsExtension($file);
-                    $path = "app" . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "javascript" . DIRECTORY_SEPARATOR . $file;
+                    $file = self::ensureExtension($file);
+                    $path = self::$folder_path . $file;
                     $js = file_get_contents($path);
                     $compiled_js .= $compiler->squeeze($js,
                         true,   // $singleLine
@@ -60,7 +63,7 @@ final class JS_Compiler
     }
 
     
-    private static function ensureJsExtension($filename)
+    private static function ensureExtension($filename)
     {
         return substr($filename, -3) !== '.js' ? $filename . '.js' : $filename;
     }

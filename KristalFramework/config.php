@@ -15,9 +15,7 @@ define("DEBUG_IGNORE_WARNINGS", false);                 // If true, PHP warnings
 define("DEBUG_IGNORE_NOTICES", false);                  // If true, PHP notices are neither displayed nor logged. (can not be displayed in production mode)
 define("DEBUG_IGNORE_DEPRECATED", false);               // If true, PHP deprecated notices are neither displayed nor logged. (can not be displayed in production mode)
 define("DEBUG_IGNORE_STRICT", false);                   // If true, PHP strict standards notices are neither displayed nor logged. (can not be displayed in production mode)
-define("DEBUG_LOG_PATH", "..\debug.log");               // Sets the file path for logging debug messages.
-
-
+define("DEBUG_LOG_PATH", "..\debug.log");               // Sets the file path for logging debug messages. (Please keep this outside of html root)
 
 
 // Minify HTML
@@ -36,15 +34,15 @@ define("AUTO_COMPILE_JS", true);                        // Auto compile javascri
 define("PRINT_COMPILE_DATE_JS", true);                  // Prints comment saying when javascript file was last compiled
 $js_bundles = array(                                    // This array tells how to compile javascript, it combines given js files into compiled js file
     "core" => array(
-        "core/form.js",
-        "core/tooltips.js",
-        "core/translator.js",
+        "Core/form.js",
+        "Core/tooltips.js",
+        "Core/translator.js",
     ),
     "maintenance" => array(
-        "scripts/maintenance.js",
+        "Scripts/maintenance.js",
     ),
     "main" => array(
-        "scripts/main.js",
+        "Scripts/main.js",
     ),
 );
 define("JS_BUNDLES", serialize($js_bundles));

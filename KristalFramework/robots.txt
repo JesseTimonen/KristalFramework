@@ -1,13 +1,11 @@
 User-agent: *
-Disallow: /LICENSE
-Disallow: /README
-Disallow: /cache/
-Disallow: /cron/
-Disallow: /app/composer.json
-Disallow: /app/composer.lock
-Disallow: /.env
-Disallow: /config.php
+Disallow: /
+
+Allow: /index.php
+Allow: /robots.txt
+Allow: /sitemap.xml
 
 Crawl-delay: 10
 
+Host: https://www.YOUR_WEBSITE.com
 Sitemap: https://www.YOUR_WEBSITE.com/sitemap.xml
