@@ -50,15 +50,15 @@ class CreatorTool
         $name = getPureName(ucfirst($name));
 
         // Get template
-        if (file_exists("App/Backend/Core/Helper/templates/entity"))
+        if (file_exists("App/Backend/Core/FrameworkHelper/templates/entity"))
         {
             if ($request["entity-type"] == "entity")
             {
-                $template = file_get_contents("App/Backend/Core/Helper/templates/entity");
+                $template = file_get_contents("App/Backend/Core/FrameworkHelper/templates/entity");
             }
             else
             {
-                $template = file_get_contents("App/Backend/Core/Helper/templates/entity_interface");
+                $template = file_get_contents("App/Backend/Core/FrameworkHelper/templates/entity_interface");
             }
         }
 
@@ -100,9 +100,9 @@ class CreatorTool
         $name = getPureName(ucfirst(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS)));
 
         // Get template
-        if (file_exists("App/Backend/Core/Helper/templates/controller"))
+        if (file_exists("App/Backend/Core/FrameworkHelper/templates/controller"))
         {
-            $template = file_get_contents("App/Backend/Core/Helper/templates/controller");
+            $template = file_get_contents("App/Backend/Core/FrameworkHelper/templates/controller");
         }
 
         // Insert variables to template

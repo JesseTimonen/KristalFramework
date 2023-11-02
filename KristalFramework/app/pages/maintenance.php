@@ -22,7 +22,7 @@
         <title><?= translate("maintenance"); ?></title>
 
         <!-- Website icon -->
-        <link rel="icon" type="image/gif" href="<?= image("kristal_framework_icon.png"); ?>" />
+        <link rel="icon" type="image/gif" href="<?= image("kristal_framework_alt_icon.png"); ?>" />
     </head>
 
 
@@ -36,9 +36,11 @@
 
 
         <!-- Title -->
-        <h1 class="maintenance-title" translationKey="maintenance_title">Maintenance</h1>
+        <div class="container maintenance-title">
+            <h1 class="maintenance-title" translationKey="maintenance_title">Maintenance</h1>
+        </div>
 
-
+        
         <!-- Description -->
         <div class="container maintenance-text">
             <p translationKey="maintenance_description">We are currently maintaining our website, we will be back shortly. Thanks for your patience.</p>

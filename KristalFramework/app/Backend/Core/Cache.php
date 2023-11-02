@@ -4,7 +4,7 @@ defined("ACCESS") or exit("Access Denied");
 
 class Cache
 {
-    private static $cache_path = "App/Backend/Core/Cache/";
+    private static $cache_path = "App/Cache/Cache/";
 
 
     public static function add($name, $value, $duration = 24)

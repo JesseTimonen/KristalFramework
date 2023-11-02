@@ -63,7 +63,7 @@ function thumbnail($file_path, array $params = array("path" => "url"))
 {
     $thumbnail_path = str_replace("App/Public/Images/", "", $file_path);
     $thumbnail_path = str_replace("/", "-", $thumbnail_path);
-    $thumbnail_path = "App/Backend/Core/Thumbnails/" . $thumbnail_path;
+    $thumbnail_path = "App/Public/Cache/Thumbnails/" . $thumbnail_path;
 
     if (!file_exists($thumbnail_path))
     {

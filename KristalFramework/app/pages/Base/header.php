@@ -36,7 +36,7 @@
 
 
         <!-- Website icon -->
-        <link rel="icon" type="image/gif" href="<?= image("kristal_framework_icon.png"); ?>" />
+        <link rel="icon" type="image/gif" href="<?= image("kristal_framework_alt_icon.png"); ?>" />
 
     </head>
     <body>

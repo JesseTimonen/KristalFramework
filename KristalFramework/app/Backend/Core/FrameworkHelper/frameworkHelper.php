@@ -1,11 +1,11 @@
 <!-- Include css and js files -->
-<link rel = "stylesheet" type = "text/css" href = "<?= getURL("App/Backend/Core/Helper/frameworkHelper.css"); ?>">
-<script src = "<?= getURL("App/Backend/Core/Helper/frameworkHelper.js"); ?>"></script>
+<link rel = "stylesheet" type = "text/css" href = "<?= getURL("App/Backend/Core/FrameworkHelper/frameworkHelper.css"); ?>">
+<script src = "<?= getURL("App/Backend/Core/FrameworkHelper/frameworkHelper.js"); ?>"></script>
 
 
 <!-- framework mini helper icon -->
 <div id = "framework-mini-helper">
-    <img src = "App/Backend/Core/Helper/icon.png" alt = "" width = "45px" height = "45px" />
+    <img src = "App/Backend/Core/FrameworkHelper/framework_helper_icon.png" alt = "" width = "45px" height = "45px" />
     <p id = "framework-mini-helper-title">Framework<br>helper</p>
 </div>
 

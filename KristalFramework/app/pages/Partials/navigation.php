@@ -1,14 +1,14 @@
-<nav class="navbar navbar-expand-lg border-bottom bg-body-tertiary" data-bs-theme="dark">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg border-bottom">
+    <div class="container">
 
         <!-- Navbar Title (text) -->
-        <!--<a class="navbar-brand" href="<?= route(""); ?>" translationKey="nav_title">Kristal Framework</a> -->
+        <!-- <a class="navbar-brand" href="<?= route(""); ?>" translationKey="nav_title">Kristal Framework</a> -->
 
         <!-- Navbar Title (image) -->
-        <a class="navbar-brand" href="<?= route(""); ?>"><img class="navbar-logo" src="<?= image("kristal_framework_logo_with_name.png"); ?>" /></a>
+        <a class="navbar-brand" href="<?= route(""); ?>"><img class="navbar-logo colorized-fast" src="<?= image("kristal_framework_logo.png"); ?>" /></a>
 
         <!-- Navbar mobile toggle button -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation" data-bs-theme="dark">
             <span class="navbar-toggler-icon"></span>
         </button>
 

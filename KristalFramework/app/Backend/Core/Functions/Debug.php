@@ -153,7 +153,7 @@ function kristal_fatalErrorHandler()
                 background-color: white;
                 border: 2px solid #e5e6e7;
                 width: 56%;
-                margin: 15% 0px 0px 20%;
+                margin: 80px 0px 0px 20%;
                 padding: 30px 2%;
                 word-wrap: break-word;
             }
@@ -161,7 +161,7 @@ function kristal_fatalErrorHandler()
             @media only screen and (max-width: 1000px) {
                 .fatal-error-div {
                     width: 74%;
-                    margin: 15% 0px 0px 10%;
+                    margin: 80px 0px 0px 10%;
                     padding: 30px 3%;
                 }
             }
@@ -169,7 +169,7 @@ function kristal_fatalErrorHandler()
             @media only screen and (max-width: 400px) {
                 .fatal-error-div {
                     width: 80%;
-                    margin: 20% 0px 0px 5%;
+                    margin: 80px 0px 0px 5%;
                     padding: 30px 5%;
                 }
             }

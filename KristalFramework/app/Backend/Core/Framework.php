@@ -17,8 +17,8 @@ if (file_exists("App/Backend/Core/Functions/Debug.php")){ require_once "App/Back
 
 
 // Try to load composer autoload.php, die if failed
-if (file_exists("App/Backend/Core/vendor/autoload.php")){ require_once "App/Backend/Core/vendor/autoload.php"; }
-else { throw new Exception("Composer autoload was not found! Should be located at App/Backend/Core/vendor/autoload.php<br>Go to App/Backend/Core/ folder and run 'composer install' command"); }
+if (file_exists("./vendor/autoload.php")){ require_once "./vendor/autoload.php"; }
+else { throw new Exception("Composer autoload was not found! Should be located at the root of the framework inside vendor folder (./vendor/autoload.php). Go to the root folder and run 'composer install --prefer-dist --optimize-autoloader' command, incase it does not fix it run 'composer dump-autoload --optimize' to regenerate autoload.php file."); }
 
 
 // Include translations
@@ -42,6 +42,8 @@ new Session();
 // Compile SCSS and JavaScript
 use Backend\Core\SCSS_Compiler;
 use Backend\Core\JS_Compiler;
+use Backend\Core\PHPJS;
+
 
 if (!PRODUCTION_MODE)
 {
@@ -93,6 +95,9 @@ if (MAINTENANCE_MODE === true && !isset($_SESSION["maintenance_access_granted"])
         {
             throw new Exception("Maintenance page is missing! Should be located at App/Pages/maintenance.php");
         }
+
+        // Render PHP created javascript variables and code
+        PHPJS::release();
         
         include "App/Pages/maintenance.php";
         exit;
