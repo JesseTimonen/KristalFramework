@@ -103,10 +103,7 @@ class Router
         if (file_exists("App/Backend/Core/FrameworkHelper/frameworkHelper.php") && DISPLAY_HELPER && MAINTENANCE_MODE && $_SESSION["maintenance_access_granted"]) { include_once "App/Backend/Core/FrameworkHelper/frameworkHelper.php"; }
 
         // Make sure page is a php file
-        if (substr($page, -4) !== ".php")
-        {
-            $page .= ".php";
-        }
+        $page = ensurePHPExtension($page);
 
         // Include the requested page
         if (!file_exists(page($page))) { throw new \Exception("Tried to render page: " . $page . ", but template was not found at " . page($page) . "!"); }

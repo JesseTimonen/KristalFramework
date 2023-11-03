@@ -50,11 +50,8 @@ class Mailer
             }
 
             // Make sure email content is in php form
-            if (substr($content, -4) !== ".php")
-            {
-                $content .= ".php";
-            }
-
+            $content = ensurePHPExtension($content);
+            
             // Get email template
             $email = file_get_contents(self::$email_template_path . $content);
 

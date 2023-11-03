@@ -109,6 +109,7 @@ function thumbnail($file_path, array $params = array("path" => "url"))
 
 function page($file)
 {
+    $file = ensurePHPExtension($file);
     if (file_exists("App/Pages/$file")) {
         return "App/Pages/$file";
     }
@@ -116,16 +117,9 @@ function page($file)
     return false;
 }
 
-function pageExists($page)
+function pageExists($file)
 {
-    // Make sure page is a php file
-    $file_info = pathinfo($page);
-    if ($file_info['extension'] !== "php")
-    {
-        $page .= ".php";
-    }
-
-    return file_exists("App/Pages/" . $page);
+    return file_exists("App/Pages/" . ensurePHPExtension($file));
 }
 
 // ============================================================================================================== \\
@@ -192,6 +186,28 @@ function refreshPage()
 
 // ============================================================================================================== \\
 
+function ensurePHPExtension($file)
+{
+    return (substr($file, -4) === ".php") ? $file : $file . ".php";
+}
+
+function ensureJSExtension($file)
+{
+    return (substr($file, -3) === ".js") ? $file : $file . ".js";
+}
+
+function ensureCSSExtension($file)
+{
+    return (substr($file, -4) === ".css") ? $file : $file . ".css";
+}
+
+function ensureSCSSExtension($file)
+{
+    return (substr($file, -5) === ".scss") ? $file : $file . ".scss";
+}
+
+// ============================================================================================================== \\
+
 function getCleanName($name)
 {
     if (is_numeric($name[0]))
@@ -207,8 +223,6 @@ function getPureName($name)
 {
     return preg_replace("/[^a-zA-Z]/", "", $name);
 }
-
-// ============================================================================================================== \\
 
 function isEmptyObject($object)
 {

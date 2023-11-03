@@ -42,7 +42,7 @@ final class SCSS_Compiler
 
     private static function shouldCompileWithoutTheme()
     {
-        $compiled_file_mtime = file_exists(self::$compiled_css_folder_path . self::ensureExtension(DEFAULT_THEME)) ? filemtime(self::$compiled_css_folder_path . self::ensureExtension(DEFAULT_THEME)) : 0;
+        $compiled_file_mtime = file_exists(self::$compiled_css_folder_path . ensureCSSExtension(DEFAULT_THEME)) ? filemtime(self::$compiled_css_folder_path . ensureCSSExtension(DEFAULT_THEME)) : 0;
 
         foreach (glob(self::$scss_folder_path) as $element)
         {
@@ -62,14 +62,14 @@ final class SCSS_Compiler
         {
             $theme_name = str_replace(".scss", "", basename($theme));
 
-            if (filemtime($theme) > filemtime(self::$compiled_css_folder_path . self::ensureExtension($theme_name)))
+            if (filemtime($theme) > filemtime(self::$compiled_css_folder_path . ensureCSSExtension($theme_name)))
             {
                 return true;
             }
 
             foreach (glob(self::$scss_folder_path) as $scss_file)
             {
-                if (filemtime($scss_file) > filemtime(self::$compiled_css_folder_path . self::ensureExtension($theme_name)))
+                if (filemtime($scss_file) > filemtime(self::$compiled_css_folder_path . ensureCSSExtension($theme_name)))
                 {
                     return true;
                 }
@@ -99,7 +99,7 @@ final class SCSS_Compiler
         }
 
         // Create css files from compiled sass
-        file_put_contents(self::$compiled_css_folder_path . self::ensureExtension(DEFAULT_THEME), $compiled_css);
+        file_put_contents(self::$compiled_css_folder_path . ensureCSSExtension(DEFAULT_THEME), $compiled_css);
     }
 
     
@@ -131,12 +131,7 @@ final class SCSS_Compiler
             }
 
             // Create css files from compiled sass
-            file_put_contents(self::$compiled_css_folder_path . self::ensureExtension($theme_name), $compiled_css);
+            file_put_contents(self::$compiled_css_folder_path . ensureCSSExtension($theme_name), $compiled_css);
         }
-    }
-
-    private static function ensureExtension($filename)
-    {
-        return substr($filename, -4) !== '.css' ? $filename . '.css' : $filename;
     }
 }
