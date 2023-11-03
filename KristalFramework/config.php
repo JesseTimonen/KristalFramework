@@ -4,7 +4,7 @@
 // Framework settings
 define("PRODUCTION_MODE", false);                       // Optimizes your application, remember to turn off when editing your page to unlock all the features
 define("DISPLAY_HELPER", false);                        // Displays a framework helper during maintenance mode
-define("MAINTENANCE_MODE", true);                      // Display maintenance page for users while you are working on your website
+define("MAINTENANCE_MODE", false);                      // Display maintenance page for users while you are working on your website
 
 
 // Error reporting

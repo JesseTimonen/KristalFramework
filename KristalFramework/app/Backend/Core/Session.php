@@ -27,13 +27,13 @@ class Session
         $keys = array('HTTP_X_REAL_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR');
         foreach ($keys as $key) 
         {
-            if (isset($_SERVER[$key])) 
+            if (isset($_SERVER[$key]))
             {
                 $ip_list = explode(',', $_SERVER[$key]);
                 foreach ($ip_list as $ip) 
                 {
-                    $ip = trim($ip); // remove any extra spaces
-                    if (filter_var($ip, FILTER_VALIDATE_IP)) 
+                    $ip = trim($ip);
+                    if (filter_var($ip, FILTER_VALIDATE_IP))
                     {
                         $IP_address = $ip;
                         return $IP_address;
@@ -71,32 +71,30 @@ class Session
     private function startSession($visitor_identity)
     {
         session_name(SESSION_NAME);
-        
-        if (PRODUCTION_MODE) { ini_set('session.cookie_secure', '1'); }
+
+        ini_set('session.cookie_secure', PRODUCTION_MODE ? '1' : '0');
         ini_set('session.cookie_httponly', '1');
         ini_set('session.cookie_samesite', 'Strict');
 
         session_start();
-        session_regenerate_id(true);
-
-        // Restart if user's IP address doesn't match the original one
-        if (!empty($_SESSION["visitor_identity"]))
-        {
-            if ($_SESSION["visitor_identity"] !== $visitor_identity)
-            {
-                $this->restart();
-            }
-        }
-        else
-        {
-            $_SESSION["visitor_identity"] = $visitor_identity;
-        }
 
         // Check session duration
         $this->afkTimeout(SESSION_AFK_TIMEOUT);
         $this->timeout(SESSION_TIMEOUT);
+
+        if (empty($this->get("visitor_identity")))
+        {
+            // Set user identity if not yet set
+            $_SESSION["visitor_identity"] = $visitor_identity;
+            session_regenerate_id(true);
+        }
+        else if ($this->get("visitor_identity") !== $visitor_identity)
+        {
+            // Restart if user's IP address doesn't match the original one
+            $this->restart();
+        }
     }
-    
+
 
     public function end()
     {
@@ -177,54 +175,55 @@ class Session
     // Check if session is already active
     private function isActive()
     {
+        // We do not want session on CLI
         if (php_sapi_name() !== "cli")
         {
-            if (version_compare(phpversion(), "5.4.0", ">="))
-            {
-                return session_status() === PHP_SESSION_ACTIVE ? true : false;
-            }
-            else
-            {
-                return session_id() === "" ? false : true;
-            }
+            return false;
         }
 
-        return false;
+        return session_status() === PHP_SESSION_ACTIVE;
     }
 
 
     // End Session after x seconds has passed (specified in the config.php)
     private function timeout($duration)
     {
-        if ($this->get("timeout") !== null)
-        {
-            $time = time() - (int)$this->get("timeout");
+        // Get time when session was started
+        $session_timeout = $this->get("timeout");
 
-            if ($time > $duration)
-            {
-                $this->restart();
-            }
-        }
-        else
+        // If time didn't exist then this is the start of session
+        if (!isset($session_timeout))
         {
             $this->add("timeout", time());
+            return;
+        }
+
+        // Check has user exceeded the session duration
+        if ((time() - (int)$session_timeout) > $duration)
+        {
+            $this->restart();
         }
     }
-
 
     // End Session if user isn't active for x seconds (specified in the config.php)
     private function afkTimeout($duration)
     {
-        if ($this->get("afk_timeout") !== null)
-        {
-            $time = time() - (int)$this->get("afk_timeout");
+        // Get previous time afk_timeout was set
+        $previous_afk_timeout = $this->get("afk_timeout");
 
-            if ($time > $duration)
-            {
-                $this->restart();
-            }
+        // Update the new afk_timeout
+        $this->add("afk_timeout", time());
+
+        // Nothing to do if there was not check for previous afk_timeout
+        if (!isset($previous_afk_timeout))
+        {
+            return;
         }
 
-        $this->add("afk_timeout", time());
+        // Check has the user been afk longer than the allowed duration
+        if (time() - (int)$previous_afk_timeout > $duration)
+        {
+            $this->restart();
+        }
     }
 }
