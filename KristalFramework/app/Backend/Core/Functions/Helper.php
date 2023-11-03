@@ -16,7 +16,7 @@ function kristal_getAssetPath($folder, $file, array $params = ["path" => "url"])
         }
         else
         {
-            ?><script>console.warn("Could not load asset: " . $filePath . " because it doesn't exist!");</script><?php
+            ?><script>console.warn("Could not load asset: <?= $filePath; ?> because it doesn't exist!");</script><?php
             return "";
         }
     }
@@ -25,7 +25,7 @@ function kristal_getAssetPath($folder, $file, array $params = ["path" => "url"])
     $returnPath = strtolower($params["path"]) === "url" ? BASE_URL . $filePath : $filePath;
 
     // Append ?ver= with last modified date for CSS and JavaScript if 'path' is 'url'
-    if (strtolower($params["path"]) === "url" && in_array($folder, ["css", "javascript"])) {
+    if (strtolower($params["path"]) === "url" && in_array($folder, ["CSS", "Javascript"])) {
         $lastModified = filemtime($filePath);
         $returnPath .= "?ver=" . $lastModified;
     }
@@ -37,27 +37,27 @@ function kristal_getAssetPath($folder, $file, array $params = ["path" => "url"])
 
 function image($file, array $params = ["path" => "url"]): string
 {
-    return kristal_getAssetPath("images", $file, $params);
+    return kristal_getAssetPath("Images", $file, $params);
 }
 
 function css($file, array $params = ["path" => "url"]): string
 {
-    return kristal_getAssetPath("css", $file, $params);
+    return kristal_getAssetPath("CSS", $file, $params);
 }
 
 function js($file, array $params = ["path" => "url"]): string
 {
-    return kristal_getAssetPath("javascript", $file, $params);
+    return kristal_getAssetPath("Javascript", $file, $params);
 }
 
 function download($file, array $params = ["path" => "url"]): string
 {
-    return kristal_getAssetPath("downloads", $file, $params);
+    return kristal_getAssetPath("Downloads", $file, $params);
 }
 
 function audio($file, array $params = ["path" => "url"]): string
 {
-    return kristal_getAssetPath("audio", $file, $params);
+    return kristal_getAssetPath("Audio", $file, $params);
 }
 
 function thumbnail($file_path, array $params = array("path" => "url"))

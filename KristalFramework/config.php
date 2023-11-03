@@ -15,7 +15,7 @@ define("DEBUG_IGNORE_WARNINGS", false);                 // If true, PHP warnings
 define("DEBUG_IGNORE_NOTICES", false);                  // If true, PHP notices are neither displayed nor logged. (can not be displayed in production mode)
 define("DEBUG_IGNORE_DEPRECATED", false);               // If true, PHP deprecated notices are neither displayed nor logged. (can not be displayed in production mode)
 define("DEBUG_IGNORE_STRICT", false);                   // If true, PHP strict standards notices are neither displayed nor logged. (can not be displayed in production mode)
-define("DEBUG_LOG_PATH", "..\debug.log");               // Sets the file path for logging debug messages. (Please keep this outside of html root)
+define("DEBUG_LOG_PATH", "../debug.log");               // Sets the file path for logging debug messages. (Please keep this outside of html root)
 
 
 // Minify HTML

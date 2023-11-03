@@ -68,7 +68,7 @@ function translate($translation_key, $variables = array(""))
         }
 
         // Display JavaScript warning about missing translation
-        ?><script>console.warn("PHP translator was not able to translate key: <?= $translation_key ?>!");</script><?php
+        ?><script>console.warn("PHP translator was not able to translate key: <?= $translation_key; ?>!");</script><?php
         return "";
     }
 
@@ -87,7 +87,7 @@ function translate($translation_key, $variables = array(""))
     }
     else
     {
-        ?><script>console.warn("PHP translator was not able to translate key: <?= $translation_key ?> with language: <?= $language ?>!");</script><?php
+        ?><script>console.warn("PHP translator was not able to translate key: <?= $translation_key; ?> with language: <?= $language; ?>!");</script><?php
         return (array_key_exists(DEFAULT_LANGUAGE, $valid_languages)) ? vsprintf($translations[$translation_key][DEFAULT_LANGUAGE], $variables) : "";
     }
 }
