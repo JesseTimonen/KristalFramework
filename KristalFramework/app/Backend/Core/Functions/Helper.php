@@ -5,18 +5,10 @@ function kristal_getAssetPath($folder, $file, array $params = ["path" => "url"])
 {
     $filePath = "App/Public/" . $folder . "/" . $file;
 
-    // Validate the "path" parameter
-    $path_type = strtolower($params["path"] ?? "url");
-
-    if (!in_array($path_type, ["url", "path"], true))
-    {
-        throw new Exception("Invalid path parameter passed to " . $folder . "() method. It should be either 'url' or 'path'");
-    }
-
     // Handle glob matching
     if (!file_exists($filePath))
     {
-        $files = glob($filePath . "*");
+        $files = glob($filePath . ".*");
 
         if (!empty($files))
         {
@@ -24,12 +16,21 @@ function kristal_getAssetPath($folder, $file, array $params = ["path" => "url"])
         }
         else
         {
+            ?><script>console.warn("Could not load asset: " . $filePath . " because it doesn't exist!");</script><?php
             return "";
         }
     }
 
     // Determine the return path type
-    return $path_type === "url" ? BASE_URL . $filePath : $filePath;
+    $returnPath = strtolower($params["path"]) === "url" ? BASE_URL . $filePath : $filePath;
+
+    // Append ?ver= with last modified date for CSS and JavaScript if 'path' is 'url'
+    if (strtolower($params["path"]) === "url" && in_array($folder, ["css", "javascript"])) {
+        $lastModified = filemtime($filePath);
+        $returnPath .= "?ver=" . $lastModified;
+    }
+
+    return $returnPath;
 }
 
 // ============================================================================================================== \\
@@ -108,12 +109,11 @@ function thumbnail($file_path, array $params = array("path" => "url"))
 
 function page($file)
 {
-    if (!file_exists("App/Pages/$file") && !empty($files = glob("App/Pages/$file*")))
-    {
-        return "App/Pages/" . $files[0];
+    if (file_exists("App/Pages/$file")) {
+        return "App/Pages/$file";
     }
 
-    return "App/Pages/$file";
+    return false;
 }
 
 function pageExists($page)

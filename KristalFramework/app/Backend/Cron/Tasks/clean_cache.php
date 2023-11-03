@@ -6,7 +6,7 @@
 
 foreach (glob(BASE_PATH . "App/Public/Cache/*") as $file)
 {
-    if (file_exists($file))
+    if (is_file($file))
     {
         unlink($file);
     }

@@ -15,7 +15,7 @@
         
         <!-- Styles -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="<?= css(!empty($_SESSION["theme"]) ? $_SESSION["theme"] : DEFAULT_THEME); ?><?= AUTO_COMPILE_SCSS ? "?" . rand() : ""; ?>">
+        <link rel="stylesheet" type="text/css" href="<?= css(!empty($_SESSION["theme"]) ? $_SESSION["theme"] : DEFAULT_THEME); ?>">
 
 
         <!-- Scripts -->
