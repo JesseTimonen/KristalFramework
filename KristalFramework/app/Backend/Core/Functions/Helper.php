@@ -231,3 +231,40 @@ function isEmptyObject($object)
 }
 
 // ============================================================================================================== \\
+
+function isSecurePassword($password)
+{
+    // Check the length
+    if (strlen($password) < 8)
+    {
+        return false;
+    }
+
+    // Check for uppercase letter
+    if (!preg_match('/[A-Z]/', $password))
+    {
+        return false;
+    }
+
+    // Check for lowercase letter
+    if (!preg_match('/[a-z]/', $password))
+    {
+        return false;
+    }
+
+    // Check for digit
+    if (!preg_match('/\d/', $password))
+    {
+        return false;
+    }
+
+    // Check for special character
+    if (!preg_match('/[\W_]/', $password))
+    {
+        return false;
+    }
+
+    return true;
+}
+
+// ============================================================================================================== \\

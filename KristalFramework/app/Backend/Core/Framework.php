@@ -27,7 +27,6 @@ if (file_exists("App/Backend/Core/Functions/Translator.php")){ require_once "App
 
 // Include Helper functions
 if (file_exists("App/Backend/Core/Functions/Helper.php")){ require_once "App/Backend/Core/Functions/Helper.php"; }
-if (file_exists("App/Backend/Core/Functions/CommonPasswords.php")){ require_once "App/Backend/Core/Functions/CommonPasswords.php"; }
 
 
 // Include cookie settings
