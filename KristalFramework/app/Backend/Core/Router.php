@@ -80,12 +80,9 @@ class Router
         // Include variables passed by the route function
         if (!empty($variables))
         {
-            foreach ($variables as $key => $value)
-            {
-                ${$key} = $value;
-            }
+            extract($variables);
         }
-
+        
         // Include metadata from config.php
         $kristal_metadata = unserialize(METADATA);
 
@@ -94,6 +91,9 @@ class Router
         {
             ob_start(array($this, "minifyHTML"));
         }
+
+        // Initialize Blocks
+        include_once "App/Backend/Core/Block.php";
 
         // Include header
         if (!file_exists(page("Base/header.php"))) { throw new \Exception("Failed to build, " . page("Base/header.php") . " was not found!"); }

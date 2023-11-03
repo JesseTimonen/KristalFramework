@@ -140,7 +140,8 @@ define("MAILER_PROTOCOL", getenv('MAILER_PROTOCOL'));
 define("MAILER_PORT", getenv('MAILER_PORT'));
 
 // Time
-date_default_timezone_set(getenv('TIMEZONE') ?: 'UTC'); 
+define("TIMEZONE", getenv('TIMEZONE') ?: "UTC"); 
+date_default_timezone_set(TIMEZONE); 
 define("DATE_FORMAT", getenv('DATE_FORMAT') ?: "j.n.Y"); 
 define("TIME_FORMAT", getenv('TIME_FORMAT') ?: "H:i:s");
 
