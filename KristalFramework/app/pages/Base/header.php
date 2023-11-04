@@ -15,8 +15,8 @@
         
         <!-- Styles -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="<?= css(!empty($_SESSION["theme"]) ? $_SESSION["theme"] : DEFAULT_THEME); ?>">
-
+        <link rel="stylesheet" type="text/css" href="<?= css(Session::has("theme") ? Session::get("theme") : DEFAULT_THEME); ?>">
+        
 
         <!-- Scripts -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

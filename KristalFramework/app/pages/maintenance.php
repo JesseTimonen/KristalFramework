@@ -57,9 +57,17 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary" translationKey="maintenance_login">Sign In</button>
-                    
-                <?php if ($kristal_authentication_failed) : ?>
+
+                <?php if ($kristal_authentication_attempt_limit_reached) : ?>
+                    <p id="feedback" style="color: red;">
+                        <span translationKey="maintenance_authentication_timeout_1">Too many login attempts, please wait </span>
+                        <span><?=$kristal_authentication_lockout_duration; ?></span>
+                        <span translationKey="maintenance_authentication_timeout_2"> before you can try again.</span>
+                    </p>
+                <?php elseif ($kristal_authentication_failed) : ?>
                     <p id="feedback" style="color: red;" translationKey="maintenance_authentication_failed">Failed to authenticate!</p>
+                <?php else: ?>
+                    <p id="feedback" style="padding: 12px;"></p>
                 <?php endif; ?>
             </form>
         </div>

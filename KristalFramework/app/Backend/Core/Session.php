@@ -4,23 +4,23 @@ defined("ACCESS") or exit("Access Denied");
 
 class Session
 {
-    public function __construct()
+    public static function initialize()
     {
-        $this->start();
+        self::start();
     }
 
 
-    public function start()
+    public static function start()
     {
         // Start session if it is not yet active
-        if (!$this->isActive())
+        if (!self::isActive())
         {
-            $this->startSession($this->getUsersUniqueIdentity());
+            self::startSession(self::getUsersUniqueIdentity());
         }
     }
 
 
-    public function getClientIPAddress()
+    public static function getClientIPAddress()
     {
         $IP_address = 'unknown';
 
@@ -46,19 +46,19 @@ class Session
     }
 
 
-    public function getUserAgentHash()
+    public static function getUserAgentHash()
     {
         return $_SERVER['HTTP_USER_AGENT'] ?? 'unknown';
     }
 
 
-    public function getUsersUniqueIdentity()
+    public static function getUsersUniqueIdentity()
     {
         // Use the IP address (consider using a more reliable method to get this)
-        $IP_address = $this->getClientIPAddress();
+        $IP_address = self::getClientIPAddress();
 
         // Use the User-Agent string
-        $user_agent = $this->getUserAgentHash();
+        $user_agent = self::getUserAgentHash();
 
         // Collect additional data if available
         $additional_data = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
@@ -68,7 +68,7 @@ class Session
     }
 
 
-    private function startSession($visitor_identity)
+    public static function startSession($visitor_identity)
     {
         session_name(SESSION_NAME);
 
@@ -79,34 +79,34 @@ class Session
         session_start();
 
         // Check session duration
-        $this->afkTimeout(SESSION_AFK_TIMEOUT);
-        $this->timeout(SESSION_TIMEOUT);
+        self::afkTimeout(SESSION_AFK_TIMEOUT);
+        self::timeout(SESSION_TIMEOUT);
 
-        if (empty($this->get("visitor_identity")))
+        if (empty(self::get("visitor_identity")))
         {
             // Set user identity if not yet set
-            $_SESSION["visitor_identity"] = $visitor_identity;
+            self::add("visitor_identity", $visitor_identity);
             session_regenerate_id(true);
         }
-        else if ($this->get("visitor_identity") !== $visitor_identity)
+        else if (self::get("visitor_identity") !== $visitor_identity)
         {
             // Restart if user's IP address doesn't match the original one
-            $this->restart();
+            self::restart();
         }
     }
 
 
-    public function end()
+    public static function end()
     {
-        $this->removeAll();
+        self::removeAll();
         session_destroy();
     }
 
 
-    public function restart()
+    public static function restart()
     {
-        $this->end();
-        $this->start();
+        self::end();
+        self::start();
     }
 
 
@@ -125,6 +125,13 @@ class Session
         {
             $_SESSION[$key] = $value;
         }
+    }
+
+
+    // Check does session has variable
+    public static function has($key)
+    {
+        return (isset($_SESSION[$key])) ? true : false;
     }
 
 
@@ -173,7 +180,7 @@ class Session
 
 
     // Check if session is already active
-    private function isActive()
+    private static function isActive()
     {
         // We do not want session on CLI
         if (php_sapi_name() !== "cli")
@@ -186,33 +193,33 @@ class Session
 
 
     // End Session after x seconds has passed (specified in the config.php)
-    private function timeout($duration)
+    private static function timeout($duration)
     {
         // Get time when session was started
-        $session_timeout = $this->get("timeout");
+        $session_timeout = self::get("timeout");
 
         // If time didn't exist then this is the start of session
         if (!isset($session_timeout))
         {
-            $this->add("timeout", time());
+            self::add("timeout", time());
             return;
         }
 
         // Check has user exceeded the session duration
         if ((time() - (int)$session_timeout) > $duration)
         {
-            $this->restart();
+            self::restart();
         }
     }
 
     // End Session if user isn't active for x seconds (specified in the config.php)
-    private function afkTimeout($duration)
+    private static function afkTimeout($duration)
     {
         // Get previous time afk_timeout was set
-        $previous_afk_timeout = $this->get("afk_timeout");
+        $previous_afk_timeout = self::get("afk_timeout");
 
         // Update the new afk_timeout
-        $this->add("afk_timeout", time());
+        self::add("afk_timeout", time());
 
         // Nothing to do if there was not check for previous afk_timeout
         if (!isset($previous_afk_timeout))
@@ -223,7 +230,7 @@ class Session
         // Check has the user been afk longer than the allowed duration
         if (time() - (int)$previous_afk_timeout > $duration)
         {
-            $this->restart();
+            self::restart();
         }
     }
 }

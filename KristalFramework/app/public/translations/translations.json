@@ -99,6 +99,14 @@
         "en": "Failed to authenticate!",
         "fi": "Kirjautuminen epäonnistui!"
     },
+    "maintenance_authentication_timeout_1": {
+        "en": "Too many login attempts, please wait ",
+        "fi": "Liian monta kirjautumisyritystä, odota "
+    },
+    "maintenance_authentication_timeout_2": {
+        "en": " before you can try again.",
+        "fi": " kunnes voit kokeilla uudelleen."
+    },
     "maintenance_login": {
         "en": "Sign In",
         "fi": "Kirjaudu"

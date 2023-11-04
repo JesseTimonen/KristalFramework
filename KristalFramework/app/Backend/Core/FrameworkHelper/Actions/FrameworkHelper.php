@@ -12,7 +12,7 @@ class FrameworkHelper extends FormRequest
 {
     public function __construct()
     {
-        if ($_SESSION["maintenance_access_granted"] === true && MAINTENANCE_MODE === true && !empty($_POST["csrf_identifier"]) && filter_var($_SESSION["visitor_identity"], FILTER_VALIDATE_IP))
+        if (Session::has("maintenance_access_granted") && MAINTENANCE_MODE && !empty($_POST["csrf_identifier"]) && filter_var($_SESSION["visitor_identity"], FILTER_VALIDATE_IP))
         {
             $csrfToken = getCSRF($_POST["csrf_identifier"]);
         

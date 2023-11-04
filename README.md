@@ -1,6 +1,6 @@
 # Kristal Framework
 
-Kristal Framework is a PHP-based architecture designed to furnish developers with a clean and straightforward MVC environment for website development.
+Kristal Framework is a PHP-based architecture designed to help developers create websites with a clean and straightforward MVC environment.
 The framework is publicly available under the MIT License, granting individuals the latitude to utilize, modify, and distribute it as they deem appropriate.
 
 
@@ -13,32 +13,27 @@ As such, it is advised to use this framework strictly for exploratory or experim
 
 
 
-## Server requirements
+## Server Requirements
 
-* PHP 7.4+
-* Composer
-
-
-
-## Database requirements
-
-* PDO PHP extension
+* Operating System: Linux is recommended (although other OS might work).
+* Web Server: Apache or LiteSpeed with .htaccess support is ideal (other servers may vary in compatibility).
+* PHP: Version 7.4 or highly recommended.
+* Composer: Necessary for managing backend dependencies.
 
 
 
-## Server
+## Database Requirements
 
-* Ideally Apache or litespeed server with .htaccess support
-* May or may not work with nginx
+* PDO PHP Extension: Ensure it is enabled and functional.
+* Database Engine: MySQL or MariaDB is preferred (other databases might work, but compatibility is not guaranteed).
 
 
 
 ## Installing
 
-1. Rename .env.example to .env and configure the settings
-2. Configure settings in the config.php
-3. Upload the framework files to a server or local development environment.
-4. Run 'composer install --prefer-dist --optimize-autoloader' on 'App/Backend/Core/' folder to install dependencies from composer.json file.
+1. Rename .env.example to .env and configure the settings in the Config folder.
+2. Upload the framework files to a server or local development environment.
+3. Run 'composer install --prefer-dist --optimize-autoloader' ath the root folder to install dependencies from composer.json file.
 
 After completing these steps you should now be able to access the built-in demo page by going to your server's URL.
 

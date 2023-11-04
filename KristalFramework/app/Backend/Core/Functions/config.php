@@ -7,7 +7,9 @@ define("DISPLAY_HELPER", getenv("DISPLAY_HELPER"));
 
 // Maintenance configurations
 define("MAINTENANCE_MODE", getenv("MAINTENANCE_MODE"));
-define("MAINTENANCE_PASSWORD", getenv("MAINTENANCE_PASSWORD"));
+define("MAINTENANCE_PASSWORD", hash('sha256', getenv("MAINTENANCE_PASSWORD")));
+define("MAINTENANCE_LOCKOUT_LIMIT", getenv("MAINTENANCE_LOCKOUT_LIMIT"));
+define("MAINTENANCE_LOCKOUT_CLEAR_TIME", getenv("MAINTENANCE_LOCKOUT_CLEAR_TIME"));
 
 
 // Error reporting configurations

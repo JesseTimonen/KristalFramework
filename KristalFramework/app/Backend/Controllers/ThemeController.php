@@ -1,12 +1,9 @@
 <?php namespace Backend\Controllers;
 defined("ACCESS") or exit("Access Denied");
 
-use Backend\Core\Session;
-
-
 class ThemeController
 {
-    private $themes_folder_path = "App/Public/CSS/";
+    private $themes_folder_path = "App/Public/CSS/Compiled/";
 
 
     public function changeTheme($theme = null)

@@ -4,114 +4,138 @@
 define("ACCESS", "Granted");
 
 
-// Include cookie settings
-if (!file_exists("App/Backend/Core/Env.php")) { throw new Exception("File 'App/Backend/Core/Env.php' does not exist!"); }
-require_once "App/Backend/Core/Env.php";
-
-
-// Include variables from config file
-if (!file_exists("App/Backend/Core/Config.php")) { throw new Exception("File 'App/Backend/Core/Config.php' does not exist!"); }
-require_once "App/Backend/Core/Config.php";
-
-
-// Include debug functionality
-if (!file_exists("App/Backend/Core/Functions/Debug.php")) { throw new Exception("File 'App/Backend/Core/Functions/Debug.php' does not exist!"); }
-require_once "App/Backend/Core/Functions/Debug.php";
-
-
-// Try to load composer autoload.php, die if failed
+// Load composer autoload.php
 if (!file_exists("vendor/autoload.php")) { throw new Exception("Composer autoload was not found! Should be located at the root of the framework inside vendor folder (vendor/autoload.php). Go to the root folder and run 'composer install --prefer-dist --optimize-autoloader' command, incase it does not fix it run 'composer dump-autoload --optimize' to regenerate autoload.php file."); }
 require_once "vendor/autoload.php";
 
 
-// Include translations
-if (!file_exists("App/Backend/Core/Functions/Translator.php")) { throw new Exception("File 'App/Backend/Core/Functions/Translator.php' does not exist!"); }
-require_once "App/Backend/Core/Functions/Translator.php";
+// Load .env variables into the project
+if (!file_exists("App/Backend/Core/Functions/env.php")) { throw new Exception("File 'App/Backend/Core/Functions/env.php' does not exist!"); }
+require_once "App/Backend/Core/Functions/env.php";
 
 
-// Include Helper functions
-if (!file_exists("App/Backend/Core/Functions/Helper.php")) { throw new Exception("File 'App/Backend/Core/Functions/Helper.php' does not exist!"); }
-require_once "App/Backend/Core/Functions/Helper.php";
+// Create constants of .env variables and handle framework configurations
+if (!file_exists("App/Backend/Core/Functions/config.php")) { throw new Exception("File 'App/Backend/Core/Functions/config.php' does not exist!"); }
+require_once "App/Backend/Core/Functions/config.php";
+
+
+// Include debug functionality
+if (!file_exists("App/Backend/Core/Functions/debug.php")) { throw new Exception("File 'App/Backend/Core/Functions/debug.php' does not exist!"); }
+require_once "App/Backend/Core/Functions/debug.php";
+
+
+// Include utility functions
+if (!file_exists("App/Backend/Core/Functions/utilities.php")) { throw new Exception("File 'App/Backend/Core/Functions/utilities.php' does not exist!"); }
+require_once "App/Backend/Core/Functions/utilities.php";
 
 
 // Include cookie settings
-if (!file_exists("App/Backend/Core/Cookies.php")) { throw new Exception("File 'App/Backend/Core/Cookies.php' does not exist!"); }
-require_once "App/Backend/Core/Cookies.php";
+if (!file_exists("App/Backend/Core/Functions/cookies.php")) { throw new Exception("File 'App/Backend/Core/Functions/cookies.php' does not exist!"); }
+require_once "App/Backend/Core/Functions/cookies.php";
 
 
-// Start session
-use Backend\Core\Session;
-new Session();
+// Initialize session
+// TODO: can the include be removed?
+if (!file_exists("App/Backend/Core/Session.php")) { throw new Exception("File 'App/Backend/Core/Session.php' does not exist!"); }
+require_once "App/Backend/Core/Session.php";
+class_alias("Backend\Core\Session", "Session");
+Session::initialize();
+
+
+// Include cross-site request forgery protection
+if (!file_exists("App/Backend/Core/Functions/csrf.php")) { throw new Exception("File 'App/Backend/Core/Functions/csrf.php' does not exist!"); }
+require_once "App/Backend/Core/Functions/csrf.php";
+
+
+// Include translations
+if (!file_exists("App/Backend/Core/Functions/translator.php")) { throw new Exception("File 'App/Backend/Core/Functions/translator.php' does not exist!"); }
+require_once "App/Backend/Core/Functions/translator.php";
+
+
+// Include cron jobs
+if (!file_exists("App/Backend/Cron/cron.php")) { throw new Exception("File 'App/Backend/Cron/cron.php' does not exist!"); }
+require_once "App/Backend/Cron/cron.php";
 
 
 // Compile SCSS and JavaScript
-use Backend\Core\SCSS_Compiler;
-use Backend\Core\JS_Compiler;
-use Backend\Core\PHPJS;
-
-
 if (!PRODUCTION_MODE)
 {
     // Compile SCSS
-    if (AUTO_COMPILE_SCSS === true || strtolower(AUTO_COMPILE_SCSS) === "true")
+    if (AUTO_COMPILE_SCSS)
     {
-        SCSS_Compiler::compile();
+        Backend\Core\SCSS_Compiler::compile();
     }
 
     // Compile JavaScript
-    if (AUTO_COMPILE_JS === true || strtolower(AUTO_COMPILE_JS) === "true")
+    if (AUTO_COMPILE_JS)
     {
-        JS_Compiler::compile();
+        Backend\Core\JS_Compiler::compile();
     }
 }
 
 
-// Include cross-site request forgery protection
-if (!file_exists("App/Backend/Core/Functions/Forms.php")) { throw new Exception("File 'App/Backend/Core/Functions/Forms.php' does not exist!"); }
-require_once "App/Backend/Core/Functions/Forms.php";
+if (MAINTENANCE_MODE && !Session::has("maintenance_access_granted"))
+{
+    // Variables sent to template to tell authentication was failed
+    $kristal_authentication_failed = false;
+    $kristal_authentication_attempt_limit_reached = false;
+    $kristal_authentication_lockout_duration = 0;
 
+    // Check did we get authentication request
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["maintenance-password"]))
+    {
+        $kristal_rate_limit_file = "App/Public/Cache/Maintenance/lockout-" . Session::get("visitor_identity") . ".php";
+        $kristal_failed_attempts = file_exists($kristal_rate_limit_file) ? (time() - filemtime($kristal_rate_limit_file) < MAINTENANCE_LOCKOUT_CLEAR_TIME ? include $kristal_rate_limit_file : 1) : 1;
 
-// Include cron
-if (!file_exists("App/Backend/Cron/Cron.php")) { throw new Exception("File 'App/Backend/Cron/Cron.php' does not exist!"); }
-require_once "App/Backend/Cron/Cron.php";
+        if ($kristal_failed_attempts > MAINTENANCE_LOCKOUT_LIMIT)
+        {
+            // Too many attempts
+            $kristal_authentication_attempt_limit_reached = true;
+            $kristal_time_difference = MAINTENANCE_LOCKOUT_CLEAR_TIME - (time() - filemtime($kristal_rate_limit_file));
+            $kristal_authentication_lockout_duration = $kristal_time_difference > 60 ? floor($kristal_time_difference / 60) . ' min' : $kristal_time_difference . ' s';
+        }
+        elseif (hash('sha256', $_POST["maintenance-password"]) === MAINTENANCE_PASSWORD)
+        {
+            // Successful authentication
+            Session::add("maintenance_access_granted", "Granted");
+        }
+        else
+        {
+            // Failed authentication
+            $kristal_authentication_failed = true;
+            $kristal_failed_attempts++;
+            $kristal_lockout_content = "<?php return $kristal_failed_attempts; ?>";
+
+            if (!file_put_contents($kristal_rate_limit_file, $kristal_lockout_content)) {
+                debugLog("Unable to write maintenance authentication lockout data to $kristal_rate_limit_file", "Warning");
+            }
+        }
+    }
+
+    // Show authentication if user did not attempt or failed the authentication
+    if (!Session::has("maintenance_access_granted"))
+    {
+        $maintenancePagePath = "App/Pages/maintenance.php";
+
+        if (!file_exists($maintenancePagePath))
+        {
+            if (PRODUCTION_MODE)
+            {
+                exit("Site is under maintenance");
+            }
+            else
+            {
+                throw new Exception("Maintenance page is missing! Should be located at {$maintenancePagePath}");
+            }
+        }
+
+        include $maintenancePagePath;
+        Backend\Core\PHPJS::release();
+        exit;
+    }
+}
 
 
 // Include Routes
 if (!file_exists("Routes/routes.php")) { throw new Exception("File 'Routes/routes.php' does not exist!"); }
 require_once "Routes/routes.php";
-
-
-if (MAINTENANCE_MODE === true && !isset($_SESSION["maintenance_access_granted"]))
-{
-    // Variable to tell authentication was failed
-    $kristal_authentication_failed = false;
-    
-    // Maintenance authentication
-    if (isset($_POST["maintenance-password"]))
-    {
-        if ($_POST["maintenance-password"] === MAINTENANCE_PASSWORD)
-        {
-            $_SESSION["maintenance_access_granted"] = true;
-        }
-        else
-        {
-            // Variable to tell authentication was failed
-            $kristal_authentication_failed = true;
-        }
-    }
-
-    // Display maintenance page if maintenance mode is enabled
-    if (!isset($_SESSION["maintenance_access_granted"]))
-    {
-        if (!file_exists("App/Pages/maintenance.php"))
-        {
-            throw new Exception("Maintenance page is missing! Should be located at App/Pages/maintenance.php");
-        }
-
-        // Render PHP created javascript variables and code
-        PHPJS::release();
-        
-        include "App/Pages/maintenance.php";
-        exit;
-    }
-}

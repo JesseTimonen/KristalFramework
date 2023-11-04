@@ -40,7 +40,7 @@ final class JS_Compiler
                 foreach ($files as $file)
                 {
                     $file_path = $folder_path . ensureJSExtension($file);
-                    $compiled_js .= $compiler->squeeze(file_get_contents($file_path), true, false, false);
+                    $compiled_js .= $compiler->squeeze(file_get_contents($file_path), true, true, false);
                 }
 
                 // Add date to generated JavaScript

@@ -21,7 +21,7 @@ class Router
         }
 
         // Init Framework helper
-        if (DISPLAY_HELPER && MAINTENANCE_MODE && $_SESSION["maintenance_access_granted"])
+        if (DISPLAY_HELPER && MAINTENANCE_MODE && Session::has("maintenance_access_granted"))
         {
             if (class_exists("Backend\Core\Helper\Actions\FrameworkHelper"))
             {
@@ -100,7 +100,7 @@ class Router
         include_once page("Base/header.php");
 
         // Include framework helper
-        if (file_exists("App/Backend/Core/FrameworkHelper/frameworkHelper.php") && DISPLAY_HELPER && MAINTENANCE_MODE && $_SESSION["maintenance_access_granted"]) { include_once "App/Backend/Core/FrameworkHelper/frameworkHelper.php"; }
+        if (file_exists("App/Backend/Core/FrameworkHelper/frameworkHelper.php") && DISPLAY_HELPER && MAINTENANCE_MODE && Session::has("maintenance_access_granted")) { include_once "App/Backend/Core/FrameworkHelper/frameworkHelper.php"; }
 
         // Make sure page is a php file
         $page = ensurePHPExtension($page);

@@ -31,7 +31,7 @@ class PHPJS
         // Automatically include the BASE_URL constant
         self::$js_variables['baseURL'] = BASE_URL;
         self::$js_variables['production_mode'] = (PRODUCTION_MODE ? "true" : "false");
-        self::$js_variables['language'] = (isset($_SESSION["translation_language"])) ? $_SESSION["translation_language"] : DEFAULT_LANGUAGE;
+        self::$js_variables['language'] = (Session::has("translation_language")) ? Session::get("translation_language") : DEFAULT_LANGUAGE;
 
         // Create div for javascript variables
         echo '<div id="javascript-variables" style="display: none"></div>';

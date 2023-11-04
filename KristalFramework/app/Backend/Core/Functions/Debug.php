@@ -31,8 +31,10 @@ function debug($variable, $name = null)
 }
 
 
-function debugLog($message)
+function debugLog($message, $severity = "Debug")
 {
+    if (!ENABLE_DEBUG_LOG) { return; }
+    
     $time = date('d-M-Y H:i:s e');
 
     if (is_array($message))
@@ -40,7 +42,7 @@ function debugLog($message)
         $message = print_r($message, true);
     }
 
-    $log = "[$time] Debug:  $message\n";
+    $log = "[$time] $severity:  $message\n";
     error_log($log, 3, DEBUG_LOG_PATH);
 }
 
