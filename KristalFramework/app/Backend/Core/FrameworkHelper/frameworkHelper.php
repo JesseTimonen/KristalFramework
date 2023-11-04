@@ -140,8 +140,8 @@
                 </div>
 
                 <form action = "" method = "post" role = "form" class = "framework-form" id = "create-entity-form">
-                    <?php csrf("create_entity"); request("create_entity"); ?>
-                    <input type = "hidden" name = "authentication" value = "<?= password_hash(SESSION_NAME . getCSRF("create_entity") . $_SESSION["visitor_identity"], PASSWORD_DEFAULT); ?>">
+                    <?php CSRF::create("create_entity"); CSRF::request("create_entity"); ?>
+                    <input type = "hidden" name = "authentication" value = "<?= password_hash(CSRF::get("create_entity") . Session::get("visitor_identity")); ?>">
 
                     <!-- Modal body -->
                     <div class = "modal-body">
@@ -320,8 +320,8 @@
                 </div>
 
                 <form action = "" method = "post" role = "form" class = "framework-form" id = "create-controller-form">
-                    <?php csrf("create_controller"); request("create_controller"); ?>
-                    <input type = "hidden" name = "authentication" value = "<?= password_hash(SESSION_NAME . getCSRF("create_controller") . $_SESSION["visitor_identity"], PASSWORD_DEFAULT); ?>">
+                    <?php CSRF::create("create_controller"); CSRF::request("create_controller"); ?>
+                    <input type = "hidden" name = "authentication" value = "<?= password_hash(CSRF::get("create_controller") . Session::get("visitor_identity")); ?>">
 
                     <!-- Modal body -->
                     <div class = "modal-body">
@@ -348,7 +348,7 @@
             <li class = "nav-item"><a class = "nav-link database-backup-action-link" database = "<?= $name ?>"><?= $name ?> database</a></li>
         <?php endforeach; ?>
         <li class = "nav-item"><a class = "nav-link cancel-database-backup-action">Cancel</a></li>
-        <form action = "" method = "post" id = "form-database-backup" class = "framework-form" role = "form"><?php csrf("database_backup"); request("database_backup"); ?><input type = "hidden" name = "authentication" value = "<?= password_hash(SESSION_NAME . getCSRF("database_backup") . $_SESSION["visitor_identity"], PASSWORD_DEFAULT); ?>"><input type = "hidden" name = "database" value = ""></form>
+        <form action = "" method = "post" id = "form-database-backup" class = "framework-form" role = "form"><?php CSRF::create("database_backup"); CSRF::request("database_backup"); ?><input type = "hidden" name = "authentication" value = "<?= password_hash(CSRF::get("database_backup") . Session::get("visitor_identity")); ?>"><input type = "hidden" name = "database" value = ""></form>
     </ul>
 
 
@@ -357,8 +357,8 @@
         <li class = "nav-item"><a class = "nav-link import-database-action-link">None Selected</a></li>
         <li class = "nav-item"><a class = "nav-link cancel-import-database-action">Cancel</a></li>
         <form action = "" method = "post" id = "helper-import-database-form" class = "framework-form" enctype = "multipart/form-data">
-            <?php csrf("import_database"); request("import_database"); ?>
-            <input type = "hidden" name = "authentication" value = "<?= password_hash(SESSION_NAME . getCSRF("import_database") . $_SESSION["visitor_identity"], PASSWORD_DEFAULT); ?>">
+            <?php CSRF::create("import_database"); CSRF::request("import_database"); ?>
+            <input type = "hidden" name = "authentication" value = "<?= password_hash(CSRF::get("import_database") . Session::get("visitor_identity")); ?>">
             <input type = "file" name = "database-import" id = "helper-choose-database-import" onchange = "updateDatabaseImportFile();" accept = ".sql" style = "display: none;">
         </form>
     </ul>
@@ -371,7 +371,7 @@
             <li class = "nav-item"><a class = "nav-link clear-database-action-link" value = "<?= $name ?>">Delete <?= $name ?></a></li>
         <?php endforeach; ?>
         <li class = "nav-item"><a class = "nav-link clear-database-action-link" value = "cancel">Cancel</a></li>
-        <form action = "" method = "post" id = "form-clear-database" class = "framework-form" role = "form"><?php csrf("clear_database"); request("clear_database"); ?><input type = "hidden" name = "authentication" value = "<?= password_hash(SESSION_NAME . getCSRF("clear_database") . $_SESSION["visitor_identity"], PASSWORD_DEFAULT); ?>"><input type = "hidden" name = "database" value = ""></form>
+        <form action = "" method = "post" id = "form-clear-database" class = "framework-form" role = "form"><?php CSRF::create("clear_database"); CSRF::request("clear_database"); ?><input type = "hidden" name = "authentication" value = "<?= password_hash(CSRF::get("clear_database") . Session::get("visitor_identity")); ?>"><input type = "hidden" name = "database" value = ""></form>
     </ul>
 
 

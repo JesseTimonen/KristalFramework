@@ -43,6 +43,13 @@ Session::initialize();
 
 
 // Include cross-site request forgery protection
+// TODO: can the include be removed?
+if (!file_exists("App/Backend/Core/CSRF.php")) { throw new Exception("File 'App/Backend/Core/CSRF.php' does not exist!"); }
+require_once "App/Backend/Core/CSRF.php";
+class_alias("Backend\Core\CSRF", "CSRF");
+CSRF::initialize();
+
+
 if (!file_exists("App/Backend/Core/Functions/csrf.php")) { throw new Exception("File 'App/Backend/Core/Functions/csrf.php' does not exist!"); }
 require_once "App/Backend/Core/Functions/csrf.php";
 
@@ -139,3 +146,6 @@ if (MAINTENANCE_MODE && !Session::has("maintenance_access_granted"))
 // Include Routes
 if (!file_exists("Routes/routes.php")) { throw new Exception("File 'Routes/routes.php' does not exist!"); }
 require_once "Routes/routes.php";
+
+
+debug($_SESSION);

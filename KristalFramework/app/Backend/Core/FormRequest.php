@@ -27,13 +27,13 @@ class FormRequest
         // Check CSRF
         if (isset($_POST["csrf_token"]) && isset($_POST["csrf_identifier"]))
         {
-            if ($_POST["csrf_token"] !== getCSRF($_POST["csrf_identifier"]))
+            if ($_POST["csrf_token"] !== CSRF::get($_POST["csrf_identifier"]))
             {
                 return;
             }
-
-            resetCSRF();
         }
+
+        CSRF::reset();
 
         // Get requested method
         $this->requested_method = $_POST["form_request"];
