@@ -13,7 +13,7 @@ class ThemeController
     {
         // Make sure theme is not null
         if ($theme === null) {
-            return false;
+            return translate("change_theme_aborted_message");
         }
     
         // Format theme name: remove the file extension, convert to lowercase and add .css extension
@@ -22,11 +22,11 @@ class ThemeController
     
         // Check if the theme file exists
         if (!file_exists($this->themes_folder_path . $formatted_theme_name)) {
-            return false;
+            return translate("change_theme_failed_message", [$theme]);
         }
         
         // Add the new theme to session
         Session::add("theme", $formatted_theme_name);
-        return true;
+        return translate("change_theme_successful_message", [$theme]);
     }
 }

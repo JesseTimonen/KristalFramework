@@ -20,7 +20,7 @@
                     <a class="nav-link" page="home.php" href="<?= route(""); ?>" translationKey="nav_home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" page="theme.php" href="<?= route("theme"); ?>" translationKey="nav_theme">Change Theme</a>
+                    <a class="nav-link" page="demo.php" href="<?= route("demo"); ?>" translationKey="nav_demo">Demo</a>
                 </li>
             </ul>
       

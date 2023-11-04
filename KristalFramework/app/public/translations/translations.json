@@ -8,9 +8,9 @@
         "en": "Home",
         "fi": "Etusivu"
     },
-    "nav_theme": {
-        "en": "Theme",
-        "fi": "Teema"
+    "nav_demo": {
+        "en": "Demo",
+        "fi": "Demo"
     },
 
 
@@ -37,10 +37,21 @@
 
 
 
-
-    "change_theme": {
-        "en": "Change Theme",
-        "fi": "Vaihda Teemaa"
+    "demo_page_title": {
+        "en": "Kristal Framework Demo Page",
+        "fi": "Kristal Framework Demo Sivu"
+    },
+    "demo_page_description": {
+        "en": "This page showcases a wide array of the framework's demo features. Explore the numerous possibilities at your disposal",
+        "fi": "Tämä sivu esittelee laajan valikoiman kehyksen demo-ominaisuuksia. Tutustu lukuisiin mahdollisuuksiin, joita voit hyödyntää!"
+    },
+    "theme_title": {
+        "en": "Theme",
+        "fi": "Teemaa"
+    },
+    "theme_description": {
+        "en": "The active theme is integrated within the HTML header template found at 'App/Pages/Base/'. This header utilizes the theme stored in the active session, defaulting to the preset theme in the config.php file if none is specified. You can modify the theme using a form that initiates a request to alter it. This request is then relayed to a controller that updates the session with the new theme.",
+        "fi": "Aktiivinen teema on sisällytetty HTML-otsikkopohjaan, joka sijaitsee osoitteessa 'App/Pages/Base/'. Tämä otsikko käyttää istunnossa tallennettua teemaa, ja jos teemaa ei ole määritelty, se palautuu oletusteemaan, joka on määritetty config.php-tiedostossa. Voit muuttaa teemaa lomakkeella, joka lähettää pyynnön teeman vaihtamiseksi. Tämä pyyntö välitetään sitten ohjaimelle, joka päivittää istunnon uudella teemalla."
     },
     "activate_dark_button": {
         "en": "Activate Dark Theme",

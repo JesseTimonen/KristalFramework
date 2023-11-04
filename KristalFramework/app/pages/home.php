@@ -10,10 +10,10 @@
     <?php Block::render("countdown", [
         "date" => "1.1.2024 00:00:00",
         "format" => "⏰ {d} {D} {h}:{m}:{s} ⏰",
-        "days" => "11|11",
-        "hours" => "",
-        "minutes" => "",
-        "seconds" => "",
+        "days" => "days|day",
+        "hours" => "h",
+        "minutes" => "m",
+        "seconds" => "s",
         "expired" => "⏰ 00:00:00 ⏰",
     ]); ?>
 </div>

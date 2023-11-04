@@ -8,8 +8,12 @@ return array(
         "fi" => "%s Teema otettiin onnistuneesti käyttöön."
     ],
     "change_theme_failed_message" => [
-        "en" => "Tried to activate theme called %s, but failed.",
-        "fi" => "%s teema yritettiin ottaa käyttöön, mutta se ei onnistunut."
+        "en" => "Tried to activate theme called %s, but theme didn't exist.",
+        "fi" => "%s teema yritettiin ottaa käyttöön, mutta teemaa ei ollut olemassa."
+    ],
+    "change_theme_aborted_message" => [
+        "en" => "Aborted action to change theme, because no name was specified.",
+        "fi" => "Teeman vaihtotoiminto keskeytettiin, koska nimeä ei ollut määritetty."
     ],
 
 
