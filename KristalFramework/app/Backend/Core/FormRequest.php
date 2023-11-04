@@ -18,21 +18,14 @@ class FormRequest
         // Sanitize $_POST variables
         $_POST = array_map('htmlspecialchars', $_POST);
 
-        // Make sure there was a form request
-        if (!isset($_POST["form_request"]))
+        // Make sure there was a form requesta and CSRF tokens are found
+        if (!isset($_POST["form_request"]) || !isset($_POST["csrf_token"]) || !isset($_POST["csrf_identifier"]) || $_POST["csrf_token"] !== CSRF::get($_POST["csrf_identifier"]))
         {
+            if (REGENERATE_CSRF_ON_PAGE_REFRESH) { CSRF::reset(); }
             return;
         }
 
-        // Check CSRF
-        if (isset($_POST["csrf_token"]) && isset($_POST["csrf_identifier"]))
-        {
-            if ($_POST["csrf_token"] !== CSRF::get($_POST["csrf_identifier"]))
-            {
-                return;
-            }
-        }
-
+        // Reset CSRF on successful request
         CSRF::reset();
 
         // Get requested method

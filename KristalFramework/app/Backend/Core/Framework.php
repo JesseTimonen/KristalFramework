@@ -35,23 +35,12 @@ require_once "App/Backend/Core/Functions/cookies.php";
 
 
 // Initialize session
-// TODO: can the include be removed?
-if (!file_exists("App/Backend/Core/Session.php")) { throw new Exception("File 'App/Backend/Core/Session.php' does not exist!"); }
-require_once "App/Backend/Core/Session.php";
 class_alias("Backend\Core\Session", "Session");
 Session::initialize();
 
 
 // Include cross-site request forgery protection
-// TODO: can the include be removed?
-if (!file_exists("App/Backend/Core/CSRF.php")) { throw new Exception("File 'App/Backend/Core/CSRF.php' does not exist!"); }
-require_once "App/Backend/Core/CSRF.php";
 class_alias("Backend\Core\CSRF", "CSRF");
-CSRF::initialize();
-
-
-if (!file_exists("App/Backend/Core/Functions/csrf.php")) { throw new Exception("File 'App/Backend/Core/Functions/csrf.php' does not exist!"); }
-require_once "App/Backend/Core/Functions/csrf.php";
 
 
 // Include translations
@@ -62,6 +51,11 @@ require_once "App/Backend/Core/Functions/translator.php";
 // Include cron jobs
 if (!file_exists("App/Backend/Cron/cron.php")) { throw new Exception("File 'App/Backend/Cron/cron.php' does not exist!"); }
 require_once "App/Backend/Cron/cron.php";
+
+
+// Initialize Blocks
+class_alias("Backend\Core\Block", "Block");
+Block::initialize();
 
 
 // Compile SCSS and JavaScript
@@ -146,6 +140,3 @@ if (MAINTENANCE_MODE && !Session::has("maintenance_access_granted"))
 // Include Routes
 if (!file_exists("Routes/routes.php")) { throw new Exception("File 'Routes/routes.php' does not exist!"); }
 require_once "Routes/routes.php";
-
-
-debug($_SESSION);

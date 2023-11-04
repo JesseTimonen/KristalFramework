@@ -36,6 +36,7 @@ define("MAILER_PORT", getenv("MAILER_PORT"));
 define("SESSION_NAME", getenv("SESSION_NAME"));
 define("SESSION_TIMEOUT", getenv("SESSION_TIMEOUT"));
 define("SESSION_AFK_TIMEOUT", getenv("SESSION_AFK_TIMEOUT"));
+define("REGENERATE_CSRF_ON_PAGE_REFRESH", getenv("REGENERATE_CSRF_ON_PAGE_REFRESH"));
 
 
 // Cookie configurations

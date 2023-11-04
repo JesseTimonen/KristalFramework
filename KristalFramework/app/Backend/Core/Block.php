@@ -1,4 +1,5 @@
-<?php defined("ACCESS") or exit("Access Denied");
+<?php namespace Backend\Core;
+defined("ACCESS") or exit("Access Denied");
 
 
 class Block
@@ -6,7 +7,7 @@ class Block
     protected static $shortcodes = [];
 
 
-    public static function gatherBlocks()
+    public static function initialize()
     {
         // Get all directories within the blocks folder
         $directories = glob('App/Backend/Blocks/*', GLOB_ONLYDIR);
@@ -38,6 +39,3 @@ class Block
         echo ob_get_clean();
     }
 }
-
-
-Block::gatherBlocks();
