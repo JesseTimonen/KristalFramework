@@ -1,5 +1,4 @@
-<?php
-defined("ACCESS") or exit("Access Denied");
+<?php defined("ACCESS") or exit("Access Denied");
 
 
 class Block

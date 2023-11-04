@@ -42,12 +42,12 @@ function image($file, array $params = ["path" => "url"]): string
 
 function css($file, array $params = ["path" => "url"]): string
 {
-    return kristal_getAssetPath("CSS", $file, $params);
+    return kristal_getAssetPath("CSS/Compiled/", $file, $params);
 }
 
 function js($file, array $params = ["path" => "url"]): string
 {
-    return kristal_getAssetPath("Javascript", $file, $params);
+    return kristal_getAssetPath("Javascript/Compiled/", $file, $params);
 }
 
 function download($file, array $params = ["path" => "url"]): string
@@ -76,7 +76,7 @@ function thumbnail($file_path, array $params = array("path" => "url"))
         {
             case 'image/jpeg' : $original = imagecreatefromjpeg($file_path); break;
             case 'image/png' : $original = imagecreatefrompng($file_path); break;
-            case 'image/gif' : $original = imagecreatefromgif($file_path); break;
+            case 'image/gif' : $original = imagecreatefromgif ($file_path); break;
             case 'image/webp' : $original = imagecreatefromwebp($file_path); break;
             default: return null;
         }
@@ -92,7 +92,7 @@ function thumbnail($file_path, array $params = array("path" => "url"))
         {
             case 'image/jpeg' : imagejpeg($thumbnail, $thumbnail_path); $result = $thumbnail_path; break;
             case 'image/png' : imagepng($thumbnail, $thumbnail_path); $result = $thumbnail_path; break;
-            case 'image/gif' : imagegif($thumbnail, $thumbnail_path); $result = $thumbnail_path; break;
+            case 'image/gif' : imagegif ($thumbnail, $thumbnail_path); $result = $thumbnail_path; break;
             case 'image/webp' : imagewebp($thumbnail, $thumbnail_path); $result = $thumbnail_path; break;
         }
 

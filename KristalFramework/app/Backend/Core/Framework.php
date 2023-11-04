@@ -5,32 +5,38 @@ define("ACCESS", "Granted");
 
 
 // Include cookie settings
-if (file_exists("App/Backend/Core/Env.php")){ require_once "App/Backend/Core/Env.php"; }
+if (!file_exists("App/Backend/Core/Env.php")) { throw new Exception("File 'App/Backend/Core/Env.php' does not exist!"); }
+require_once "App/Backend/Core/Env.php";
 
 
 // Include variables from config file
-if (file_exists("config.php")){ require_once "config.php"; }
+if (!file_exists("App/Backend/Core/Config.php")) { throw new Exception("File 'App/Backend/Core/Config.php' does not exist!"); }
+require_once "App/Backend/Core/Config.php";
 
 
 // Include debug functionality
-if (file_exists("App/Backend/Core/Functions/Debug.php")){ require_once "App/Backend/Core/Functions/Debug.php"; }
+if (!file_exists("App/Backend/Core/Functions/Debug.php")) { throw new Exception("File 'App/Backend/Core/Functions/Debug.php' does not exist!"); }
+require_once "App/Backend/Core/Functions/Debug.php";
 
 
 // Try to load composer autoload.php, die if failed
-if (file_exists("./vendor/autoload.php")){ require_once "./vendor/autoload.php"; }
-else { throw new Exception("Composer autoload was not found! Should be located at the root of the framework inside vendor folder (./vendor/autoload.php). Go to the root folder and run 'composer install --prefer-dist --optimize-autoloader' command, incase it does not fix it run 'composer dump-autoload --optimize' to regenerate autoload.php file."); }
+if (!file_exists("vendor/autoload.php")) { throw new Exception("Composer autoload was not found! Should be located at the root of the framework inside vendor folder (vendor/autoload.php). Go to the root folder and run 'composer install --prefer-dist --optimize-autoloader' command, incase it does not fix it run 'composer dump-autoload --optimize' to regenerate autoload.php file."); }
+require_once "vendor/autoload.php";
 
 
 // Include translations
-if (file_exists("App/Backend/Core/Functions/Translator.php")){ require_once "App/Backend/Core/Functions/Translator.php"; }
+if (!file_exists("App/Backend/Core/Functions/Translator.php")) { throw new Exception("File 'App/Backend/Core/Functions/Translator.php' does not exist!"); }
+require_once "App/Backend/Core/Functions/Translator.php";
 
 
 // Include Helper functions
-if (file_exists("App/Backend/Core/Functions/Helper.php")){ require_once "App/Backend/Core/Functions/Helper.php"; }
+if (!file_exists("App/Backend/Core/Functions/Helper.php")) { throw new Exception("File 'App/Backend/Core/Functions/Helper.php' does not exist!"); }
+require_once "App/Backend/Core/Functions/Helper.php";
 
 
 // Include cookie settings
-if (file_exists("App/Backend/Core/Cookie.php")){ require_once "App/Backend/Core/Cookie.php"; }
+if (!file_exists("App/Backend/Core/Cookies.php")) { throw new Exception("File 'App/Backend/Core/Cookies.php' does not exist!"); }
+require_once "App/Backend/Core/Cookies.php";
 
 
 // Start session
@@ -61,11 +67,18 @@ if (!PRODUCTION_MODE)
 
 
 // Include cross-site request forgery protection
-if (file_exists("App/Backend/Core/Functions/Forms.php")){ require_once "App/Backend/Core/Functions/Forms.php"; }
+if (!file_exists("App/Backend/Core/Functions/Forms.php")) { throw new Exception("File 'App/Backend/Core/Functions/Forms.php' does not exist!"); }
+require_once "App/Backend/Core/Functions/Forms.php";
 
 
 // Include cron
-if (file_exists("App/Backend/Cron/Cron.php")){ require_once "App/Backend/Cron/Cron.php"; }
+if (!file_exists("App/Backend/Cron/Cron.php")) { throw new Exception("File 'App/Backend/Cron/Cron.php' does not exist!"); }
+require_once "App/Backend/Cron/Cron.php";
+
+
+// Include Routes
+if (!file_exists("Routes/routes.php")) { throw new Exception("File 'Routes/routes.php' does not exist!"); }
+require_once "Routes/routes.php";
 
 
 if (MAINTENANCE_MODE === true && !isset($_SESSION["maintenance_access_granted"]))

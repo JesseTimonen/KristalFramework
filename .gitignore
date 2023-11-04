@@ -1,5 +1,5 @@
 KristalFramework/vendor
-KristalFramework/.env
+KristalFramework/Config/.env
 .vscode
 .vs
 .idea

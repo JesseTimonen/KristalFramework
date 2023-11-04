@@ -6,30 +6,27 @@ use Patchwork\JSqueeze;
 
 final class JS_Compiler
 {
-    private static $folder_path = "App/Public/Javascript/";
-
-    
     public static function compile()
     {
+        $folder_path = "App/Public/Javascript/";
+        $compiled_folder_path = "App/Public/Javascript/Compiled/";
         $compiler = new JSqueeze();
         $js_bundles = unserialize(JS_BUNDLES);
 
+
         foreach ($js_bundles as $container => $files)
         {
-            $container = ensureJSExtension($container);
-            $compiled_file_path = self::$folder_path . $container;
-            $compiled_file_mtime = file_exists($compiled_file_path) ? filemtime($compiled_file_path) : 0;
+            $compiled_file_path = $compiled_folder_path . ensureJSExtension($container);
+            $compiled_file_date = file_exists($compiled_file_path) ? filemtime($compiled_file_path) : 0;
 
             $should_compile = false;
 
             foreach ($files as $file)
             {
-                // Check is any js file updated since last JS compile
-                $file = ensureJSExtension($file);
-                $file_path = self::$folder_path . $file;
+                $file_path = $folder_path . ensureJSExtension($file);
                  
                 // Check is any js file updated since last JS compile
-                if (file_exists($file_path) && filemtime($file_path) > $compiled_file_mtime)
+                if (file_exists($file_path) && filemtime($file_path) > $compiled_file_date)
                 {
                     $should_compile = true;
                     break;
@@ -42,21 +39,15 @@ final class JS_Compiler
 
                 foreach ($files as $file)
                 {
-                    $file = ensureJSExtension($file);
-                    $path = self::$folder_path . $file;
-                    $js = file_get_contents($path);
-                    $compiled_js .= $compiler->squeeze($js,
-                        true,   // $singleLine
-                        true,   // $keepImportantComments
-                        false   // $specialVarRx
-                    );
+                    $file_path = $folder_path . ensureJSExtension($file);
+                    $compiled_js .= $compiler->squeeze(file_get_contents($file_path), true, false, false);
                 }
 
                 // Add date to generated JavaScript
                 if (PRINT_COMPILE_DATE_JS) {
                     $compiled_js .= "\n\n\n/* Generated at: " . date(DATE_FORMAT . " " . TIME_FORMAT) . " */";
                 }
-
+                
                 file_put_contents($compiled_file_path, $compiled_js);
             }
         }

@@ -344,7 +344,7 @@
     <!-- Database backup forms -->
     <ul class = "navbar-nav" id = "actions-database-backup" style = "display: none;">
         <?php $databases = unserialize(DATABASES); ?>
-        <?php foreach($databases as $name => $info): ?>
+        <?php foreach ($databases as $name => $info): ?>
             <li class = "nav-item"><a class = "nav-link database-backup-action-link" database = "<?= $name ?>"><?= $name ?> database</a></li>
         <?php endforeach; ?>
         <li class = "nav-item"><a class = "nav-link cancel-database-backup-action">Cancel</a></li>
@@ -367,7 +367,7 @@
     <!-- Clear database forms -->
     <ul class = "navbar-nav" id = "actions-clear-database" style = "display: none;">
         <?php $databases = unserialize(DATABASES); ?>
-        <?php foreach($databases as $name => $info): ?>
+        <?php foreach ($databases as $name => $info): ?>
             <li class = "nav-item"><a class = "nav-link clear-database-action-link" value = "<?= $name ?>">Delete <?= $name ?></a></li>
         <?php endforeach; ?>
         <li class = "nav-item"><a class = "nav-link clear-database-action-link" value = "cancel">Cancel</a></li>

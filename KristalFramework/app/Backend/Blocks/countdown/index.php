@@ -1,4 +1,4 @@
-<?php
+<?php defined("ACCESS") or exit("Access Denied");
 /**
  * This content is rendered by countdown block
  * Block::render("countdown", ["date" => "", "format" => "", "days" => "", "hours" => "", "minutes" => "", "seconds" => "", "expired" => ""]); 

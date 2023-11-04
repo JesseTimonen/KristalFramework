@@ -4,7 +4,7 @@
 // Example task for cron jobs
 // Deletes files from cache folder
 
-foreach (glob(BASE_PATH . "App/Public/Cache/*") as $file)
+foreach (glob("App/Public/Cache/*") as $file)
 {
     if (is_file($file))
     {
