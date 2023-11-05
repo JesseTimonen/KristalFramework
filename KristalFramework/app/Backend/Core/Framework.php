@@ -75,68 +75,25 @@ if (!PRODUCTION_MODE)
 }
 
 
-if (MAINTENANCE_MODE && !Session::has("maintenance_access_granted"))
+// Check does multilingual routes exist
+$kristal_routes_path = "Routes/routes.php";
+if (ENABLE_LANGUAGES)
 {
-    // Variables sent to template to tell authentication was failed
-    $kristal_authentication_failed = false;
-    $kristal_authentication_attempt_limit_reached = false;
-    $kristal_authentication_lockout_duration = 0;
+    $kristal_route_language = strtolower(Session::get("language"));
+    $kristal_language_route_directories = scandir("Routes");
 
-    // Check did we get authentication request
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["maintenance-password"]))
+    foreach ($kristal_language_route_directories as $directory)
     {
-        $kristal_rate_limit_file = "App/Public/Cache/Maintenance/lockout-" . Session::get("visitor_identity") . ".php";
-        $kristal_failed_attempts = file_exists($kristal_rate_limit_file) ? (time() - filemtime($kristal_rate_limit_file) < MAINTENANCE_LOCKOUT_CLEAR_TIME ? include $kristal_rate_limit_file : 1) : 1;
-
-        if ($kristal_failed_attempts > MAINTENANCE_LOCKOUT_LIMIT)
+        if (strtolower($directory) === $kristal_route_language)
         {
-            // Too many attempts
-            $kristal_authentication_attempt_limit_reached = true;
-            $kristal_time_difference = MAINTENANCE_LOCKOUT_CLEAR_TIME - (time() - filemtime($kristal_rate_limit_file));
-            $kristal_authentication_lockout_duration = $kristal_time_difference > 60 ? floor($kristal_time_difference / 60) . ' min' : $kristal_time_difference . ' s';
+            $kristal_routes_path = "Routes/$kristal_route_language/routes.php";
+            break;
         }
-        elseif (hash('sha256', $_POST["maintenance-password"]) === MAINTENANCE_PASSWORD)
-        {
-            // Successful authentication
-            Session::add("maintenance_access_granted", "Granted");
-        }
-        else
-        {
-            // Failed authentication
-            $kristal_authentication_failed = true;
-            $kristal_failed_attempts++;
-            $kristal_lockout_content = "<?php return $kristal_failed_attempts; ?>";
-
-            if (!file_put_contents($kristal_rate_limit_file, $kristal_lockout_content)) {
-                debugLog("Unable to write maintenance authentication lockout data to $kristal_rate_limit_file", "Warning");
-            }
-        }
-    }
-
-    // Show authentication if user did not attempt or failed the authentication
-    if (!Session::has("maintenance_access_granted"))
-    {
-        $maintenancePagePath = "App/Pages/maintenance.php";
-
-        if (!file_exists($maintenancePagePath))
-        {
-            if (PRODUCTION_MODE)
-            {
-                exit("Site is under maintenance");
-            }
-            else
-            {
-                throw new Exception("Maintenance page is missing! Should be located at {$maintenancePagePath}");
-            }
-        }
-
-        include $maintenancePagePath;
-        Backend\Core\PHPJS::release();
-        exit;
     }
 }
 
-
-// Include Routes
-if (!file_exists("Routes/routes.php")) { throw new Exception("File 'Routes/routes.php' does not exist!"); }
-require_once "Routes/routes.php";
+// Load routes
+if (file_exists($kristal_routes_path))
+{
+    require_once $kristal_routes_path;
+}
