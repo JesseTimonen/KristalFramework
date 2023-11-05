@@ -78,7 +78,7 @@ class Routes extends Router
     }
 
 
-    function pageNotFound()
+    private function pageNotFound()
     {
         // Render content from App/Pages/404.php
         // You can also just point back to home with:

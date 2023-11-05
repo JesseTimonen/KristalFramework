@@ -5,6 +5,7 @@ use Backend\Controllers\FormRequests;
 use Backend\Core\Helper\Actions\FrameworkHelper;
 use Backend\Core\PHPJS;
 use voku\helper\HtmlMin;
+use SimpleXMLElement;
 
 
 class Router
@@ -26,6 +27,32 @@ class Router
             if (class_exists("Backend\Core\Helper\Actions\FrameworkHelper"))
             {
                 new FrameworkHelper();
+            }
+        }
+
+        // Generate sitemap.xml
+        if (AUTO_COMPILE_SITEMAP)
+        {
+            // Determine the last modification time of the sitemap
+            $sitemap_last_mod_time = file_exists("sitemap.xml") ? filemtime("sitemap.xml") : 0;
+            $routes_file_mod_time = filemtime('Routes/routes.php');
+            $should_regenerate_sitemap = $sitemap_last_mod_time < $routes_file_mod_time;
+        
+            // Check each route template file in App/Pages/
+            $page_files = glob('App/Pages/*.php');
+            foreach ($page_files as $page_file)
+            {
+                if (filemtime($page_file) > $sitemap_last_mod_time)
+                {
+                    $should_regenerate_sitemap = true;
+                    break;
+                }
+            }
+        
+            // Regenerate sitemap if needed
+            if ($should_regenerate_sitemap)
+            {
+                $this->generateSitemap();
             }
         }
 
@@ -54,6 +81,30 @@ class Router
         }
 
         $this->routeController($page, $variables_from_URL);
+    }
+
+
+    private function generateSitemap()
+    {
+        $routes = get_class_methods($this);
+        $excludeMethods = ["__construct", "routecontroller", "geturlrequest", "generatesitemap", "callview", "minifyhtml", "render"];
+        $sitemap = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
+
+        foreach ($routes as $route)
+        {
+            if (!in_array(strtolower($route), array_map('strtolower', $excludeMethods)))
+            {
+                $page_path = 'App/Pages/' . $route . '.php';
+                $last_mod = file_exists($page_path) ? date('c', filemtime($page_path)) : date('c', filemtime('Routes/routes.php'));
+    
+                $url = $sitemap->addChild('url');
+                $url->addChild('loc', htmlspecialchars(BASE_URL . strtolower($route)));
+                $url->addChild('lastmod', $last_mod);
+                $url->addChild('priority', '1.00');
+            }
+        }
+
+        $sitemap->asXML('sitemap.xml');
     }
 
 
