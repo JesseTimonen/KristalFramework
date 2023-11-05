@@ -99,10 +99,10 @@ function thumbnail($file_path, array $params = array("path" => "url"))
         // Free memory
         imagedestroy($original); imagedestroy($thumbnail);
 
-        return $result ? getURL($result) : null;
+        return $result ? route($result) : null;
     }
 
-    return getURL($thumbnail_path);
+    return route($thumbnail_path);
 }
 
 // ============================================================================================================== \\
@@ -126,11 +126,23 @@ function pageExists($file)
 
 function route($page = "")
 {
-    return BASE_URL . $page;
-}
+    if (ENABLE_LANGUAGES)
+    {
+        $language = Session::get("language");
 
-function getURL($page = "")
-{
+        if (DISPLAY_DEFAULT_LANGUAGE_URL)
+        {
+            return BASE_URL . $language . "/". $page;
+        }
+        else
+        {
+            if ($language != DEFAULT_LANGUAGE)
+            {
+                return BASE_URL . $language . "/". $page;
+            }
+        }
+    }
+
     return BASE_URL . $page;
 }
 

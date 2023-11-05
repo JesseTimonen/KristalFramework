@@ -35,9 +35,9 @@ class Routes extends Router
             // The callView() method is used to activate a particular function found in this file.
             // If the route needs variables passed to the url you can include those by adding $variables as the second argument in the callView() method.
             // The $variables parameter holds an array of all the variables that are part of the URL.
-            case "": $this->callView("home"); break;
-            case "/": $this->callView("home"); break;
-            case "home": $this->callView("home"); break;
+            case "": $this->callView("frontpage"); break;
+            case "/": $this->callView("frontpage"); break;
+            case "frontpage": $this->callView("frontpage"); break;
             case "demo": $this->callView("demo", $variables); break;
             default: $this->callView("pageNotFound"); break;
         }
@@ -53,11 +53,11 @@ class Routes extends Router
     }
 
 
-    function home()
+    function frontpage()
     {
         // Render() method will render a page template from your pages folder
-        // For example the following line will render content from /App/Pages/home.php
-        $this->render("home");
+        // For example the following line will render content from /App/Pages/frontpage.php
+        $this->render("frontpage");
     }
 
     
@@ -78,11 +78,12 @@ class Routes extends Router
     }
 
 
-    private function pageNotFound()
+    // If you want route to be private and not be included into sitemap.xml define it as protected
+    protected function pageNotFound()
     {
         // Render content from App/Pages/404.php
-        // You can also just point back to home with:
-        // $this->callView("home");
+        // You can also just point back to frontpage with:
+        // $this->callView("frontpage");
         $this->render("404");
     }
 }

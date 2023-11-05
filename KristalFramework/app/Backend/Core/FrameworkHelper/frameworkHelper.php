@@ -1,6 +1,6 @@
 <!-- Include css and js files -->
-<link rel = "stylesheet" type = "text/css" href = "<?= getURL("App/Backend/Core/FrameworkHelper/frameworkHelper.css"); ?>">
-<script src = "<?= getURL("App/Backend/Core/FrameworkHelper/frameworkHelper.js"); ?>"></script>
+<link rel = "stylesheet" type = "text/css" href = "<?= route("App/Backend/Core/FrameworkHelper/frameworkHelper.css"); ?>">
+<script src = "<?= route("App/Backend/Core/FrameworkHelper/frameworkHelper.js"); ?>"></script>
 
 
 <!-- framework mini helper icon -->

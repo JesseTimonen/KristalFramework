@@ -5,7 +5,6 @@ use Backend\Controllers\FormRequests;
 use Backend\Core\Helper\Actions\FrameworkHelper;
 use Backend\Core\PHPJS;
 use voku\helper\HtmlMin;
-use SimpleXMLElement;
 
 
 class Router
@@ -16,87 +15,122 @@ class Router
     protected function __construct()
     {
         // Init form requests
-        if (class_exists("Backend\Controllers\FormRequests"))
-        {
-            new FormRequests();
-        }
+        new FormRequests();
 
         // Init Framework helper
         if (DISPLAY_HELPER && MAINTENANCE_MODE && Session::has("maintenance_access_granted"))
         {
-            if (class_exists("Backend\Core\Helper\Actions\FrameworkHelper"))
-            {
-                new FrameworkHelper();
-            }
+            new FrameworkHelper();
         }
 
         // Generate sitemap.xml
         if (AUTO_COMPILE_SITEMAP)
         {
-            // Determine the last modification time of the sitemap
-            $sitemap_last_mod_time = file_exists("sitemap.xml") ? filemtime("sitemap.xml") : 0;
-            $routes_file_mod_time = filemtime('Routes/routes.php');
-            $should_regenerate_sitemap = $sitemap_last_mod_time < $routes_file_mod_time;
-        
-            // Check each route template file in App/Pages/
-            $page_files = glob('App/Pages/*.php');
-            foreach ($page_files as $page_file)
-            {
-                if (filemtime($page_file) > $sitemap_last_mod_time)
-                {
-                    $should_regenerate_sitemap = true;
-                    break;
-                }
-            }
-        
-            // Regenerate sitemap if needed
-            if ($should_regenerate_sitemap)
-            {
-                $this->generateSitemap();
-            }
+            $this->generateSitemap();
         }
 
-        // Parse route from url
-        $this->getURLRequest();
+        // Parse route and variables from url
+        $url_request = $this->getURLRequest();
+
+        // Send information to routeController
+        $this->routeController($url_request['page'], $url_request['variables']);
     }
 
-
+    
     private function getURLRequest()
     {
         // Parse page name and variables from the URL
         $root_url = str_replace("index.php", "", $_SERVER["PHP_SELF"]);
-        $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $url = substr($url, strlen($root_url));
-        $url = explode("/", $url);
-        $page = strtolower($url[0]);
-        unset($url[0]);
+        $url_full = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $url_full = substr($url_full, strlen($root_url));
+        $url = explode("/", $url_full);
+
+        // Handle multilingual support
+        if (ENABLE_LANGUAGES)
+        {
+            $available_languages = unserialize(AVAILABLE_LANGUAGES);
+            $language = strtolower($url[0]);
+            $page = isset($url[1]) ? strtolower($url[1]) : "";
+
+            if (DISPLAY_DEFAULT_LANGUAGE_URL)
+            {
+                if (!in_array($language, $available_languages))
+                {
+                    Session::add("language", DEFAULT_LANGUAGE);
+                    redirect(route($url_full));
+                }
+
+                unset($url[0], $url[1]);
+            }
+            else
+            {
+                if (in_array($language, $available_languages) && $url[0] != DEFAULT_LANGUAGE)
+                {
+                    unset($url[0], $url[1]);
+                }
+                else
+                {
+                    $language = DEFAULT_LANGUAGE;
+                    $page = strtolower($url[0]);
+                    unset($url[0]);
+                }
+            }
+
+            Session::add("language", $language);
+        }
+        else
+        {
+            $page = strtolower($url[0]);
+            unset($url[0]);
+        }
 
         // Sanitize the page variable
         $page = htmlspecialchars($page, ENT_QUOTES, 'UTF-8');
 
         // Validate and sanitize URL variables
-        $variables_from_URL = [];
+        $variables_from_url = [];
         foreach ($url as $key => $value) {
-            $variables_from_URL[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+            $variables_from_url[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
         }
 
-        $this->routeController($page, $variables_from_URL);
+        return ['page' => $page, 'variables' => $variables_from_url];
     }
 
 
     private function generateSitemap()
     {
-        $routes = get_class_methods($this);
-        $excludeMethods = ["__construct", "routecontroller", "geturlrequest", "generatesitemap", "callview", "minifyhtml", "render"];
+        // Check has routes been modified since last sitemap.xml generation
+        $sitemap_last_mod_time = file_exists("sitemap.xml") ? filemtime("sitemap.xml") : 0;
+        $routes_file_mod_time = filemtime('Routes/routes.php');
+        $should_regenerate_sitemap = $sitemap_last_mod_time < $routes_file_mod_time;
+
+        // Check every page has it's content been modified since last sitemap.xml generation
+        $page_files = glob('App/Pages/*.php');
+        foreach ($page_files as $page_file)
+        {
+            if (filemtime($page_file) > $sitemap_last_mod_time)
+            {
+                $should_regenerate_sitemap = true;
+                break;
+            }
+        }
+
+        if (!$should_regenerate_sitemap)
+        {
+            return;
+        }
+
+        // Parse public routes from the Routes class
+        $reflection = new \ReflectionClass('Routes');
+        $routes = $reflection->getMethods(\ReflectionMethod::IS_PUBLIC);
         $sitemap = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
 
-        foreach ($routes as $route)
-        {
-            if (!in_array(strtolower($route), array_map('strtolower', $excludeMethods)))
-            {
+        foreach ($routes as $method) {
+            if ($method->class === 'Routes' && $method->name != "__construct") {
+                $route = $method->name;
                 $page_path = 'App/Pages/' . $route . '.php';
-                $last_mod = file_exists($page_path) ? date('c', filemtime($page_path)) : date('c', filemtime('Routes/routes.php'));
-    
+                $last_mod = file_exists($page_path) ? date('c', filemtime($page_path)) : date('c', $routes_file_mod_time);
+
                 $url = $sitemap->addChild('url');
                 $url->addChild('loc', htmlspecialchars(BASE_URL . strtolower($route)));
                 $url->addChild('lastmod', $last_mod);
