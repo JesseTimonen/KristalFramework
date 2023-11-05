@@ -25,7 +25,7 @@ function kristal_getAssetPath($folder, $file, array $params = ["path" => "url"])
     $returnPath = strtolower($params["path"]) === "url" ? BASE_URL . $filePath : $filePath;
 
     // Append ?ver= with last modified date for CSS and JavaScript if 'path' is 'url'
-    if (strtolower($params["path"]) === "url" && in_array($folder, ["CSS/Compiled", "Javascript/Compiled"])) {
+    if (strtolower($params["path"]) === "url" && in_array($folder, ["CSS", "Javascript"])) {
         $lastModified = filemtime($filePath);
         $returnPath .= "?ver=" . $lastModified;
     }
@@ -42,12 +42,12 @@ function image($file, array $params = ["path" => "url"]): string
 
 function css($file, array $params = ["path" => "url"]): string
 {
-    return kristal_getAssetPath("CSS/Compiled", $file, $params);
+    return kristal_getAssetPath("CSS", $file, $params);
 }
 
 function js($file, array $params = ["path" => "url"]): string
 {
-    return kristal_getAssetPath("Javascript/Compiled", $file, $params);
+    return kristal_getAssetPath("Javascript", $file, $params);
 }
 
 function download($file, array $params = ["path" => "url"]): string

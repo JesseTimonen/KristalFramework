@@ -6,7 +6,7 @@ use Backend\Core\Session;
 
 class ThemeController
 {
-    private $themes_folder_path = "App/Public/CSS/Compiled/";
+    private $themes_folder_path = "App/Public/CSS/";
 
 
     public function changeTheme($theme = null)

@@ -9,12 +9,12 @@ if (!file_exists("vendor/autoload.php")) { throw new Exception("Composer autoloa
 require_once "vendor/autoload.php";
 
 
-// Load .env variables into the project
-if (!file_exists("App/Backend/Core/Functions/env.php")) { throw new Exception("File 'App/Backend/Core/Functions/env.php' does not exist!"); }
-require_once "App/Backend/Core/Functions/env.php";
+// Load developer's configurations
+if (!file_exists("Config/config.php")) { throw new Exception("File 'Config/config.php' does not exist!"); }
+require_once "Config/config.php";
 
 
-// Create constants of .env variables and handle framework configurations
+// Load framework's configurations
 if (!file_exists("App/Backend/Core/Functions/config.php")) { throw new Exception("File 'App/Backend/Core/Functions/config.php' does not exist!"); }
 require_once "App/Backend/Core/Functions/config.php";
 

@@ -9,7 +9,7 @@ final class JS_Compiler
     public static function compile()
     {
         $folder_path = "App/Public/Javascript/";
-        $compiled_folder_path = "App/Public/Javascript/Compiled/";
+        $compiled_folder_path = "App/Public/Javascript/";
         $compiler = new JSqueeze();
         $js_bundles = unserialize(JS_BUNDLES);
 

@@ -8,7 +8,7 @@ final class SCSS_Compiler
 {
     private static $themes_folder_path = "App/Public/CSS/Themes/*.scss";
     private static $scss_folder_path = "App/Public/CSS/SCSS/*.scss";
-    private static $compiled_css_folder_path = "App/Public/CSS/Compiled/";
+    private static $compiled_css_folder_path = "App/Public/CSS/";
 
 
     public static function compile()
