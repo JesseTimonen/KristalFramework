@@ -1,5 +1,5 @@
-KristalFramework/vendor
-KristalFramework/Config/config.php
+vendor
+Config/config.php
 .vscode
 .vs
 .idea

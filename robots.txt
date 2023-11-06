@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /
+
+Allow: /index.php
+Allow: /robots.txt
+Allow: /sitemap.xml
+
+Crawl-delay: 10
+
+Host: https://www.YOUR_WEBSITE.com
+Sitemap: https://www.YOUR_WEBSITE.com/sitemap.xml
