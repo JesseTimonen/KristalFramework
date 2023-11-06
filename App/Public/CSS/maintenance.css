@@ -62,7 +62,7 @@ a {
     color: black;
 }
 
-#language-selection .select-language {
+#language-selection .change-language {
     width: 50px;
     padding: 10px;
     cursor: pointer;
@@ -70,11 +70,11 @@ a {
     transition: filter 0.2s ease-in-out;
 }
 
-#language-selection .select-language:hover {
+#language-selection .change-language:hover {
     filter: brightness(80%);
 }
 
-#language-selection .select-language.active {
+#language-selection .change-language.active {
     filter: brightness(100%);
 }
 

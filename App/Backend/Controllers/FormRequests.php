@@ -3,6 +3,7 @@ defined("ACCESS") or exit("Access Denied");
 
 use Backend\Core\FormRequest;
 use Backend\Controllers\ThemeController;
+use Backend\Controllers\LanguageController;
 
 
 class FormRequests extends FormRequest
@@ -28,11 +29,17 @@ class FormRequests extends FormRequest
     // Form Request for changing theme
     public function change_theme($request) // $request variable contains all data sent by the form
     {
-        $Theme_controller = new ThemeController();
-        $Theme_controller->changeTheme($request["theme"]);
+        $theme_controller = new ThemeController();
+        $theme_controller->changeTheme($request["theme"]);
     }
 
 
+    // Form Request for changing language
+    public function change_language($request)
+    {
+        $language_controller = new LanguageController();
+        $language_controller->changeLanguage($request["language"]);
+    }
 
     // Protected functions can only be called when the parent class is constructed with 'true' parameter or internally from other functions
     protected function xxxxxxxx($request)

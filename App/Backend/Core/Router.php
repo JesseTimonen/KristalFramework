@@ -9,36 +9,74 @@ use voku\helper\HtmlMin;
 
 class Router
 {
+    private $registered_routes = [];
+    private $default_route_handler = "";
     private $rendered_view = "";
+    private $content_last_modified_time = "";
 
 
     protected function __construct()
     {
-        // Init form requests
+        // Handle form requests
         new FormRequests();
 
-        // Init Framework helper
+        // Activate framework helper for development
         if (DISPLAY_HELPER && MAINTENANCE_MODE && Session::has("maintenance_access_granted"))
         {
             new FrameworkHelper();
         }
 
-        // Generate sitemap.xml
-        if (AUTO_COMPILE_SITEMAP)
-        {
-            $this->generateSitemap();
-        }
-
+        // Display maintenance if needed
         if (MAINTENANCE_MODE && !Session::has("maintenance_access_granted"))
         {
             $this->renderMaintenancePage();
         }
+    }
+
+
+    protected function register($route_name, $handler)
+    {
+        $this->registered_routes[$route_name] = $handler;
+    }
+
+
+    protected function setDefaultHandler($handler)
+    {
+        $this->default_route_handler = $handler;
+    }
+
+
+    protected function handleRoutes()
+    {
+        // Generate sitemap.xml
+        if (AUTO_COMPILE_SITEMAP)
+        {
+            if ($this->ShouldSitemapBeRegenerated())
+            {
+                $this->generateSitemap();
+            }
+        }
+
 
         // Parse route and variables from url
         $url_request = $this->getURLRequest();
 
-        // Send information to routeController
-        $this->routeController($url_request['page'], $url_request['variables']);
+
+        // Call the route handler
+        if (isset($this->registered_routes[$url_request['page']]))
+        {
+            if (!method_exists($this, $this->registered_routes[$url_request['page']]))
+            {
+               throw new \Exception("Route: '" . $url_request['page'] . "' has handler '" . $this->registered_routes[$url_request['page']] . ", but this handler function is not available.");
+            }
+
+            // Call the correct route
+            call_user_func_array([$this, $this->registered_routes[$url_request['page']]], $url_request['variables']);
+        }
+        else
+        {
+            call_user_func_array([$this, $this->default_route_handler], $url_request['variables']);
+        }
     }
 
     
@@ -94,62 +132,57 @@ class Router
 
         // Validate and sanitize URL variables
         $variables_from_url = [];
-        foreach ($url as $key => $value) {
+        foreach ($url as $key => $value)
+        {
             $variables_from_url[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        }
+
+        // Set "" and "/" to be the same
+        if ($page === "/")
+        {
+            $page = "";
         }
 
         return ['page' => $page, 'variables' => $variables_from_url];
     }
 
 
-    private function generateSitemap()
+    private function ShouldSitemapBeRegenerated()
     {
-        // Check has routes been modified since last sitemap.xml generation
+        // Get modified dates of sitemap and routes
         $sitemap_last_mod_time = file_exists("sitemap.xml") ? filemtime("sitemap.xml") : 0;
-        $routes_file_mod_time = filemtime('Routes/routes.php');
-        $should_regenerate_sitemap = $sitemap_last_mod_time < $routes_file_mod_time;
+        $this->content_last_modified_time = filemtime('Routes/routes.php');
 
-        // Check every page has it's content been modified since last sitemap.xml generation
+        // Get the latest modified date from pages folder
         $page_files = glob('App/Pages/*.php');
         foreach ($page_files as $page_file)
         {
-            if (filemtime($page_file) > $sitemap_last_mod_time)
+            $page_last_modified = filemtime($page_file);
+
+            if ($page_last_modified > $this->content_last_modified_time)
             {
-                $should_regenerate_sitemap = true;
-                break;
+                $this->content_last_modified_time = $page_last_modified;
             }
         }
 
-        if (!$should_regenerate_sitemap)
-        {
-            return;
-        }
-
-        // Parse public routes from the Routes class
-        $reflection = new \ReflectionClass('Routes');
-        $routes = $reflection->getMethods(\ReflectionMethod::IS_PUBLIC);
-        $sitemap = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
-
-        foreach ($routes as $method) {
-            if ($method->class === 'Routes' && $method->name != "__construct") {
-                $route = $method->name;
-                $page_path = 'App/Pages/' . $route . '.php';
-                $last_mod = file_exists($page_path) ? date('c', filemtime($page_path)) : date('c', $routes_file_mod_time);
-
-                $url = $sitemap->addChild('url');
-                $url->addChild('loc', htmlspecialchars(BASE_URL . strtolower($route)));
-                $url->addChild('lastmod', $last_mod);
-                $url->addChild('priority', '1.00');
-            }
-        }
-
-        $sitemap->asXML('sitemap.xml');
+        // Check is the content been modified after last sitemap generation
+        return $this->content_last_modified_time > $sitemap_last_mod_time;
     }
 
 
-    protected function callView($page, $variables = array())
+    private function generateSitemap()
     {
-        call_user_func_array(array($this, $page), (array)$variables);
+        $sitemap = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
+
+        foreach ($this->registered_routes as $route => $handler)
+        {
+            $url = $sitemap->addChild('url');
+            $url->addChild('loc', htmlspecialchars(BASE_URL . $route));
+            $url->addChild('lastmod', date('c', $this->content_last_modified_time));
+            $url->addChild('priority', '1.00');
+        }
+
+        $sitemap->asXML('sitemap.xml');
     }
 
 

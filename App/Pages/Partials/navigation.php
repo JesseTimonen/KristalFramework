@@ -23,18 +23,30 @@
                     <a class="nav-link" page="demo.php" href="<?= route("demo"); ?>" translationKey="nav_demo">Demo</a>
                 </li>
             </ul>
-      
+
             <!-- Language settings -->
             <ul class="language-menu navbar-nav justify-content-end">
-                <!-- Language menu (text) -->
-                <!-- <li class="nav-item"><a id="fi-button" class="nav-link select-language" switchLanguage="fi">FI</a></li> -->
-                <!-- <li class="nav-item"><a id="en-button" class="nav-link select-language" switchLanguage="en">EN</a></li> -->
-
-                <!-- Language menu (flags) -->
-                <li class="nav-item"><img src="<?= image("Flags/fi.jpg"); ?>" id="fi-button" class="select-language" switchLanguage="fi" /></li>
-                <li class="nav-item"><img src="<?= image("Flags/en.jpg"); ?>" id="en-button" class="select-language" switchLanguage="en" /></li>
+                <li class="nav-item">
+                    <form method='post'>
+                        <?php CSRF::create("change_language_form"); ?>
+                        <?php CSRF::request("change_language"); ?>
+                        <button type='submit' name='language' value='fi' class='btn btn-link p-0 border-0 bg-transparent'>
+                            <img src="<?= image("Flags/fi.jpg"); ?>" class="change-language<?php if(Session::get("language") === "fi") echo " active"; ?>" />
+                        </button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <form method='post'>
+                        <?php CSRF::create("change_language_form"); ?>
+                        <?php CSRF::request("change_language"); ?>
+          
+                        <button type='submit' name='language' value='en' class='btn btn-link p-0 border-0 bg-transparent'>
+                            <img src="<?= image("Flags/en.jpg"); ?>" class="change-language<?php if(Session::get("language") === "en") echo " active"; ?>" />
+                        </button>
+                    </form>
+                </li>
             </ul>
-     
+
         </div>
     </div>
 </nav>

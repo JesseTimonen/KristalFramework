@@ -1,20 +1,17 @@
-<?php
 /** Available variables:
- *  - $currentDate
- *  - $targetDate
- *  - $dateDifference (in seconds)
- *  - $uniqueId
- *  - $atts['date']
- *  - $atts['format']
- *  - $atts['days']
- *  - $atts['hours']
- *  - $atts['minutes']
- *  - $atts['seconds']
- *  - $atts['expired']
+ * - $currentDate
+ * - $targetDate
+ * - $dateDifference (in seconds)
+ * - $uniqueId
+ * - $atts['date']
+ * - $atts['format']
+ * - $atts['days']
+ * - $atts['hours']
+ * - $atts['minutes']
+ * - $atts['seconds']
+ * - $atts['expired']
  */
-?>
 
-<script>
 jQuery(document).ready(function(){
 
     const countdownContainer = jQuery("#<?php echo $uniqueId; ?>");
@@ -81,4 +78,3 @@ jQuery(document).ready(function(){
 
     intervalId = setInterval(updateCountdown, 1000);
 });
-</script>

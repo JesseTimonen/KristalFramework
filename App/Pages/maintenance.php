@@ -30,8 +30,8 @@
         
         <!-- language settings -->
         <div id="language-selection">
-            <img src="<?= image("Flags/fi.jpg"); ?>" id="fi-button" class="select-language" switchLanguage="fi" />
-            <img src="<?= image("Flags/en.jpg"); ?>" id="en-button" class="select-language" switchLanguage="en" />
+            <img src="<?= image("Flags/fi.jpg"); ?>" id="fi-button" class="change-language" switchLanguage="fi" />
+            <img src="<?= image("Flags/en.jpg"); ?>" id="en-button" class="change-language" switchLanguage="en" />
         </div>
 
 

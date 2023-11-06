@@ -1,21 +1,2 @@
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    <url>
-        <loc>https://www.YOUR_WEBSITE.com</loc>
-        <lastmod>2023-01-01T12:00:00+00:00</lastmod>
-        <priority>1.00</priority>
-    </url>
-
-    <url>
-        <loc>https://www.YOUR_WEBSITE.com/page-1</loc>
-        <lastmod>2023-01-01T12:00:00+00:00</lastmod>
-        <priority>0.80</priority>
-    </url>
-
-    <url>
-        <loc>https://www.YOUR_WEBSITE.com/page-2</loc>
-        <lastmod>2023-01-01T12:00:00+00:00</lastmod>
-        <priority>0.50</priority>
-    </url>
-
-</urlset>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>http://kristal.local/</loc><lastmod>2023-11-06T19:11:39+00:00</lastmod><priority>1.00</priority></url><url><loc>http://kristal.local/demo</loc><lastmod>2023-11-06T19:11:39+00:00</lastmod><priority>1.00</priority></url><url><loc>http://kristal.local/esittely</loc><lastmod>2023-11-06T19:11:39+00:00</lastmod><priority>1.00</priority></url></urlset>

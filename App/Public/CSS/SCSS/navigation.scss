@@ -43,7 +43,7 @@
     }
 
     .language-menu {
-        img.select-language {
+        img.change-language {
             width: 55px;
             padding: 10px;
             cursor: pointer;
@@ -51,11 +51,11 @@
             transition: filter 0.2s ease-in-out;
         }
 
-        img.select-language:hover {
+        img.change-language:hover {
             filter: brightness(80%);
         }
 
-        img.select-language.active {
+        img.change-language.active {
             filter: brightness(100%);
         }
     }
