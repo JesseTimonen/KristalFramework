@@ -1,45 +1,24 @@
 <?php defined("ACCESS") or exit("Access Denied");
 /**
- * This content is rendered by countdown block
- * Block::render("countdown", ["date" => "", "format" => "", "days" => "", "hours" => "", "minutes" => "", "seconds" => "", "expired" => ""]); 
+ * This content is rendered by language_menu block
+ * Block::render("language_menu", ["xxxx" => "", "xxxx" => "", "xxxx" => ""]); 
  * 
  * Available variables:
- *  - $atts['date']
- *  - $atts['format']
- *  - $atts['days']
- *  - $atts['hours']
- *  - $atts['minutes']
- *  - $atts['seconds']
- *  - $atts['expired']
+ *  - $atts['xxxx']
+ *  - $atts['xxxx']
+ *  - $atts['xxxx']
  */
 
 // Give default values to attributes
 $atts = array_merge(array(
-    'date' => '01.01.2000 00:00:00',
-    'format' => '⏰ {d} {D} {h}{H}:{m}{M}:{s}{S} ⏰',
-    'days' => 'days|day',
-    'hours' => 'h',
-    'minutes' => 'm',
-    'seconds' => 's',
-    'expired' => '',
+    'xxxx' => '',
+    'xxxx' => '',
+    'xxxx' => '',
 ), $atts);
 
-$currentDate = new DateTime('now', new DateTimeZone(TIMEZONE));
-$targetDate = DateTime::createFromFormat('d.m.Y H:i:s', $date, new DateTimeZone(TIMEZONE));
 
-if ($targetDate === false) {
-    return;
-}
 
-$dateDifference = $targetDate->getTimestamp() - $currentDate->getTimestamp();
-$uniqueId = uniqid('countdown_');
-
-if ($dateDifference > 0) {
-    ob_start();
-    include( __DIR__ . '/template.php' );
-    ?><script><?php include( __DIR__ . '/javascript.js' ); ?></script><?php
-    $output = ob_get_clean();
-    echo $output;
-}
-
-return $atts['expired'];
+ob_start();
+include( __DIR__ . '/template.php' );
+$output = ob_get_clean();
+echo $output;

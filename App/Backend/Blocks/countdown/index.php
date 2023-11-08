@@ -34,12 +34,9 @@ if ($targetDate === false) {
 $dateDifference = $targetDate->getTimestamp() - $currentDate->getTimestamp();
 $uniqueId = uniqid('countdown_');
 
-if ($dateDifference > 0) {
-    ob_start();
-    include( __DIR__ . '/template.php' );
-    ?><script><?php include( __DIR__ . '/javascript.js' ); ?></script><?php
-    $output = ob_get_clean();
-    echo $output;
-}
 
-return $atts['expired'];
+ob_start();
+include( __DIR__ . '/template.php' );
+if ($dateDifference > 0) { ?><script><?php include( __DIR__ . '/javascript.js' ); ?></script><?php }
+$output = ob_get_clean();
+echo $output;

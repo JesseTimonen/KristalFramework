@@ -4,14 +4,14 @@
 // Set language for translator
 function setLanguage($language)
 {
-    Session::add("translation_language", $language);
+    Session::add("language", $language);
 }
 
 
 // Get translator's language
 function getLanguage()
 {
-    return Session::has("translation_language") ? Session::get("translation_language") : DEFAULT_LANGUAGE;
+    return Session::has("language") ? Session::get("language") : DEFAULT_LANGUAGE;
 }
 
 

@@ -10,7 +10,6 @@ class LanguageController
     {
         if (in_array($language, unserialize(AVAILABLE_LANGUAGES)))
         {
-            debugLog("changed language to " . $language);
             Session::add("language", $language);
             redirect(route(""));
         }

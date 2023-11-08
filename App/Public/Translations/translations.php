@@ -2,6 +2,13 @@
 
 return array(
 
+    // Routes
+    "route_demo" => [
+        "en" => "demo",
+        "fi" => "esittely"
+    ],
+
+
     // Theme
     "change_theme_successful_message" => [
         "en" => "Successfully changed theme to %s.",
