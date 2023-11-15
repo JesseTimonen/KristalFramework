@@ -2,7 +2,7 @@
 
 <?php
 /** Available variables:
- * - $theme_feedback
+ * - $feedback
  */
 ?>
 
@@ -18,9 +18,7 @@
 <div class="container main-content">
     
     <h1 translationKey="theme_title">Theme</h1>
-    <p translationKey="theme_description">The active theme is integrated within the HTML header template found at 'App/Pages/Base/'. This header utilizes the theme stored in the active session, defaulting to the preset theme in the config.php file if none is specified. You can modify the theme using a form that initiates a request to alter it. This request is then relayed to a controller that updates the session with the new theme.</p>
-
-    <p><?php if (!empty($theme_feedback)) echo $theme_feedback; ?></p>
+    <p translationKey="">Chaning theme using form requests:</p>
 
     <div class="theme-selection-div">
         <form action='<?= route("demo"); ?>' method='post'>
@@ -37,4 +35,12 @@
             <input type='submit' class='btn btn-light' translationKey='activate_light_button' value='Activate Light Theme'>
         </form>
     </div>
+
+    <p translationKey="">Chaning theme using links:</p>
+    <p><a href="<?= route("demo/dark"); ?>">Activate dark theme</a></p>
+    <p><a href="<?= route("demo/light"); ?>">Activate light theme</a></p>
+
+    <?php if (!empty($feedback)): ?>
+        <p><?= $feedback; ?></p>
+    <?php endif; ?>
 </div>

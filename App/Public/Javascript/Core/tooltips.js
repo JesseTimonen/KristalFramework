@@ -1,6 +1,6 @@
 //Initialize Bootstrap 5 tooltips
 document.addEventListener("DOMContentLoaded", function()
 {
-    const tooltipEls = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    tooltipEls.foreach (el => new bootstrap.Tooltip(el));
+    const tooltip_elements = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltip_elements.forEach (element => new bootstrap.Tooltip(element));
 });

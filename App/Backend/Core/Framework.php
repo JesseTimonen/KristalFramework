@@ -75,25 +75,6 @@ if (!PRODUCTION_MODE)
 }
 
 
-// Check does multilingual routes exist
-$kristal_routes_path = "Routes/routes.php";
-if (ENABLE_LANGUAGES)
-{
-    $kristal_route_language = strtolower(Session::get("language"));
-    $kristal_language_route_directories = scandir("Routes");
-
-    foreach ($kristal_language_route_directories as $directory)
-    {
-        if (strtolower($directory) === $kristal_route_language)
-        {
-            $kristal_routes_path = "Routes/$kristal_route_language/routes.php";
-            break;
-        }
-    }
-}
-
 // Load routes
-if (file_exists($kristal_routes_path))
-{
-    require_once $kristal_routes_path;
-}
+if (!file_exists("Routes/routes.php")) { throw new Exception("File 'Routes/routes.php' does not exist!"); }
+require_once "Routes/routes.php";
