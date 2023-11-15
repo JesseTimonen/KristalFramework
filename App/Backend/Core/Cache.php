@@ -15,7 +15,7 @@ class Cache
         }
 
         // Create path, content and duration for the cache
-        $file = self::$cache_path . getCleanName($name) . ".php";
+        $file = self::$cache_path . sanitizeFileName($name) . ".php";
         $value = var_export($value, true);
         $date = strtotime(date('Y-m-d H:i:s'));
         $duration = $duration * 3600;
@@ -31,7 +31,7 @@ class Cache
     public static function get($name)
     {
         // Create file path
-        $file = self::$cache_path . getCleanName($name) . ".php";
+        $file = self::$cache_path . sanitizeFileName($name) . ".php";
 
         // Check if file exists
         if (file_exists($file))
@@ -53,7 +53,7 @@ class Cache
     public static function remove($name)
     {
         // Create file path
-        $file = self::$cache_path . getCleanName($name) . ".php";
+        $file = self::$cache_path . sanitizeFileName($name) . ".php";
 
         // Check if file exists
         if (file_exists($file))

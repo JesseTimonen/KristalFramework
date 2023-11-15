@@ -14,14 +14,13 @@ class Routes extends Router
         // Activate Router
         parent::__construct();
 
-        // Route for home
-        parent::register("", "frontPageHandler");
+        // Set handler for home page
+        parent::setHomepageHandler("homepageHandler");
 
-        // Route for demo (in english and finnish)
-        parent::register("demo", "demoHandler");
-        parent::register("esittely", "demoHandler");
+        // Register other routes
+        parent::addRoute("demo", "demoHandler");
 
-        // function to handle 404s
+        // Set handler to for cases where no route was found
         parent::setDefaultHandler("pageNotFoundHandler");
 
         // Let router handle the routes
@@ -30,7 +29,7 @@ class Routes extends Router
 
 
 
-    function frontPageHandler()
+    function homepageHandler()
     {
         // Render() method will render a page template from your pages folder
         // For example the following line will render content from /App/Pages/frontpage.php
@@ -42,7 +41,7 @@ class Routes extends Router
     // Variables are passed into the route the following way:
     // "example.com/route/variable1/variable2/..."
     // Just add more variables to accept them as well
-    function demoHandler($selected_theme = null)
+    function demoHandler(string $theme_name = "")
     {
         // Create instance of theme controller, so we can change theme with it
         $theme_controller = new ThemeController();
@@ -50,19 +49,19 @@ class Routes extends Router
         // Try to change the theme by calling theme controller which has a custom changeTheme() method
         // Theme controller can be found and modified at App/Backend/Controllers/ folder
         $theme_feedback = "";
-        if (!empty($selected_theme)) {
-            $theme_feedback = $theme_controller->changeTheme($selected_theme);
+        if (!empty($theme_name)) {
+            $theme_feedback = $theme_controller->changeTheme($theme_name);
         }
 
-        // Render content from App/Pages/demo.php and create $theme_feedback variable that can be used in the template
+        // Render content from App/Pages/demo.php and create $feedback variable that can be used in the template
         $this->render("demo", [
-            "theme_feedback" => $theme_feedback,
+            "feedback" => $theme_feedback,
         ]);
     }
 
 
 
-    protected function pageNotFoundHandler()
+    function pageNotFoundHandler()
     {
         // Render content from App/Pages/404.php
         // You could also render home page here

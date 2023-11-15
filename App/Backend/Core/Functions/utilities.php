@@ -72,14 +72,13 @@ function thumbnail($file_path, array $params = array("path" => "url"))
         $mime = $size['mime'];
 
         // Create image
-        switch ($mime)
-        {
-            case 'image/jpeg' : $original = imagecreatefromjpeg($file_path); break;
-            case 'image/png' : $original = imagecreatefrompng($file_path); break;
-            case 'image/gif' : $original = imagecreatefromgif ($file_path); break;
-            case 'image/webp' : $original = imagecreatefromwebp($file_path); break;
-            default: return null;
-        }
+        $original = match (strtolower($mime)) {
+            "image/jpeg" => imagecreatefromjpeg($file_path),
+            "image/png" => imagecreatefrompng($file_path),
+            "image/gif" => imagecreatefromgif($file_path),
+            "image/webp" => imagecreatefromwebp($file_path),
+            default => null,
+        };
 
         // Create thumbnail
         $thumbnail = imagecreatetruecolor(150, 150);
@@ -220,26 +219,11 @@ function ensureSCSSExtension($file)
 
 // ============================================================================================================== \\
 
-function getCleanName($name)
+function sanitizeFileName(string $file_name)
 {
-    if (is_numeric($name[0]))
-    {
-        $name[0] = "_";
-    }
-
-    $name = str_replace(" ", "_", $name);
-    return preg_replace('/[^a-zA-Z0-9_-]/', "", $name);
-}
-
-function getPureName($name)
-{
-    return preg_replace("/[^a-zA-Z]/", "", $name);
-}
-
-function isEmptyObject($object)
-{
-    if ($object == null) { return true; }
-    return ($object == new stdClass()) ? true : false;
+    $sanitized = preg_replace('/[^a-zA-Z0-9\.-]/', '_', $file_name);
+    $sanitized = substr($sanitized, 0, 255);
+    return $sanitized;
 }
 
 // ============================================================================================================== \\

@@ -31,24 +31,13 @@ class Cron
         }
         else
         {
-            switch (strtolower($interval))
-            {
-                case "daily":
-                    $this->interval = array("type" => self::INTERVAL_DAY, "amount" => 1);
-                    break;
-                case "weekly":
-                    $this->interval = array("type" => self::INTERVAL_WEEK, "amount" => 1);
-                    break;
-                case "monthly":
-                    $this->interval = array("type" => self::INTERVAL_MONTH, "amount" => 1);
-                    break;
-                case "yearly":
-                    $this->interval = array("type" => self::INTERVAL_YEAR, "amount" => 1);
-                    break;
-                default:
-                    throw new \Exception("invalid interval for cron job: " . $name . ". Value given was $interval");
-                    break;
-            }
+            $this->interval = match (strtolower($interval)) {
+                "daily" => ["type" => self::INTERVAL_DAY, "amount" => 1],
+                "weekly" => ["type" => self::INTERVAL_WEEK, "amount" => 1],
+                "monthly" => ["type" => self::INTERVAL_MONTH, "amount" => 1],
+                "yearly" => ["type" => self::INTERVAL_YEAR, "amount" => 1],
+                default => throw new \Exception("invalid interval for cron job: " . $name . ". Value given was $interval"),
+            };
         }
 
         $this->name = $name;
@@ -116,6 +105,6 @@ class Cron
     
     private function getLogLocation()
     {
-        return "App/Backend/Cron/Logs/" . getCleanName($this->name) . ".php";
+        return "App/Backend/Cron/Logs/" . sanitizeFileName($this->name) . ".php";
     }
 }

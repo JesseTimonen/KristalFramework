@@ -74,7 +74,7 @@ class ImportDatabase extends Database
 
             debug("Database has been successfully updated!");
         }
-        catch (Exception $e)
+        catch (Exception)
         {
             throw new \Exception('Failed to import database file!');
         }

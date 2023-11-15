@@ -9,10 +9,10 @@ use voku\helper\HtmlMin;
 
 class Router
 {
-    private $registered_routes = [];
-    private $default_route_handler = "";
-    private $rendered_view = "";
-    private $content_last_modified_time = "";
+    private array $registered_routes = [];
+    private string $default_route_handler = "";
+    private string $rendered_view = "";
+    private string $content_last_modified_time = "";
 
 
     protected function __construct()
@@ -21,26 +21,30 @@ class Router
         new FormRequests();
 
         // Activate framework helper for development
-        if (DISPLAY_HELPER && MAINTENANCE_MODE && Session::has("maintenance_access_granted"))
-        {
+        if (DISPLAY_HELPER && MAINTENANCE_MODE && Session::has("maintenance_access_granted")) {
             new FrameworkHelper();
         }
 
         // Display maintenance if needed
-        if (MAINTENANCE_MODE && !Session::has("maintenance_access_granted"))
-        {
+        if (MAINTENANCE_MODE && !Session::has("maintenance_access_granted")) {
             $this->renderMaintenancePage();
         }
     }
 
 
-    protected function register($route_name, $handler)
+    protected function addRoute(string $route_name, string $handler)
     {
         $this->registered_routes[$route_name] = $handler;
     }
 
+    
+    protected function setHomepageHandler(string $handler)
+    {
+        $this->registered_routes[""] = $handler;
+    }
 
-    protected function setDefaultHandler($handler)
+
+    protected function setDefaultHandler(string $handler)
     {
         $this->default_route_handler = $handler;
     }
@@ -49,34 +53,25 @@ class Router
     protected function handleRoutes()
     {
         // Generate sitemap.xml
-        if (AUTO_COMPILE_SITEMAP)
-        {
-            if ($this->ShouldSitemapBeRegenerated())
-            {
-                $this->generateSitemap();
-            }
+        if ($this->ShouldSitemapBeRegenerated()) {
+            $this->generateSitemap();
         }
-
 
         // Parse route and variables from url
         $url_request = $this->getURLRequest();
 
-
-        // Call the route handler
-        if (isset($this->registered_routes[$url_request['page']]))
-        {
-            if (!method_exists($this, $this->registered_routes[$url_request['page']]))
-            {
-               throw new \Exception("Route: '" . $url_request['page'] . "' has handler '" . $this->registered_routes[$url_request['page']] . ", but this handler function is not available.");
-            }
-
-            // Call the correct route
-            call_user_func_array([$this, $this->registered_routes[$url_request['page']]], $url_request['variables']);
-        }
-        else
-        {
+        // Return 404 of requested route was not found
+        if (!isset($this->registered_routes[$url_request['page']])) {
             call_user_func_array([$this, $this->default_route_handler], $url_request['variables']);
         }
+
+        // Return exception if requested route handler doesn't exist 
+        if (!method_exists($this, $this->registered_routes[$url_request['page']])) {
+           throw new \Exception("Route: '" . $url_request['page'] . "' has handler '" . $this->registered_routes[$url_request['page']] . ", but this handler function is not available.");
+        }
+
+        // Call the correct route
+        call_user_func_array([$this, $this->registered_routes[$url_request['page']]], $url_request['variables']);
     }
 
     
@@ -149,15 +144,18 @@ class Router
 
     private function ShouldSitemapBeRegenerated()
     {
+        if (!AUTO_COMPILE_SITEMAP) {
+            return false;
+        }
+
         // Get modified dates of sitemap and routes
         $sitemap_last_mod_time = file_exists("sitemap.xml") ? filemtime("sitemap.xml") : 0;
         $this->content_last_modified_time = filemtime('Routes/routes.php');
 
         // Get the latest modified date from pages folder
-        $page_files = glob('App/Pages/*.php');
-        foreach ($page_files as $page_file)
+        foreach (glob('App/Pages/*.php') as $file)
         {
-            $page_last_modified = filemtime($page_file);
+            $page_last_modified = filemtime($file);
 
             if ($page_last_modified > $this->content_last_modified_time)
             {
@@ -173,16 +171,24 @@ class Router
     private function generateSitemap()
     {
         $sitemap = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
-
-        foreach ($this->registered_routes as $route => $handler)
-        {
+    
+        foreach ($this->registered_routes as $route => $handler) {
             $url = $sitemap->addChild('url');
             $url->addChild('loc', htmlspecialchars(BASE_URL . $route));
             $url->addChild('lastmod', date('c', $this->content_last_modified_time));
             $url->addChild('priority', '1.00');
         }
-
-        $sitemap->asXML('sitemap.xml');
+    
+        // Create a DOMDocument and import the SimpleXMLElement
+        $dom = new \DOMDocument('1.0');
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        $domElement = dom_import_simplexml($sitemap);
+        $domElement = $dom->importNode($domElement, true);
+        $domElement = $dom->appendChild($domElement);
+    
+        // Save the formatted XML
+        $dom->save('sitemap.xml');
     }
 
 

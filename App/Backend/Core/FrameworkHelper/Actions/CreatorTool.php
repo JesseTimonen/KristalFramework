@@ -97,7 +97,9 @@ class CreatorTool
         }
 
         // Make sure name doesn't have special characters
-        $name = getPureName(ucfirst($name));
+        $name = filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $name = preg_replace("/[^a-zA-Z]/", "", $name);
+        $name = ucfirst($name);
 
         // Get template
         $template = $this->getTemplate($request["entity-type"] == "entity" ? "entity" : "entity_interface");
@@ -122,7 +124,7 @@ class CreatorTool
                 file_put_contents("App/Backend/Entities/" . $name . ".php", $template);
                 debug("Entity $name has been created successfully!");
             }
-            catch (Exception $e)
+            catch (Exception)
             {
                 throw new \Exception("Failed to create entity!");
             }
@@ -139,7 +141,9 @@ class CreatorTool
     public function createController($name)
     {
         // Make sure name doesn't have special characters
-        $name = getPureName(ucfirst(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS)));
+        $name = filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $name = preg_replace("/[^a-zA-Z]/", "", $name);
+        $name = ucfirst($name);
 
         // Get template
         $template = $this->getTemplate("controller");
@@ -155,7 +159,7 @@ class CreatorTool
                 file_put_contents("App/Backend/Controllers/" . $name . ".php", $template);
                 debug("Controller $name has been created successfully!");
             }
-            catch (Exception $e)
+            catch (Exception)
             {
                 throw new \Exception("Failed to create controller!");
             }

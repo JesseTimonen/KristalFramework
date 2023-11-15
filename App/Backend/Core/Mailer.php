@@ -26,7 +26,7 @@ class Mailer
             $this->mailer->Password = MAILER_PASSWORD;
             $this->mailer->setFrom(MAILER_EMAIL, MAILER_NAME);
         }
-        catch (Exception $e)
+        catch (Exception)
         {
             throw new Exception("Fatal Mailer Error! " . $e->getMessage());
         }
@@ -77,9 +77,9 @@ class Mailer
             $this->mailer->clearAddresses();
             return true;
         }
-        catch (Exception $e)
+        catch (Exception)
         {
-            throw new Exception("Fatal Mailer Error! " . $e->getMessage());
+            throw new Exception("Fatal Mailer Error!");
         }
     }
 }
