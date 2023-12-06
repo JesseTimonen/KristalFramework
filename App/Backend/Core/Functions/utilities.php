@@ -72,13 +72,23 @@ function thumbnail($file_path, array $params = array("path" => "url"))
         $mime = $size['mime'];
 
         // Create image
-        $original = match (strtolower($mime)) {
-            "image/jpeg" => imagecreatefromjpeg($file_path),
-            "image/png" => imagecreatefrompng($file_path),
-            "image/gif" => imagecreatefromgif($file_path),
-            "image/webp" => imagecreatefromwebp($file_path),
-            default => null,
-        };
+        switch (strtolower($mime)) {
+            case "image/jpeg":
+                $original = imagecreatefromjpeg($file_path);
+                break;
+            case "image/png":
+                $original = imagecreatefrompng($file_path);
+                break;
+            case "image/gif":
+                $original = imagecreatefromgif($file_path);
+                break;
+            case "image/webp":
+                $original = imagecreatefromwebp($file_path);
+                break;
+            default:
+                $original = null;
+                break;
+        }
 
         // Create thumbnail
         $thumbnail = imagecreatetruecolor(150, 150);
