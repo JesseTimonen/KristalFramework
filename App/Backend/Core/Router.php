@@ -60,16 +60,17 @@ class Router
         // Parse route and variables from url
         $url_request = $this->getURLRequest();
 
-        // Return 404 of requested route was not found
+        // Call default route handler if requested route was not found
         if (!isset($this->registered_routes[$url_request['page']])) {
             call_user_func_array([$this, $this->default_route_handler], $url_request['variables']);
+            return;
         }
-
+        
         // Return exception if requested route handler doesn't exist 
         if (!method_exists($this, $this->registered_routes[$url_request['page']])) {
-           throw new \Exception("Route: '" . $url_request['page'] . "' has handler '" . $this->registered_routes[$url_request['page']] . ", but this handler function is not available.");
+            throw new \Exception("Route: '" . $url_request['page'] . "' has handler '" . $this->registered_routes[$url_request['page']] . ", but this handler function is not available.");
         }
-
+        
         // Call the correct route
         call_user_func_array([$this, $this->registered_routes[$url_request['page']]], $url_request['variables']);
     }
@@ -81,7 +82,7 @@ class Router
         $root_url = str_replace("index.php", "", $_SERVER["PHP_SELF"]);
         $url_full = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $url = substr($url_full, strlen($root_url));
-        $params = explode("/", $url_full);
+        $params = explode("/", $url);
 
         // Handle multilingual support
         if (ENABLE_LANGUAGES)
@@ -100,7 +101,7 @@ class Router
                 Session::add("language", DEFAULT_LANGUAGE);
                 redirect(route($url));
             }
-            
+
             unset($params[0], $params[1]);
             Session::add("language", $language);
         }
