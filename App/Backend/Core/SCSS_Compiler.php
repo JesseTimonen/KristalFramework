@@ -6,132 +6,113 @@ use ScssPhp\ScssPhp\Compiler;
 
 final class SCSS_Compiler
 {
-    private static $themes_folder_path = "App/Public/CSS/Themes/*.scss";
-    private static $scss_folder_path = "App/Public/CSS/SCSS/*.scss";
+    private static $glob_themes_folder = "App/Public/CSS/Themes/*.scss";
+    private static $glob_compiled_css_folder = "App/Public/CSS/*.css";
     private static $compiled_css_folder_path = "App/Public/CSS/";
+    private static $scss_folder_path = "App/Public/CSS/SCSS/";
 
 
-    public static function compile()
+    public static function initialize()
     {
         $compiler = new Compiler();
-
+    
         // Select formatter
-        switch (strtolower(COMPILED_CSS_TYPE))
-        {
-            case "expanded": $compiler->setOutputStyle("expanded"); break;
-            case "compressed": $compiler->setOutputStyle("compressed"); break;
-            default: $compiler->setOutputStyle("compressed"); break;
-        }
+        $compiler->setOutputStyle(strtolower(COMPILED_CSS_TYPE) === "expanded" ? "expanded" : "compressed");
 
-        if (empty(glob(self::$themes_folder_path)))
+        // Check should we compile
+        if (self::shouldCompile())
         {
-            if (self::shouldCompileWithoutTheme())
-            {
-                self::compileWithoutTheme($compiler);
-            }
-        }
-        else
-        {
-            if (self::shouldCompileWithTheme())
-            {
-                self::compileWithTheme($compiler);
-            }
+            self::compile($compiler);
         }
     }
 
 
-    private static function shouldCompileWithoutTheme()
+    private static function shouldCompile()
     {
-        $compiled_file_mtime = file_exists(self::$compiled_css_folder_path . ensureCSSExtension(DEFAULT_THEME)) ? filemtime(self::$compiled_css_folder_path . ensureCSSExtension(DEFAULT_THEME)) : 0;
+        $latest_compiled_css_time = 0;
 
-        foreach (glob(self::$scss_folder_path) as $element)
-        {
-            if (filemtime($element) > $compiled_file_mtime)
-            {
+        // Determine the most recently modified time of compiled CSS files
+        foreach (glob(self::$glob_compiled_css_folder) as $file) {
+            $file_time = filemtime($file);
+            if ($file_time > $latest_compiled_css_time) {
+                $latest_compiled_css_time = $file_time;
+            }
+        }
+
+        // Check if any theme file is newer than the latest compiled CSS
+        foreach (glob(self::$glob_themes_folder) as $theme) {
+            if (filemtime($theme) > $latest_compiled_css_time) {
                 return true;
             }
         }
 
-        return false;
-    }
+        // Check against the default theme
+        $defaultThemeTime = file_exists(self::$compiled_css_folder_path . ensureCSSExtension(DEFAULT_THEME)) ? filemtime(self::$compiled_css_folder_path . ensureCSSExtension(DEFAULT_THEME)) : 0;
+        if ($defaultThemeTime > $latest_compiled_css_time) {
+            return true;
+        }
 
-
-    private static function shouldCompileWithTheme()
-    {
-        foreach (glob(self::$themes_folder_path) as $theme)
-        {
-            $theme_name = str_replace(".scss", "", basename($theme));
-
-            if (filemtime($theme) > filemtime(self::$compiled_css_folder_path . ensureCSSExtension($theme_name)))
-            {
-                return true;
-            }
-
-            foreach (glob(self::$scss_folder_path) as $scss_file)
-            {
-                if (filemtime($scss_file) > filemtime(self::$compiled_css_folder_path . ensureCSSExtension($theme_name)))
-                {
+        // Check recursively if any SCSS file is newer than the latest compiled CSS
+        $directory = new \RecursiveDirectoryIterator(self::$scss_folder_path);
+        $iterator = new \RecursiveIteratorIterator($directory);
+        foreach ($iterator as $file) {
+            if ($file->isFile() && strtolower($file->getExtension()) === 'scss') {
+                if (filemtime($file->getRealPath()) > $latest_compiled_css_time) {
                     return true;
                 }
             }
         }
-
+    
         return false;
     }
 
-    
-    private static function compileWithoutTheme($compiler)
+
+    private static function compile($compiler)
+    {
+        // Determine if there are any themes
+        $themes = glob(self::$glob_themes_folder);
+
+        // Compile without theme
+        if (empty($themes)) {
+            self::compileOutput($compiler, DEFAULT_THEME);
+            return;
+        }
+
+        // Compile with each theme
+        foreach ($themes as $theme) {
+            $theme_name = strtolower(str_replace(".scss", "", basename($theme)));
+            self::compileOutput($compiler, $theme_name, $theme);
+        }
+    }
+
+
+    private static function compileOutput($compiler, $output_name, $theme_file = null)
     {
         $scss = "";
-
-        // Add together all scss files
-        foreach (glob(self::$scss_folder_path) as $file)
-        {
-            $scss .= file_get_contents($file);
+    
+        // Add theme variables if a theme file is provided
+        if (isset($theme_file)) {
+            $scss .= file_get_contents($theme_file);
+        }
+    
+        // Iterate through each file in the directory and its subdirectories
+        $directory = new \RecursiveDirectoryIterator(self::$scss_folder_path);
+        $iterator = new \RecursiveIteratorIterator($directory);
+        foreach ($iterator as $file) {
+            if ($file->isFile() && strtolower($file->getExtension()) === 'scss') {
+                $scss .= file_get_contents($file->getRealPath());
+            }
         }
     
         // Compile sass files
         $compiled_css = $compiler->compileString($scss)->getCSS();
-
+    
         // Add comment when file was last modified
         if (PRINT_COMPILE_DATE_CSS) {
             $compiled_css .= "\n\n\n/* Generated at: " . date(DATE_FORMAT . " " . TIME_FORMAT) . " */";
         }
-
+    
         // Create css files from compiled sass
-        file_put_contents(self::$compiled_css_folder_path . ensureCSSExtension(DEFAULT_THEME), $compiled_css);
-    }
-
-    
-    private static function compileWithTheme($compiler)
-    {
-        $scss = "";
-        
-        // Go through all themes and generate their css
-        foreach (glob(self::$themes_folder_path) as $theme)
-        {
-            // Get theme name
-            $theme_name = strtolower(str_replace(".scss", "", basename($theme)));
-
-            // Add theme variables
-            $scss .= file_get_contents($theme);
-
-            // Add together all scss files
-            foreach (glob(self::$scss_folder_path) as $file)
-            {
-                $scss .= file_get_contents($file);
-            }
-    
-            // Compile sass files
-            $compiled_css = $compiler->compileString($scss)->getCSS();
-
-            // Add comment when file was last modified
-            if (PRINT_COMPILE_DATE_CSS) {
-                $compiled_css .= "\n\n\n/* Generated at: " . date(DATE_FORMAT . " " . TIME_FORMAT) . " */";
-            }
-
-            // Create css files from compiled sass
-            file_put_contents(self::$compiled_css_folder_path . ensureCSSExtension($theme_name), $compiled_css);
-        }
+        file_put_contents(self::$compiled_css_folder_path . ensureCSSExtension($output_name), $compiled_css);
     }
 }

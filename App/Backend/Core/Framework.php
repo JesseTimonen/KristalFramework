@@ -64,13 +64,13 @@ if (!PRODUCTION_MODE)
     // Compile SCSS
     if (AUTO_COMPILE_SCSS)
     {
-        Backend\Core\SCSS_Compiler::compile();
+        Backend\Core\SCSS_Compiler::initialize();
     }
 
     // Compile JavaScript
     if (AUTO_COMPILE_JS)
     {
-        Backend\Core\JS_Compiler::compile();
+        Backend\Core\JS_Compiler::initialize();
     }
 }
 

@@ -6,7 +6,7 @@ use Patchwork\JSqueeze;
 
 final class JS_Compiler
 {
-    public static function compile()
+    public static function initialize()
     {
         $folder_path = "App/Public/Javascript/";
         $compiled_folder_path = "App/Public/Javascript/";
