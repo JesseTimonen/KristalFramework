@@ -40,6 +40,16 @@ class Router
     
     protected function setHomepageHandler(string $handler)
     {
+        if (ENABLE_LANGUAGES) {
+            $available_languages = unserialize(AVAILABLE_LANGUAGES);
+
+            foreach ($available_languages as $language) {
+                $this->registered_routes[$language . "/"] = $handler;
+            }
+
+            return;
+        }
+
         $this->registered_routes[""] = $handler;
     }
 
@@ -70,7 +80,7 @@ class Router
         if (!method_exists($this, $this->registered_routes[$url_request['page']])) {
             throw new \Exception("Route: '" . $url_request['page'] . "' has handler '" . $this->registered_routes[$url_request['page']] . ", but this handler function is not available.");
         }
-        
+
         // Call the correct route
         call_user_func_array([$this, $this->registered_routes[$url_request['page']]], $url_request['variables']);
     }
@@ -102,6 +112,7 @@ class Router
                 redirect(route($url));
             }
 
+            $page = $language . "/" . $page;
             unset($params[0], $params[1]);
             Session::add("language", $language);
         }

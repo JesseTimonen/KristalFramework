@@ -18,7 +18,8 @@ class Routes extends Router
         parent::setHomepageHandler("homepageHandler");
 
         // Register other routes
-        parent::addRoute("demo", "demoHandler");
+        parent::addRoute("en/demo", "demoHandler");
+        parent::addRoute("fi/esittely", "demoHandler");
 
         // Set handler to for cases where no route was found
         parent::setDefaultHandler("pageNotFoundHandler");
