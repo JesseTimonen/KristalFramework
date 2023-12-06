@@ -137,22 +137,11 @@ function route($page = "")
 {
     if (ENABLE_LANGUAGES)
     {
-        $language = Session::get("language");
-
-        if (DISPLAY_DEFAULT_LANGUAGE_URL)
-        {
-            return BASE_URL . $language . "/". $page;
-        }
-        else
-        {
-            if ($language != DEFAULT_LANGUAGE)
-            {
-                return BASE_URL . $language . "/". $page;
-            }
-        }
+        $language = Session::has("language") ? Session::get("language") : DEFAULT_LANGUAGE;
+        return BASE_URL . urlencode($language) . "/". urlencode($page);
     }
 
-    return BASE_URL . $page;
+    return BASE_URL . urlencode($page);
 }
 
 // ============================================================================================================== \\

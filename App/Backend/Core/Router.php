@@ -80,46 +80,34 @@ class Router
         // Parse page name and variables from the URL
         $root_url = str_replace("index.php", "", $_SERVER["PHP_SELF"]);
         $url_full = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $url_full = substr($url_full, strlen($root_url));
-        $url = explode("/", $url_full);
+        $url = substr($url_full, strlen($root_url));
+        $params = explode("/", $url_full);
 
         // Handle multilingual support
         if (ENABLE_LANGUAGES)
         {
+            // Get Available languages and turn them to lower case
             $available_languages = unserialize(AVAILABLE_LANGUAGES);
-            $language = strtolower($url[0]);
-            $page = isset($url[1]) ? strtolower($url[1]) : "";
+            $available_languages = array_map('strtolower', $available_languages);
 
-            if (DISPLAY_DEFAULT_LANGUAGE_URL)
+            // Get language and page from URL
+            $language = isset($params[0]) ? strtolower($params[0]) : "";
+            $page = isset($params[1]) ? strtolower($params[1]) : "";
+
+            // Redirect to default language if the language was not valid
+            if (!in_array($language, $available_languages))
             {
-                if (!in_array($language, $available_languages))
-                {
-                    Session::add("language", DEFAULT_LANGUAGE);
-                    redirect(route($url_full));
-                }
-
-                unset($url[0], $url[1]);
+                Session::add("language", DEFAULT_LANGUAGE);
+                redirect(route($url));
             }
-            else
-            {
-                if (in_array($language, $available_languages) && $url[0] != DEFAULT_LANGUAGE)
-                {
-                    unset($url[0], $url[1]);
-                }
-                else
-                {
-                    $language = DEFAULT_LANGUAGE;
-                    $page = strtolower($url[0]);
-                    unset($url[0]);
-                }
-            }
-
+            
+            unset($params[0], $params[1]);
             Session::add("language", $language);
         }
         else
         {
-            $page = strtolower($url[0]);
-            unset($url[0]);
+            $page = strtolower($params[0]);
+            unset($params[0]);
         }
 
         // Sanitize the page variable
@@ -127,7 +115,7 @@ class Router
 
         // Validate and sanitize URL variables
         $variables_from_url = [];
-        foreach ($url as $key => $value)
+        foreach ($params as $key => $value)
         {
             $variables_from_url[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
         }

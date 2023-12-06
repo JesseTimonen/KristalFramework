@@ -33,7 +33,6 @@ $kristal_mandatory_constants = [
     "DATE_FORMAT",
     "TIME_FORMAT",
     "ENABLE_LANGUAGES",
-    "DISPLAY_DEFAULT_LANGUAGE_URL",
     "DEFAULT_LANGUAGE",
     "AVAILABLE_LANGUAGES",
     "AUTO_COMPILE_SITEMAP",

@@ -185,9 +185,6 @@ define("TIME_FORMAT", "H:i:s");
 // Enable native support for multilingual URLs, appending the language to the URL (for example: 'example.com/en')
 define("ENABLE_LANGUAGES", false);
 
-// Determine if the default language should be visible in the URL (for example: 'false' turns 'example.com/en' into 'example.com')
-define("DISPLAY_DEFAULT_LANGUAGE_URL", false);
-
 // Set the default language for your site (this will also be the main language of your site)
 define("DEFAULT_LANGUAGE", "en");
 
