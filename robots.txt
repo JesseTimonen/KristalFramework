@@ -1,8 +1,11 @@
 User-agent: *
-Disallow: /
-
-Allow: /robots.txt
-Allow: /sitemap.xml
+Disallow: /App/Backend/
+Disallow: /Config/
+Disallow: /vendor/
+Disallow: /composer.json
+Disallow: /composer.lock
+Disallow: /README.md
+Disallow: /.gitignore
 
 Crawl-delay: 10
 

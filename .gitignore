@@ -1,6 +1,5 @@
 vendor
 Config/config.php
-sitemap.xml
 .vscode
 .vs
 .idea
