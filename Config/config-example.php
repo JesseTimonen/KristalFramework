@@ -166,7 +166,7 @@ define("COOKIE_EXPIRE_TIME", 86400);
 # --------------------------------------------------------------------------
 
 // List of all available timezones: https://www.php.net/manual/en/timezones.php
-define("TIMEZONE", "UTC"); 
+define("TIMEZONE", "UTC");
 
 // Specify the format for displaying dates (for example: "j.n.Y" for 31.1.2020, "m/d/Y" for 01/31/2020, "F j, Y" for January 31, 2020)
 define("DATE_FORMAT", "j.n.Y");

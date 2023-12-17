@@ -34,7 +34,8 @@ jQuery(document).ready(function(){
         return (number < 10 ? '0' : '') + number;
     }
 
-    function updateCountdown() {
+    function updateCountdown()
+    {
         if (date_difference <= 0) {
             countdownTimer.html(expiredText);
             clearInterval(intervalId);
@@ -57,7 +58,8 @@ jQuery(document).ready(function(){
             displayString = displayString
                 .replace('{d}', days)
                 .replace('{D}', dayLabel);
-        } else {
+        }
+        else {
             displayString = displayString
                 .replace('{d}', '')
                 .replace('{D}', '');

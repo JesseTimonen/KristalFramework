@@ -37,6 +37,10 @@ $uniqueId = uniqid('countdown_');
 
 ob_start();
 include( __DIR__ . '/template.php' );
-if ($dateDifference > 0) { ?><script><?php include( __DIR__ . '/javascript.js' ); ?></script><?php }
+
+if ($dateDifference > 0) {
+    ?><script><?php include( __DIR__ . '/javascript.js' ); ?></script><?php
+}
+
 $output = ob_get_clean();
 echo $output;

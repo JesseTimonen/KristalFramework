@@ -37,7 +37,7 @@ class Routes extends Router
         $this->render("frontpage");
     }
 
-    
+
 
     // Variables are passed into the route the following way:
     // "example.com/route/variable1/variable2/..."

@@ -5,4 +5,4 @@ else{console.warn("Translator was not able to translate value '"+t+"'!")}};jQuer
 else{console.warn("Translator was not able to translate tooltip value '"+t+"'!")}};function kristal_reinitializeTooltip(t){const bsTooltip=bootstrap.Tooltip.getInstance(t);if(bsTooltip){bsTooltip.dispose()};new bootstrap.Tooltip(t)};
 
 
-/* Generated at: 15.11.2023 15:29:40 */
+/* Generated at: 17.12.2023 07:47:11 */
