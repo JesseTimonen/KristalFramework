@@ -40,7 +40,8 @@ $(document).ready(function()
     kristal_translation_url = getVariable("baseURL") + "/App/Public/Translations/translations.json";
 
     // Force browsers to get latest version when not in production
-    if (getVariable("production_mode") === "false") {
+    if (getVariable("production_mode") === "false")
+    {
         const random = Math.round(Math.random() * (999999 - 1)) + 1;
         kristal_translation_url += "?" + random;
     }
@@ -58,7 +59,8 @@ function kristal_initTranslations()
 {
     kristal_updateTranslations();
 
-    $("[switchLanguage]").click(function(event) {
+    $("[switchLanguage]").click(function(event)
+    {
         event.preventDefault();
         $("#" + kristal_language + "-button").removeClass("active");
         kristal_language = $(event.target).attr("switchLanguage");
@@ -73,11 +75,13 @@ function kristal_updateTranslations()
 {
     $("#" + kristal_language + "-button").addClass("active");
 
-    $("[translationKey]").each(function() {
+    $("[translationKey]").each(function()
+    {
         $(this).translate();
     });
 
-    $("[tooltipTranslationKey]").each(function() {
+    $("[tooltipTranslationKey]").each(function()
+    {
         $(this).tooltipTranslate();
     });
 }
@@ -99,18 +103,23 @@ jQuery.fn.translate = function(key)
 
     key = key || $(this).attr("translationKey");
 
-    if (kristal_translations.hasOwnProperty(key)) {
-        if ($(this).is(":input") && $(this).attr('placeholder') !== undefined) {
+    if (kristal_translations.hasOwnProperty(key))
+    {
+        if ($(this).is(":input") && $(this).attr('placeholder') !== undefined)
+        {
             $(this).prop("placeholder", kristal_translations[key][kristal_language]);
         }
-        else if ($(this).is("img")) {
+        else if ($(this).is("img"))
+        {
             $(this).attr("alt", kristal_translations[key][kristal_language]);
         }
-        else {
+        else
+        {
             $(this).html(kristal_translations[key][kristal_language]);
         }
     }
-    else {
+    else
+    {
         console.warn("Translator was not able to translate value '" + key + "'!");
     }
 }
@@ -123,18 +132,21 @@ jQuery.fn.tooltipTranslate = function(key)
 
     key = key || $(this).attr("tooltipTranslationKey");
     
-    if (kristal_translations.hasOwnProperty(key)) {
+    if (kristal_translations.hasOwnProperty(key))
+    {
         $(this).attr("data-bs-title", kristal_translations[key][kristal_language]);
         kristal_reinitializeTooltip(this.get(0));
     }
-    else {
+    else
+    {
         console.warn("Translator was not able to translate tooltip value '" + key + "'!");
     }
 }
 
 
 // Reinitialize tooltips after translation
-function kristal_reinitializeTooltip(element) {
+function kristal_reinitializeTooltip(element)
+{
     const bsTooltip = bootstrap.Tooltip.getInstance(element);
     if (bsTooltip) { bsTooltip.dispose(); }
     new bootstrap.Tooltip(element);

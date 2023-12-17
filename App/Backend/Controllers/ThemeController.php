@@ -12,7 +12,8 @@ class ThemeController
     public function changeTheme($theme = null)
     {
         // Make sure theme is not null
-        if ($theme === null) {
+        if ($theme === null)
+        {
             return translate("change_theme_aborted_message");
         }
     
@@ -21,7 +22,8 @@ class ThemeController
 
     
         // Check if the theme file exists
-        if (!file_exists($this->themes_folder_path . $formatted_theme_name)) {
+        if (!file_exists($this->themes_folder_path . $formatted_theme_name))
+        {
             return translate("change_theme_failed_message", [$theme]);
         }
         

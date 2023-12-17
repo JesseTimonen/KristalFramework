@@ -16,7 +16,8 @@ class FrameworkHelper extends FormRequest
         {
             $csrfToken = CSRF::get($_POST["csrf_identifier"]);
         
-            if (!empty($csrfToken) && password_verify(SESSION_NAME . $csrfToken . $_SESSION["visitor_identity"], $_POST["authentication"])) {
+            if (!empty($csrfToken) && password_verify(SESSION_NAME . $csrfToken . $_SESSION["visitor_identity"], $_POST["authentication"]))
+            {
                 parent::__construct(["allow_protected_calls" => true]);
             }
         }

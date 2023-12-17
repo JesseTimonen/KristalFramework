@@ -206,7 +206,7 @@ $(document).ready(function ()
     $(".field-name").keyup(function()
     {
         var index = $(this).attr("name").slice(-1);
-        if (isNaN(index)){ return; }
+        if (isNaN(index)) { return; }
 
         if ($(this).val() == "")
         {
@@ -229,7 +229,7 @@ $(document).ready(function ()
     $(".field-type").change(function()
     {
         index = $(this).attr("name").slice(-1);
-        if (isNaN(index)){ return; }
+        if (isNaN(index)) { return; }
 
         if ($("#field-type-" + index + " option:selected").attr("passLength") !== "true")
         {

@@ -12,8 +12,8 @@
  * - $atts['expired']
  */
 
-jQuery(document).ready(function(){
-
+jQuery(document).ready(function()
+{
     const countdownContainer = jQuery("#<?php echo $uniqueId; ?>");
     const countdownTimer = jQuery("#<?php echo $uniqueId; ?> .countdown-timer");
     
@@ -36,7 +36,8 @@ jQuery(document).ready(function(){
 
     function updateCountdown()
     {
-        if (date_difference <= 0) {
+        if (date_difference <= 0)
+        {
             countdownTimer.html(expiredText);
             clearInterval(intervalId);
             return;
@@ -54,12 +55,14 @@ jQuery(document).ready(function(){
 
         let displayString = format;
 
-        if (days > 0) {
+        if (days > 0)
+        {
             displayString = displayString
                 .replace('{d}', days)
                 .replace('{D}', dayLabel);
         }
-        else {
+        else
+        {
             displayString = displayString
                 .replace('{d}', '')
                 .replace('{D}', '');

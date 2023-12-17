@@ -60,7 +60,8 @@ function translate($translation_key, $variables = array(""))
         {
             foreach ($value as $translation)
             {
-                if ($translation_key == $translation) {
+                if ($translation_key == $translation)
+                {
                     $translation_key = $key;
                     break;
                 }

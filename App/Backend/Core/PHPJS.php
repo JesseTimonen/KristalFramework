@@ -10,11 +10,15 @@ class PHPJS
 
     public static function addJSVariable($variable, $value = "")
     {
-        if (is_array($variable)) {
-            foreach ($variable as $key => $val) {
+        if (is_array($variable))
+        {
+            foreach ($variable as $key => $val)
+            {
                 self::$js_variables[$key] = $val;
             }
-        } else {
+        }
+        else
+        {
             self::$js_variables[$variable] = $value;
         }
     }
@@ -44,12 +48,14 @@ class PHPJS
             echo 'window.addEventListener("DOMContentLoaded", function() {';
 
                 // Output the JS variables
-                foreach (self::$js_variables as $key => $val) {
+                foreach (self::$js_variables as $key => $val)
+                {
                     echo "document.getElementById('javascript-variables').setAttribute('{$key}', '{$val}');";
                 }
 
                 // Output the JS scripts
-                foreach (self::$js_scripts as $script) {
+                foreach (self::$js_scripts as $script)
+                {
                     echo $script;
                 }
 

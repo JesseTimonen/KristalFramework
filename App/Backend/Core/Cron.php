@@ -31,7 +31,8 @@ class Cron
         }
         else
         {
-            switch (strtolower($interval)) {
+            switch (strtolower($interval))
+            {
                 case "daily":
                     $this->interval = ["type" => self::INTERVAL_DAY, "amount" => 1];
                     break;

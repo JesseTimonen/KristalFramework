@@ -46,7 +46,8 @@ class ImportDatabase extends Database
 
             $finfo = new \finfo(FILEINFO_MIME_TYPE);
             $mime_type = $finfo->file($file["tmp_name"]);
-            if ($mime_type !== "text/plain" && $mime_type !== "application/sql") {
+            if ($mime_type !== "text/plain" && $mime_type !== "application/sql")
+            {
                 throw new \Exception("Imported file needs to be in 'sql' format! Given file MIME type was '$mime_type'");
             }
 

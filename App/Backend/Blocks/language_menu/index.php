@@ -16,7 +16,8 @@ $atts = array_merge(array(
 
 
 // Validation
-if (!is_array($atts['languages'])) {
+if (!is_array($atts['languages']))
+{
     echo "Languages must be given as an array";
     return;
 }

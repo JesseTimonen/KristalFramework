@@ -50,7 +50,8 @@ class Routes extends Router
         // Try to change the theme by calling theme controller which has a custom changeTheme() method
         // Theme controller can be found and modified at App/Backend/Controllers/ folder
         $theme_feedback = "";
-        if (!empty($theme_name)) {
+        if (!empty($theme_name))
+        {
             $theme_feedback = $theme_controller->changeTheme($theme_name);
         }
 

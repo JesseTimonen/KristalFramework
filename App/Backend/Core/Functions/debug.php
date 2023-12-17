@@ -47,8 +47,8 @@ function debugLog($message, $severity = "Debug")
 }
 
 
-function kristal_setDebugLevels() {
-
+function kristal_setDebugLevels()
+{
     $error_level = E_ALL;
 
     if (DEBUG_IGNORE_WARNINGS)
@@ -112,8 +112,8 @@ function kristal_warningHandler($type, $message, $file, $line)
         error_log($log, 3, DEBUG_LOG_PATH);
     }
 
-    if (!PRODUCTION_MODE) {
-
+    if (!PRODUCTION_MODE)
+    {
         ?>
         <style>
             .kristal-warning-div {
@@ -219,7 +219,8 @@ function kristal_fatalErrorHandler()
             $file_lines = file($error['file']);
             $start_line = max(0, $error['line'] - 11);
             $end_line = min(count($file_lines), $error['line'] + 10);
-            for ($i = $start_line; $i < $end_line; $i++) {
+            for ($i = $start_line; $i < $end_line; $i++)
+            {
                 $line_number = $i + 1;
                 $highlight_class = ($line_number === $error['line']) ? 'highlight' : '';
                 $indented_line = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', htmlentities($file_lines[$i]));

@@ -44,9 +44,12 @@ final class JS_Compiler
                 }
 
                 // Add date to generated JavaScript
-                if (PRINT_COMPILE_DATE_JS) {
-                    $compiled_js .= "\n\n\n/* Generated at: " . date(DATE_FORMAT . " " . TIME_FORMAT) . " */";
+                if (PRINT_COMPILE_DATE_JS)
+                {
+                    $compiled_js .= "\n\n/* Generated at: " . date(DATE_FORMAT . " " . TIME_FORMAT) . " */";
                 }
+
+                $compiled_js .= "\n";
                 
                 file_put_contents($compiled_file_path, $compiled_js);
             }

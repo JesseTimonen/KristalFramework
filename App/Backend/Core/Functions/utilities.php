@@ -16,7 +16,6 @@ function kristal_getAssetPath($folder, $file, array $params = ["path" => "url"])
         }
         else
         {
-            ?><script>console.warn("Could not load asset: <?= $filePath; ?> because it doesn't exist!");</script><?php
             return "";
         }
     }
@@ -25,7 +24,8 @@ function kristal_getAssetPath($folder, $file, array $params = ["path" => "url"])
     $returnPath = strtolower($params["path"]) === "url" ? BASE_URL . $filePath : $filePath;
 
     // Append ?ver= with last modified date for CSS and JavaScript if 'path' is 'url'
-    if (strtolower($params["path"]) === "url" && in_array($folder, ["CSS", "Javascript"])) {
+    if (strtolower($params["path"]) === "url" && in_array($folder, ["CSS", "Javascript"]))
+    {
         $lastModified = filemtime($filePath);
         $returnPath .= "?ver=" . $lastModified;
     }
@@ -72,7 +72,8 @@ function thumbnail($file_path, array $params = array("path" => "url"))
         $mime = $size['mime'];
 
         // Create image
-        switch (strtolower($mime)) {
+        switch (strtolower($mime))
+        {
             case "image/jpeg":
                 $original = imagecreatefromjpeg($file_path);
                 break;
@@ -119,7 +120,8 @@ function thumbnail($file_path, array $params = array("path" => "url"))
 function page($file)
 {
     $file = ensurePHPExtension($file);
-    if (file_exists("App/Pages/$file")) {
+    if (file_exists("App/Pages/$file"))
+    {
         return "App/Pages/$file";
     }
 

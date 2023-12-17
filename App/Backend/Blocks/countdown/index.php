@@ -27,7 +27,8 @@ $atts = array_merge(array(
 $currentDate = new DateTime('now', new DateTimeZone(TIMEZONE));
 $targetDate = DateTime::createFromFormat('d.m.Y H:i:s', $date, new DateTimeZone(TIMEZONE));
 
-if ($targetDate === false) {
+if ($targetDate === false)
+{
     return;
 }
 
@@ -38,7 +39,8 @@ $uniqueId = uniqid('countdown_');
 ob_start();
 include( __DIR__ . '/template.php' );
 
-if ($dateDifference > 0) {
+if ($dateDifference > 0)
+{
     ?><script><?php include( __DIR__ . '/javascript.js' ); ?></script><?php
 }
 

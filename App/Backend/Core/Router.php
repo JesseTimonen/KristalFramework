@@ -21,12 +21,14 @@ class Router
         new FormRequests();
 
         // Activate framework helper for development
-        if (DISPLAY_HELPER && MAINTENANCE_MODE && Session::has("maintenance_access_granted")) {
+        if (DISPLAY_HELPER && MAINTENANCE_MODE && Session::has("maintenance_access_granted"))
+        {
             new FrameworkHelper();
         }
 
         // Display maintenance if needed
-        if (MAINTENANCE_MODE && !Session::has("maintenance_access_granted")) {
+        if (MAINTENANCE_MODE && !Session::has("maintenance_access_granted"))
+        {
             $this->renderMaintenancePage();
         }
     }
@@ -40,10 +42,12 @@ class Router
     
     protected function setHomepageHandler(string $handler)
     {
-        if (ENABLE_LANGUAGES) {
+        if (ENABLE_LANGUAGES)
+        {
             $available_languages = unserialize(AVAILABLE_LANGUAGES);
 
-            foreach ($available_languages as $language) {
+            foreach ($available_languages as $language)
+            {
                 $this->registered_routes[$language . "/"] = $handler;
             }
 
@@ -63,7 +67,8 @@ class Router
     protected function handleRoutes()
     {
         // Generate sitemap.xml
-        if ($this->ShouldSitemapBeRegenerated()) {
+        if ($this->ShouldSitemapBeRegenerated())
+        {
             $this->generateSitemap();
         }
 
@@ -71,13 +76,15 @@ class Router
         $url_request = $this->getURLRequest();
 
         // Call default route handler if requested route was not found
-        if (!isset($this->registered_routes[$url_request['page']])) {
+        if (!isset($this->registered_routes[$url_request['page']]))
+        {
             call_user_func_array([$this, $this->default_route_handler], $url_request['variables']);
             return;
         }
         
         // Return exception if requested route handler doesn't exist 
-        if (!method_exists($this, $this->registered_routes[$url_request['page']])) {
+        if (!method_exists($this, $this->registered_routes[$url_request['page']]))
+        {
             throw new \Exception("Route: '" . $url_request['page'] . "' has handler '" . $this->registered_routes[$url_request['page']] . ", but this handler function is not available.");
         }
 
@@ -144,9 +151,7 @@ class Router
 
     private function ShouldSitemapBeRegenerated()
     {
-        if (!AUTO_COMPILE_SITEMAP) {
-            return false;
-        }
+        if (!AUTO_COMPILE_SITEMAP) { return false; }
 
         // Get modified dates of sitemap and routes
         $sitemap_last_mod_time = file_exists("sitemap.xml") ? filemtime("sitemap.xml") : 0;
@@ -172,7 +177,8 @@ class Router
     {
         $sitemap = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>');
     
-        foreach ($this->registered_routes as $route => $handler) {
+        foreach ($this->registered_routes as $route => $handler)
+        {
             $url = $sitemap->addChild('url');
             $url->addChild('loc', htmlspecialchars(BASE_URL . $route));
             $url->addChild('lastmod', date('c', $this->content_last_modified_time));
@@ -284,7 +290,8 @@ class Router
                 $kristal_failed_attempts++;
                 $kristal_lockout_content = "<?php return $kristal_failed_attempts; ?>";
 
-                if (!file_put_contents($kristal_rate_limit_file, $kristal_lockout_content)) {
+                if (!file_put_contents($kristal_rate_limit_file, $kristal_lockout_content))
+                {
                     debugLog("Unable to write maintenance authentication lockout data to $kristal_rate_limit_file", "Warning");
                 }
             }

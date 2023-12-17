@@ -21,7 +21,8 @@ class Block
             $file = $dir . '/index.php';
             
             // Check if the index.php file exists before registering it
-            if (file_exists($file)) {
+            if (file_exists($file))
+            {
                 self::$shortcodes[$shortcode] = $file;
             }
         }

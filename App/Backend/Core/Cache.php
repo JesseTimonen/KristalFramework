@@ -21,7 +21,7 @@ class Cache
         $duration = $duration * 3600;
 
         // Create file for cached content
-        $cache = '<?php' . "\n\nif ($date - strtotime(date('Y-m-d H:i:s')) + $duration < 0){ return null; }\n\nreturn $value;\n" . '?>';
+        $cache = '<?php' . "\n\nif ($date - strtotime(date('Y-m-d H:i:s')) + $duration < 0) { return null; }\n\nreturn $value;\n" . '?>';
 
         // Write file
         return file_put_contents($file, $cache);
