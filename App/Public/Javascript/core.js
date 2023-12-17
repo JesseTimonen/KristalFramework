@@ -4,5 +4,4 @@ else{$(this).html(kristal_translations[t][kristal_language])}}
 else{console.warn("Translator was not able to translate value '"+t+"'!")}};jQuery.fn.tooltipTranslate=function(t){if(!kristal_translations){return};t=t||$(this).attr("tooltipTranslationKey");if(kristal_translations.hasOwnProperty(t)){$(this).attr("data-bs-title",kristal_translations[t][kristal_language]);kristal_reinitializeTooltip(this.get(0))}
 else{console.warn("Translator was not able to translate tooltip value '"+t+"'!")}};function kristal_reinitializeTooltip(t){const bsTooltip=bootstrap.Tooltip.getInstance(t);if(bsTooltip){bsTooltip.dispose()};new bootstrap.Tooltip(t)};
 
-
-/* Generated at: 17.12.2023 08:02:23 */
+/* Generated at: 17.12.2023 09:08:41 */

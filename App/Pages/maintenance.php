@@ -19,7 +19,7 @@
         <script src="<?= js("maintenance.js"); ?>"></script>
 
         <!-- Page title -->
-        <title><?= translate("maintenance"); ?></title>
+        <title><?= translate("Maintenance"); ?></title>
 
         <!-- Website icon -->
         <link rel="icon" type="image/gif" href="<?= image("kristal_framework_alt_icon.png"); ?>" />

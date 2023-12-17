@@ -2,7 +2,7 @@
     <div class="container">
 
         <!-- Navbar Title (text) -->
-        <!-- <a class="navbar-brand" href="<?= route(""); ?>" translationKey="nav_title">Kristal Framework</a> -->
+        <!-- <a class="navbar-brand" href="<?= route(""); ?>"><?= translate("Kristal Framework"); ?></a> -->
 
         <!-- Navbar Title (image) -->
         <a class="navbar-brand" href="<?= route(""); ?>"><img class="navbar-logo colorized-fast" src="<?= image("kristal_framework_logo.png"); ?>" /></a>
@@ -17,10 +17,10 @@
             <!-- Navbar links -->
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" page="home.php" href="<?= route(""); ?>" translationKey="nav_home">Home</a>
+                    <a class="nav-link" page="home.php" href="<?= route(""); ?>"><?= translate("Home"); ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" page="demo.php" href="<?= route(translate("route_demo")); ?>" translationKey="nav_demo">Demo</a>
+                    <a class="nav-link" page="demo.php" href="<?= route(strtolower(translate("Demo"))); ?>"><?= translate("Demo"); ?></a>
                 </li>
             </ul>
 

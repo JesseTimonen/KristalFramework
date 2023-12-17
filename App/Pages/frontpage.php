@@ -2,18 +2,8 @@
 
 
 <div class="container main-content">
-    <h1 translationKey="home_title">Kristal Framework</h1>
-    <p translationKey="home_version">Version 1.0, Developed by Jesse Timonen. Happy Coding!</p>
-    <p translationKey="home_information_1">Kristal Framework is a PHP-based framework designed to provide developers with a streamlined and simplified MVC environment for web development. The framework is publicly released under the MIT License, granting users the freedom to use, modify, and distribute it as they see fit.</p>
-    <p translationKey="home_information_2">Thanks for trying out Kristal Framework, to get started please visit the <a href = 'https://www.jessetimonen.fi/kristal/documentation' target = '_blank'>documentations</a>.</p>
-    
-    <?php Block::render("countdown", [
-        "date" => "1.1.2024 00:00:00",
-        "format" => "⏰ {d} {D} {h}:{m}:{s} ⏰",
-        "days" => "days|day",
-        "hours" => "h",
-        "minutes" => "m",
-        "seconds" => "s",
-        "expired" => "⏰ 00:00:00 ⏰",
-    ]); ?>
+    <h1><?= translate("Kristal Framework"); ?></h1>
+    <p><?= translate("Version 1.0, Developed by Jesse Timonen. Happy Coding!"); ?></p>
+    <p><?= translate("Kristal Framework is a PHP-based framework designed to provide developers with a streamlined and simplified MVC environment for web development. The framework is publicly released under the MIT License, granting users the freedom to use, modify, and distribute it as they see fit."); ?></p>
+    <p><?= translate("Thanks for trying out Kristal Framework, to get started please visit the <a href = 'https://www.jessetimonen.fi/kristal/documentation' target = '_blank'>documentations</a>."); ?></p>
 </div>
