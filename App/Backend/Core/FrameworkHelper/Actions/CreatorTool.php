@@ -27,7 +27,7 @@ class CreatorTool
         foreach ($templates as $template)
         {
             $source = "App/Backend/Core/FrameworkHelper/Templates/" . $template;
-            $destination = "App/Public/Cache/FrameworkHelperTemplates/" . $template;
+            $destination = "App/Public/Templates/FrameworkHelperTemplates/" . $template;
     
             if (!file_exists($source))
             {
@@ -47,7 +47,7 @@ class CreatorTool
     private function getTemplate($file_name)
     {
         $templatePath = "App/Backend/Core/FrameworkHelper/templates/";
-        $cachePath = "App/Public/Cache/FrameworkHelperTemplates/";
+        $cachePath = "App/Public/Templates/FrameworkHelperTemplates/";
 
         // Check do we have overwritten template in the cache
         if (file_exists($cachePath . $file_name))
