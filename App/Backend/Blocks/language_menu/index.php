@@ -1,21 +1,25 @@
 <?php defined("ACCESS") or exit("Access Denied");
 /**
  * This content is rendered by language_menu block
- * Block::render("language_menu", ["xxxx" => "", "xxxx" => "", "xxxx" => ""]); 
+ * Block::render("language_menu", ["request" => "", "languages" => ""]); 
  * 
  * Available variables:
- *  - $atts['xxxx']
- *  - $atts['xxxx']
- *  - $atts['xxxx']
+ *  - $atts['request']
+ *  - $atts['languages']
  */
 
 // Give default values to attributes
 $atts = array_merge(array(
-    'xxxx' => '',
-    'xxxx' => '',
-    'xxxx' => '',
+    'request' => '',
+    'languages' => unserialize(AVAILABLE_LANGUAGES),
 ), $atts);
 
+
+// Validation
+if (!is_array($atts['languages'])) {
+    echo "Languages must be given as an array";
+    return;
+}
 
 
 ob_start();

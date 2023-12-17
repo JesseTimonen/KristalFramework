@@ -25,27 +25,7 @@
             </ul>
 
             <!-- Language settings -->
-            <ul class="language-menu navbar-nav justify-content-end">
-                <li class="nav-item">
-                    <form method='post'>
-                        <?php CSRF::create("change_language_form"); ?>
-                        <?php CSRF::request("change_language"); ?>
-                        <button type='submit' name='language' value='fi' class='btn btn-link p-0 border-0 bg-transparent'>
-                            <img src="<?= image("Flags/fi.jpg"); ?>" class="change-language<?php if(Session::get("language") === "fi") echo " active"; ?>" />
-                        </button>
-                    </form>
-                </li>
-                <li class="nav-item">
-                    <form method='post'>
-                        <?php CSRF::create("change_language_form"); ?>
-                        <?php CSRF::request("change_language"); ?>
-          
-                        <button type='submit' name='language' value='en' class='btn btn-link p-0 border-0 bg-transparent'>
-                            <img src="<?= image("Flags/en.jpg"); ?>" class="change-language<?php if(Session::get("language") === "en") echo " active"; ?>" />
-                        </button>
-                    </form>
-                </li>
-            </ul>
+            <?php Block::render("language_menu", ["request" => "change_language"]);  ?>
 
         </div>
     </div>
