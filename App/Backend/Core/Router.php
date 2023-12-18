@@ -2,7 +2,7 @@
 defined("ACCESS") or exit("Access Denied");
 
 use Backend\Controllers\FormRequests;
-use Backend\Core\Helper\Actions\FrameworkHelper;
+use Backend\Core\FrameworkHelper\Actions\FrameworkHelper;
 use Backend\Core\PHPJS;
 use voku\helper\HtmlMin;
 

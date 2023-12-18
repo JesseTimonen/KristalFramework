@@ -112,7 +112,7 @@ function thumbnail($file_path, array $params = array("path" => "url"))
         return $result ? route($result) : null;
     }
 
-    return route($thumbnail_path);
+    return BASE_URL . $thumbnail_path;
 }
 
 // ============================================================================================================== \\

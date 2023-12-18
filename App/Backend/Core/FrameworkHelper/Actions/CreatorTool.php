@@ -1,4 +1,4 @@
-<?php namespace Backend\Core\Helper\Actions;
+<?php namespace Backend\Core\FrameworkHelper\Actions;
 defined("ACCESS") or exit("Access Denied");
 
 
@@ -6,13 +6,10 @@ class CreatorTool
 {
     public function __construct()
     {
-        // This action can only be performed during development mode
-        if (MAINTENANCE_MODE !== true)
+        if (MAINTENANCE_MODE)
         {
-            throw new \Exception("This action can only be performed while development mode is active!");
+            $this->checkFileIntegrity();
         }
-
-        $this->checkFileIntegrity();
     }
 
 
@@ -134,9 +131,7 @@ class CreatorTool
             throw new \Exception("Failed to create entity since entity $name already exists!");
         }
     }
-
-
-
+    
 
     public function createController($name)
     {

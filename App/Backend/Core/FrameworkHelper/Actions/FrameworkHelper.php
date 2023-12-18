@@ -1,11 +1,12 @@
-<?php namespace Backend\Core\Helper\Actions;
+<?php namespace Backend\Core\FrameworkHelper\Actions;
 defined("ACCESS") or exit("Access Denied");
 
 use Backend\Core\FormRequest;
-use Backend\Core\Helper\Actions\DatabaseBackup;
-use Backend\Core\Helper\Actions\ImportDatabase;
-use Backend\Core\Helper\Actions\ClearDatabase;
-use Backend\Core\Helper\Actions\CreatorTool;
+use Backend\Core\FrameworkHelper\Actions\DatabaseBackup;
+use Backend\Core\FrameworkHelper\Actions\ImportDatabase;
+use Backend\Core\FrameworkHelper\Actions\ClearDatabase;
+use Backend\Core\FrameworkHelper\Actions\CreatorTool;
+use Backend\Core\Session;
 
 
 class FrameworkHelper extends FormRequest

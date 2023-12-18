@@ -1,4 +1,4 @@
-<?php namespace Backend\Core\Helper\Actions;
+<?php namespace Backend\Core\FrameworkHelper\Actions;
 defined("ACCESS") or exit("Access Denied");
 
 use Backend\Core\Database;
@@ -8,22 +8,22 @@ class ImportDatabase extends Database
 {
     public function __construct($file)
     {
-        // This action can only be performed during development mode
-        if (MAINTENANCE_MODE !== true)
+        if (MAINTENANCE_MODE)
         {
             throw new \Exception("This action can only be performed while development mode is active!");
+
+            foreach (unserialize(DATABASES) as $name => $info)
+            {
+                parent::__construct(["database" => $name]);
+                $this->ImportDatabase();
+                break;
+            }
         }
+    }
 
-        // Get primary database
-        $database = "primary";
-        $databases = unserialize(DATABASES);
-        foreach ($databases as $name => $info)
-        {
-            $database = $name;
-        }
 
-        parent::__construct(["database" => $database]);
-
+    private function ImportDatabase()
+    {
         try
         {
             // Make sure file doesn't have any errors

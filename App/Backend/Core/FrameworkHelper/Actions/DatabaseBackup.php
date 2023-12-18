@@ -1,4 +1,4 @@
-<?php namespace Backend\Core\Helper\Actions;
+<?php namespace Backend\Core\FrameworkHelper\Actions;
 defined("ACCESS") or exit("Access Denied");
 
 use Backend\Core\Database;
@@ -9,14 +9,16 @@ class DatabaseBackup extends Database
 {
     public function __construct($database)
     {
-        // This action can only be performed during development mode
-        if (MAINTENANCE_MODE !== true)
+        if (MAINTENANCE_MODE)
         {
-            throw new \Exception("This action can only be performed while development mode is active!");
+            parent::__construct(["database" => $database]);
+            $this->BackupDatabase();
         }
+    }
 
-        parent::__construct(["database" => $database]);
 
+    private function BackupDatabase()
+    {
         $filename = "database_backup_" . date("Y-n-j") . ".sql";
         $backup = $this->databaseBackup();
         $mime = "application/sql";

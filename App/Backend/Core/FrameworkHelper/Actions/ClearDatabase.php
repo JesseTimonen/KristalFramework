@@ -1,4 +1,4 @@
-<?php namespace Backend\Core\Helper\Actions;
+<?php namespace Backend\Core\FrameworkHelper\Actions;
 defined("ACCESS") or exit("Access Denied");
 
 use Backend\Core\Database;
@@ -8,14 +8,15 @@ class ClearDatabase extends Database
 {
     public function __construct($database)
     {
-        // This action can only be performed during development mode
-        if (MAINTENANCE_MODE !== true)
+        if (MAINTENANCE_MODE)
         {
-            throw new \Exception("This action can only be performed while development mode is active!");
+            parent::__construct(["database" => $database]);
+            $this->ClearDatabase();
         }
+    }
 
-        parent::__construct(["database" => $database]);
-
+    private function ClearDatabase()
+    {
         // Drop tables
         $tables = $this->getTables();
         foreach ($tables as $table)
@@ -25,7 +26,7 @@ class ClearDatabase extends Database
                 $this->dropTableCascade($table_name);
             }
         }
-
+        
         debug("Database has been successfully Cleared!");
     }
 }
