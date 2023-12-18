@@ -6,4 +6,4 @@ if (!file_exists("App/Backend/Core/Framework.php"))
 }
 
 // Yet not all is lost, for it takes but a spark; from the ashes, a website may still be ignited.
-include_once "App/Backend/Core/Framework.php";
+require_once "App/Backend/Core/Framework.php";

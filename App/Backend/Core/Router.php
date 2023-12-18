@@ -9,10 +9,10 @@ use voku\helper\HtmlMin;
 
 class Router
 {
-    private array $registered_routes = [];
-    private string $default_route_handler = "";
-    private string $rendered_view = "";
-    private string $content_last_modified_time = "";
+    private $registered_routes = [];
+    private $default_route_handler = "";
+    private $rendered_view = "";
+    private $content_last_modified_time = "";
 
 
     protected function __construct()
@@ -34,13 +34,13 @@ class Router
     }
 
 
-    protected function addRoute(string $route_name, string $handler)
+    protected function addRoute($route_name, $handler)
     {
         $this->registered_routes[$route_name] = $handler;
     }
 
     
-    protected function setHomepageHandler(string $handler)
+    protected function setHomepageHandler($handler)
     {
         if (ENABLE_LANGUAGES)
         {
@@ -58,7 +58,7 @@ class Router
     }
 
 
-    protected function setDefaultHandler(string $handler)
+    protected function setDefaultHandler($handler)
     {
         $this->default_route_handler = $handler;
     }
@@ -205,7 +205,7 @@ class Router
     }
 
 
-    protected function render($page, array $variables = array())
+    protected function render($page, $variables = array())
     {
         // Make sure only one view can be called
         if (!empty($this->rendered_view)) { throw new \Exception("Page: '" . $page . "' can not be rendered because the framework has already rendered page: '" . $this->rendered_view . "'!"); }
