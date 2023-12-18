@@ -1,9 +1,6 @@
 <?php defined("ACCESS") or exit("Access Denied");
 
-// Require parent router
 use Backend\Core\Router;
-
-// Optional controllers, entities, etc.
 use Backend\Controllers\ThemeController;
 
 

@@ -1,5 +1,6 @@
 <?php include "Partials/navigation.php"; ?>
 
+
 <?php
 /** Available variables:
  * - $feedback

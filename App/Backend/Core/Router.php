@@ -115,13 +115,13 @@ class Router
             // Redirect to default language if the language was not valid
             if (!in_array($language, $available_languages))
             {
-                Session::add("language", DEFAULT_LANGUAGE);
+                setAppLocale(DEFAULT_LANGUAGE);
                 redirect(route($url));
             }
 
             $page = $language . "/" . $page;
             unset($params[0], $params[1]);
-            Session::add("language", $language);
+            setAppLocale($language);
         }
         else
         {

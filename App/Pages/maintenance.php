@@ -30,42 +30,39 @@
         
         <!-- language settings -->
         <div id="language-selection">
-            <img src="<?= image("Flags/fi.jpg"); ?>" id="fi-button" class="change-language" switchLanguage="fi" />
-            <img src="<?= image("Flags/en.jpg"); ?>" id="en-button" class="change-language" switchLanguage="en" />
+            <?php Block::render("language_menu", ["request" => "change_language"]);  ?>
         </div>
 
 
         <!-- Title -->
         <div class="container maintenance-title">
-            <h1 class="maintenance-title" translationKey="maintenance_title">Maintenance</h1>
+            <h1 class="maintenance-title"><?= translate("Maintenance"); ?></h1>
         </div>
 
         
         <!-- Description -->
         <div class="container maintenance-text">
-            <p translationKey="maintenance_description">We are currently maintaining our website, we will be back shortly. Thanks for your patience.</p>
+            <p><?= translate("We are currently maintaining our website, we will be back shortly. Thanks for your patience."); ?></p>
         </div>
 
 
         <!-- Authentication -->
         <div class="container authentication-container">
-            <h2 translationKey="maintenance_authentication">Authentication</h2>
+            <h2><?= translate("Authentication"); ?></h2>
             <form action="" method="post" role="form">
 
                 <div class="mb-3">
-                    <input type="password" class="form-control" name="maintenance-password" id="maintenance-password" translationKey="maintenance_password" placeholder="Password" required>
+                    <input type="password" class="form-control" name="maintenance-password" id="maintenance-password" placeholder="Password" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary" translationKey="maintenance_login">Sign In</button>
+                <button type="submit" class="btn btn-primary"><?= translate("Sign In"); ?></button>
 
                 <?php if ($kristal_authentication_attempt_limit_reached) : ?>
                     <p id="feedback" style="color: red;">
-                        <span translationKey="maintenance_authentication_timeout_1">Too many login attempts, please wait </span>
-                        <span><?=$kristal_authentication_lockout_duration; ?></span>
-                        <span translationKey="maintenance_authentication_timeout_2"> before you can try again.</span>
+                        <span><?= translate("Too many login attempts, please wait %s before you are allowed to try again.", $kristal_authentication_lockout_duration); ?></span>
                     </p>
                 <?php elseif ($kristal_authentication_failed) : ?>
-                    <p id="feedback" style="color: red;" translationKey="maintenance_authentication_failed">Failed to authenticate!</p>
+                    <p id="feedback" style="color: red;"><?= translate("Failed to authenticate!"); ?></p>
                 <?php else: ?>
                     <p id="feedback" style="padding: 12px;"></p>
                 <?php endif; ?>
@@ -76,7 +73,7 @@
         <!-- Social links -->
         <div class="social-icons">
             <!-- Email -->
-            <a class="social-menu-link" href="mailto:example@example.com" target="_blank" data-bs-toggle="tooltip" tooltipTranslationKey="maintenance_email" data-bs-title="Email">
+            <a class="social-menu-link" href="mailto:example@example.com" target="_blank" data-bs-toggle="tooltip" data-bs-title="<?= translate("Email"); ?>">
                 <img class="social-menu-image" src="<?= image("Icons/email.png") ?>">
             </a>
 

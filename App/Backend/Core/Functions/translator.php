@@ -2,14 +2,18 @@
 
 
 // Set language for translator
-function setLanguage($language)
+function setAppLocale($language)
 {
-    Session::add("language", $language);
+    if (in_array($language, unserialize(AVAILABLE_LANGUAGES)) && $language != getAppLocale())
+    {
+  
+        Session::add("language", $language);
+    }
 }
 
 
 // Get translator's language
-function getLanguage()
+function getAppLocale()
 {
     return Session::has("language") ? Session::get("language") : DEFAULT_LANGUAGE;
 }
@@ -50,7 +54,7 @@ function translate($string, $variables = array(""))
 
 
     // Get translation language
-    $language = getLanguage();
+    $language = getAppLocale();
 
 
     // Return original string if no translation was found
@@ -74,6 +78,6 @@ function translate($string, $variables = array(""))
     }
     else
     {
-        return $string;
+        return vsprintf($string, $variables);
     }
 }
