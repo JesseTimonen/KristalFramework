@@ -44,9 +44,12 @@
     <?php if (!empty($feedback)): ?>
         <p><?= $feedback; ?></p>
     <?php endif; ?>
+</div>
 
 
-    <!-- Countdown Block -->
+<!-- Countdown Block -->
+<div class="container main-content">
+    <h1>Countdown Block</h1>
     <?php Block::render("countdown", [
         "date" => "1.1.2024 00:00:00",
         "format" => "⏰ {d} {D} {h}:{m}:{s} ⏰",
@@ -56,9 +59,12 @@
         "seconds" => "s",
         "expired" => "⏰ 00:00:00 ⏰",
     ]); ?>
+</div>
 
 
-    <!-- Emails -->
+<!-- Emails -->
+<div class="container main-content">
+    <h1>Emails</h1>
     <form method="post">
         <?php CSRF::create("send_email"); ?>
         <?php CSRF::request("send_email"); ?>
@@ -84,13 +90,12 @@
 
         <div id="send-email-feedback"></div><br/>
     </form>
+</div>
 
 
-
-
-
-
-    <!-- Login -->
+<!-- Login -->
+<div class="container main-content">
+    <h1>Login</h1>
     <form method="post" autocomplete="off" spellcheck="false">
         <?php CSRF::create("login"); ?>
         <?php CSRF::request("login"); ?>
@@ -117,9 +122,12 @@
             <input type="submit" class="button button-primary" id="login-button" value="Login">
         </div>
     </form>
-       
+</div>
 
-    <!-- Registration -->
+
+<!-- Registration -->
+<div class="container main-content">
+    <h1>Registration</h1>
     <form method="post" autocomplete="off" spellcheck="false">
         <?php CSRF::create("registration"); ?>
         <?php CSRF::request("registration"); ?>
@@ -156,5 +164,4 @@
             <input type="submit" class="button button-primary" id="registration-button" value="Create" disabled>
         </div>
     </form>
-
 </div>
