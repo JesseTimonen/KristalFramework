@@ -44,11 +44,9 @@
     <?php if (!empty($feedback)): ?>
         <p><?= $feedback; ?></p>
     <?php endif; ?>
-</div>
 
 
-<!-- Countdown Block -->
-<div class="container main-content">
+    <!-- Countdown Block -->
     <?php Block::render("countdown", [
         "date" => "1.1.2024 00:00:00",
         "format" => "⏰ {d} {D} {h}:{m}:{s} ⏰",
@@ -58,4 +56,34 @@
         "seconds" => "s",
         "expired" => "⏰ 00:00:00 ⏰",
     ]); ?>
+
+
+    <!-- Emails -->
+    <form method="post">
+        <?php CSRF::create("send_email"); ?>
+        <?php CSRF::request("send_email"); ?>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="receiver" id="receiver">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Title</label>
+            <input type="text" class="form-control" name="title" id="title">
+        </div>
+
+        <div class="form-group">
+            <label for="comment">Message</label>
+            <textarea rows="5" class="form-control" name="message" id="message"></textarea>
+        </div>
+
+        <div class="form-group center">
+            <input type="submit" class="btn btn-primary" value="Send Email">
+        </div>
+
+        <div id="send-email-feedback"></div><br/>
+    </form>
+
+
 </div>

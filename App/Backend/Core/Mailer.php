@@ -26,9 +26,9 @@ class Mailer
             $this->mailer->Password = MAILER_PASSWORD;
             $this->mailer->setFrom(MAILER_EMAIL, MAILER_NAME);
         }
-        catch (Exception)
+        catch (Exception $e)
         {
-            throw new Exception("Fatal Mailer Error! " . $e->getMessage());
+            return false;
         }
     }
 
@@ -53,7 +53,7 @@ class Mailer
             $content = ensurePHPExtension($content);
             
             // Get email template
-            $email = file_get_contents(self::$email_template_path . $content);
+            $content_template = file_get_contents(self::$email_template_path . $content);
 
             // Include variables passed to email
             if (!empty($variables))
@@ -65,21 +65,21 @@ class Mailer
                     $search[] = "{{ $key }}";
                     $replace[] = $value;
                 }
-                $email = str_replace($search, $replace, $email);
+                $content_template = str_replace($search, $replace, $content_template);
             }
 
             // Send mail
             $this->mailer->Subject = $title;
-            $this->mailer->Body = $email;
+            $this->mailer->Body = $content_template;
             $this->mailer->send();
             
             // Clear recipients for next send
             $this->mailer->clearAddresses();
             return true;
         }
-        catch (Exception)
+        catch (Exception $e)
         {
-            throw new Exception("Fatal Mailer Error!");
+            return false;
         }
     }
 }

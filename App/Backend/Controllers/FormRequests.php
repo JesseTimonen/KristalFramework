@@ -4,6 +4,7 @@ defined("ACCESS") or exit("Access Denied");
 use Backend\Core\FormRequest;
 use Backend\Controllers\ThemeController;
 use Backend\Controllers\LanguageController;
+use Backend\Controllers\Email;
 
 
 class FormRequests extends FormRequest
@@ -39,6 +40,14 @@ class FormRequests extends FormRequest
     {
         $language_controller = new LanguageController();
         $language_controller->changeLanguage($request["language"]);
+    }
+
+
+    // Form Request for sending email
+    public function send_email($request)
+    {
+        $email = new Email();
+        $email->sendMail($request["receiver"], $request["title"], $request["message"]);
     }
 
     // Protected functions can only be called when the parent class is constructed with 'true' parameter or internally from other functions

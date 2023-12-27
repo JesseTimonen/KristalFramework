@@ -49,7 +49,7 @@
         <!-- Authentication -->
         <div class="container authentication-container">
             <h2><?= translate("Authentication"); ?></h2>
-            <form action="" method="post" role="form">
+            <form method="post">
 
                 <div class="mb-3">
                     <input type="password" class="form-control" name="maintenance-password" id="maintenance-password" placeholder="Password" required>
