@@ -39,7 +39,7 @@ class Routes extends Router
     // Variables are passed into the route the following way:
     // "example.com/route/variable1/variable2/..."
     // Just add more variables to accept them as well
-    function demoHandler(string $theme_name = "")
+    function demoHandler($theme_name = "")
     {
         // Create instance of theme controller, so we can change theme with it
         $theme_controller = new ThemeController();

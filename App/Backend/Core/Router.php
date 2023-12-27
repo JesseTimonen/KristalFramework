@@ -2,7 +2,6 @@
 defined("ACCESS") or exit("Access Denied");
 
 use Backend\Controllers\FormRequests;
-use Backend\Core\FrameworkHelper\Actions\FrameworkHelper;
 use Backend\Core\PHPJS;
 use voku\helper\HtmlMin;
 
@@ -19,12 +18,6 @@ class Router
     {
         // Handle form requests
         new FormRequests();
-
-        // Activate framework helper for development
-        if (DISPLAY_HELPER && MAINTENANCE_MODE && Session::has("maintenance_access_granted"))
-        {
-            new FrameworkHelper();
-        }
 
         // Display maintenance if needed
         if (MAINTENANCE_MODE && !Session::has("maintenance_access_granted"))
@@ -230,9 +223,6 @@ class Router
         // Include header
         if (!file_exists(page("Base/header.php"))) { throw new \Exception("Failed to build, " . page("Base/header.php") . " was not found!"); }
         include_once page("Base/header.php");
-
-        // Include framework helper
-        if (file_exists("App/Backend/Core/FrameworkHelper/frameworkHelper.php") && DISPLAY_HELPER && MAINTENANCE_MODE && Session::has("maintenance_access_granted")) { include_once "App/Backend/Core/FrameworkHelper/frameworkHelper.php"; }
 
         // Make sure page is a php file
         $page = ensurePHPExtension($page);

@@ -23,9 +23,6 @@ define("BASE_URL", "https://example.com/");
 // Activates a maintenance page for visitors
 define("MAINTENANCE_MODE", false);
 
-// Enables a framework assistant during development for additional features (requires maintenance mode)
-define("DISPLAY_HELPER", false);
-
 // Substitute with a robust password (use sha256 for hashing the password)
 define("MAINTENANCE_PASSWORD", hash('sha256', "________"));
 

@@ -33,8 +33,6 @@ function kristal_getAssetPath($folder, $file, array $params = ["path" => "url"])
     return $returnPath;
 }
 
-// ============================================================================================================== \\
-
 function image($file, array $params = ["path" => "url"]): string
 {
     return kristal_getAssetPath("Images", $file, $params);
@@ -45,7 +43,7 @@ function css($file, array $params = ["path" => "url"]): string
     return kristal_getAssetPath("CSS", $file, $params);
 }
 
-function js($file, array $params = ["path" => "url"]): string
+function js($file, array $params = ["path" => "url"]): string 
 {
     return kristal_getAssetPath("Javascript", $file, $params);
 }
@@ -60,60 +58,6 @@ function audio($file, array $params = ["path" => "url"]): string
     return kristal_getAssetPath("Audio", $file, $params);
 }
 
-function thumbnail($file_path, array $params = array("path" => "url"))
-{
-    $thumbnail_path = str_replace("App/Public/Images/", "", $file_path);
-    $thumbnail_path = str_replace("/", "-", $thumbnail_path);
-    $thumbnail_path = "App/Public/Cache/Thumbnails/" . $thumbnail_path;
-
-    if (!file_exists($thumbnail_path))
-    {
-        $size = getimagesize($file_path);
-        $mime = $size['mime'];
-
-        // Create image
-        switch (strtolower($mime))
-        {
-            case "image/jpeg":
-                $original = imagecreatefromjpeg($file_path);
-                break;
-            case "image/png":
-                $original = imagecreatefrompng($file_path);
-                break;
-            case "image/gif":
-                $original = imagecreatefromgif($file_path);
-                break;
-            case "image/webp":
-                $original = imagecreatefromwebp($file_path);
-                break;
-            default:
-                $original = null;
-                break;
-        }
-
-        // Create thumbnail
-        $thumbnail = imagecreatetruecolor(150, 150);
-        imagecopyresampled($thumbnail, $original, 0, 0, 0, 0, 150, 150, $size[0], $size[1]);
-
-        // Save thumbnail
-        $result = null;
-
-        switch ($mime)
-        {
-            case 'image/jpeg' : imagejpeg($thumbnail, $thumbnail_path); $result = $thumbnail_path; break;
-            case 'image/png' : imagepng($thumbnail, $thumbnail_path); $result = $thumbnail_path; break;
-            case 'image/gif' : imagegif ($thumbnail, $thumbnail_path); $result = $thumbnail_path; break;
-            case 'image/webp' : imagewebp($thumbnail, $thumbnail_path); $result = $thumbnail_path; break;
-        }
-
-        // Free memory
-        imagedestroy($original); imagedestroy($thumbnail);
-
-        return $result ? route($result) : null;
-    }
-
-    return BASE_URL . $thumbnail_path;
-}
 
 // ============================================================================================================== \\
 
