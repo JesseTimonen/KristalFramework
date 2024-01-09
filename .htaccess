@@ -72,7 +72,7 @@ RedirectMatch 404 /\.idea
     Header set Referrer-Policy "no-referrer-when-downgrade"
 
     # Content Security Policy
-    Header set Content-Security-Policy "default-src 'self'; script-src 'self'; object-src 'none';"
+    # Header set Content-Security-Policy "default-src 'self'; script-src 'self'; object-src 'none';"
 
 </IfModule>
 
