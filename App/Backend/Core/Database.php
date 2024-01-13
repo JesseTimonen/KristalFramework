@@ -59,9 +59,16 @@ class Database
         if ($table === null) { $table = $this->table; }
         if ($table === null) { return false; }
 
-        // Check if table exists
-        $query = "select 1 from $table;";
-        return $this->connection->prepare($query)->execute();
+        // Iterate through the tables and check if the specified table exists
+        foreach ($this->getTables() as $tableArray)
+        {
+            if (in_array($table, $tableArray))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 
