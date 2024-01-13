@@ -36,7 +36,7 @@ class Database
         }
         catch (PDOException)
         {
-            throw new \Exception(["Failed to Connect Database! Please double check your config file!"]);
+            throw new \Exception("Failed to Connect Database! Please double check your config file!");
         }
     }
 
