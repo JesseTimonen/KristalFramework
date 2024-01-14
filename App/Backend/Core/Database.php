@@ -549,6 +549,10 @@ class Database
 
     public function insert(array $values)
     {
+        if (!isset($this->arguments["insert"])) {
+            $this->arguments["insert"] = "";
+        }
+        
         // Create string of all the insert values
         foreach ($values as $value)
         {
