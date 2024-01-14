@@ -16,7 +16,7 @@ class Database
     // Create connection to the database
     public function __construct($params = array("database" => "primary"))
     {
-       $databases = unserialize(DATABASES);
+        $databases = unserialize(DATABASES);
 
         // Make sure database information is set
         if (empty($databases[$params["database"]]))
@@ -38,6 +38,11 @@ class Database
         {
             throw new \Exception("Failed to Connect Database! Please double check your config file!");
         }
+
+        $this->arguments["where"] = "";
+        $this->arguments["select"] = "";
+        $this->arguments["insert"] = "";
+        $this->arguments["update"] = "";
     }
 
 
@@ -130,6 +135,10 @@ class Database
     {
         $this->table_name = "";
         $this->arguments = array();
+        $this->arguments["where"] = "";
+        $this->arguments["select"] = "";
+        $this->arguments["insert"] = "";
+        $this->arguments["update"] = "";
         $this->secured_inputs = array();
     }
 
@@ -243,7 +252,7 @@ class Database
     private function baseWhere($connector, $field, $operator, $value = null)
     {
         // Add connector (and | or) if where statement is not empty
-        if ($this->arguments["where"] !== null)
+        if (!empty($this->arguments["where"]))
         {
             $this->arguments["where"] .= " $connector ";
         }
@@ -339,7 +348,7 @@ class Database
     private function baseWhereIn($connector, $key, array $values_array)
     {
         // Add connector to where statement if it is not empty
-        if ($this->arguments["where"] !== null)
+        if (!empty($this->arguments["where"]))
         {
             $this->arguments["where"] .= " $connector ";
         }
@@ -390,7 +399,7 @@ class Database
 
     private function baseWhereNull($connector, $key, $is_null)
     {
-        if ($this->arguments["where"] !== null)
+        if (!empty($this->arguments["where"]))
         {
             $this->arguments["where"] .= " $connector ";
         }
@@ -549,10 +558,6 @@ class Database
 
     public function insert(array $values)
     {
-        if (!isset($this->arguments["insert"])) {
-            $this->arguments["insert"] = "";
-        }
-        
         // Create string of all the insert values
         foreach ($values as $value)
         {
