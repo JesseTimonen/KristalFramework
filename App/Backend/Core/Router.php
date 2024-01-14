@@ -12,18 +12,13 @@ class Router
     private $default_route_handler = "";
     private $rendered_view = "";
     private $content_last_modified_time = "";
+    private $ignore_maintenance_routes = array();
 
 
     protected function __construct()
     {
         // Handle form requests
         new FormRequests();
-
-        // Display maintenance if needed
-        if (MAINTENANCE_MODE && !Session::has("maintenance_access_granted"))
-        {
-            $this->renderMaintenancePage();
-        }
     }
 
 
@@ -57,16 +52,32 @@ class Router
     }
 
 
+    protected function ignoreMaintenance($routes)
+    {
+        foreach ($routes as $route) {
+            $this->ignore_maintenance_routes[] = $route;
+        }
+    }
+
+
     protected function handleRoutes()
     {
+        // Parse route and variables from url
+        $url_request = $this->getURLRequest();
+
+        // Display maintenance if needed
+        if (!in_array($url_request["page"], $this->ignore_maintenance_routes)) {
+            if (MAINTENANCE_MODE && !Session::has("maintenance_access_granted"))
+            {
+                $this->renderMaintenancePage();
+            }
+        }
+
         // Generate sitemap.xml
         if ($this->ShouldSitemapBeRegenerated())
         {
             $this->generateSitemap();
         }
-
-        // Parse route and variables from url
-        $url_request = $this->getURLRequest();
 
         // Call default route handler if requested route was not found
         if (!isset($this->registered_routes[$url_request['page']]))

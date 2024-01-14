@@ -21,6 +21,9 @@ class Routes extends Router
         // Set handler to for cases where no route was found
         parent::setDefaultHandler("pageNotFoundHandler");
 
+        // These routes ignore maintenance
+        parent::ignoreMaintenance(["some-api-urls-for-example"]);
+
         // Let router handle the routes
         parent::handleRoutes();
     }
