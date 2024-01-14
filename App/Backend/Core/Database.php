@@ -43,6 +43,7 @@ class Database
         $this->arguments["select"] = "";
         $this->arguments["insert"] = "";
         $this->arguments["update"] = "";
+        $this->arguments["orderBy"] = "";
     }
 
 
@@ -134,12 +135,13 @@ class Database
     private function clearQuery()
     {
         $this->table_name = "";
+        $this->secured_inputs = array();
         $this->arguments = array();
         $this->arguments["where"] = "";
         $this->arguments["select"] = "";
         $this->arguments["insert"] = "";
         $this->arguments["update"] = "";
-        $this->secured_inputs = array();
+        $this->arguments["orderBy"] = "";
     }
 
 
