@@ -44,6 +44,8 @@ class Database
         $this->arguments["insert"] = "";
         $this->arguments["update"] = "";
         $this->arguments["orderBy"] = "";
+        $this->arguments["limit"] = "";
+        $this->arguments["offset"] = "";
     }
 
 
@@ -142,6 +144,8 @@ class Database
         $this->arguments["insert"] = "";
         $this->arguments["update"] = "";
         $this->arguments["orderBy"] = "";
+        $this->arguments["limit"] = "";
+        $this->arguments["offset"] = "";
     }
 
 
@@ -450,6 +454,20 @@ class Database
     }
 
 
+    public function limit($arg)
+    {
+        $this->arguments["limit"] = "limit $arg";
+        return $this;
+    }
+
+
+    public function offset($arg)
+    {
+        $this->arguments["offset"] = "offset $arg";
+        return $this;
+    }
+
+
     private function baseGet()
     {
         $query = "select * from $this->table_name";
@@ -464,6 +482,14 @@ class Database
         if ($this->arguments["orderBy"])
         {
             $query .= " {$this->arguments["orderBy"]}";
+        }
+        if ($this->arguments["limit"])
+        {
+            $query .= " {$this->arguments["limit"]}";
+        }
+        if ($this->arguments["offset"])
+        {
+            $query .= " {$this->arguments["offset"]}";
         }
         $query .= ";";
 
