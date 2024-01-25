@@ -24,7 +24,6 @@ class Mailer
             $this->mailer->Host = MAILER_HOST;
             $this->mailer->Username = MAILER_EMAIL;
             $this->mailer->Password = MAILER_PASSWORD;
-            $this->mailer->setFrom(MAILER_EMAIL, MAILER_NAME);
         }
         catch (Exception $e)
         {
@@ -32,9 +31,28 @@ class Mailer
         }
     }
 
+
+    private function setFromEmail()
+    {
+        $this->mailer->setFrom(MAILER_EMAIL, MAILER_NAME);
+    }
+
+
+    public function setReplyToEmail($email, $name = "")
+    {
+        if (empty($name))
+        {
+            $name = $email;
+        }
+
+        $this->mailer->addReplyTo($email, $name);
+    }
+
     
     public function send($receivers, $title, $content, array $variables = null)
     {
+        $this->setFromEmail();
+
         try
         {
             if (is_array($receivers))
